@@ -1,0 +1,108 @@
+import Link from "next/link";
+
+/**
+ * The Handoff mark: a cyan diamond with the white check crossing its
+ * lower-left, per the Logo Usage page of the brand guidelines.
+ */
+export function LogoMark({
+  className = "h-9 w-9",
+  tone = "light",
+}: {
+  className?: string;
+  /** `light` = sitting on a light surface, so the check is ink. */
+  tone?: "light" | "dark";
+}) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
+      <path d="M28 4 L45 21 L28 38 L11 21 Z" fill="var(--color-cyan)" />
+      <path
+        d="M3 24 L14 35 L36 13"
+        fill="none"
+        stroke={tone === "light" ? "var(--color-ink)" : "#ffffff"}
+        strokeWidth="10"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+      />
+    </svg>
+  );
+}
+
+export function Wordmark({ className = "" }: { className?: string }) {
+  return (
+    <span
+      className={`font-bold uppercase leading-[0.86] tracking-tight ${className}`}
+    >
+      <span className="block">Hand</span>
+      <span className="block">Off</span>
+    </span>
+  );
+}
+
+export function LogoLock({ className = "" }: { className?: string }) {
+  return (
+    <Link
+      href="/"
+      className={`inline-flex items-center gap-2.5 ${className}`}
+      aria-label="Handoff home"
+    >
+      <LogoMark />
+      <Wordmark className="text-[0.95rem]" />
+    </Link>
+  );
+}
+
+type ButtonProps = {
+  href: string;
+  children: React.ReactNode;
+  /** `ghost` sits on light surfaces, `ghostDark` on ink ones. */
+  variant?: "cyan" | "ink" | "ghost" | "ghostDark";
+  className?: string;
+};
+
+export function Button({
+  href,
+  children,
+  variant = "cyan",
+  className = "",
+}: ButtonProps) {
+  const base =
+    "group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[0.95rem] font-semibold transition-all duration-300 will-change-transform hover:-translate-y-0.5";
+  const variants = {
+    cyan: "bg-cyan text-ink hover:bg-ink hover:text-cyan",
+    ink: "bg-ink text-bone hover:bg-royal hover:text-white",
+    ghost: "border-2 border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-bone",
+    ghostDark:
+      "border-2 border-white/25 text-bone hover:border-cyan hover:text-cyan",
+  };
+  return (
+    <Link href={href} className={`${base} ${variants[variant]} ${className}`}>
+      {children}
+      <span className="transition-transform duration-300 group-hover:translate-x-1">
+        &rarr;
+      </span>
+    </Link>
+  );
+}
+
+export function Pill({
+  children,
+  tone = "cyan",
+  className = "",
+}: {
+  children: React.ReactNode;
+  tone?: "cyan" | "outline" | "acid";
+  className?: string;
+}) {
+  const tones = {
+    cyan: "bg-cyan text-ink",
+    acid: "bg-acid text-ink",
+    outline: "border border-ink-300 text-smoke",
+  };
+  return (
+    <span
+      className={`eyebrow inline-flex items-center rounded-full px-3.5 py-1.5 ${tones[tone]} ${className}`}
+    >
+      {children}
+    </span>
+  );
+}

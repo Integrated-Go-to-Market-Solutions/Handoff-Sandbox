@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Handoff design system
+   Sourced directly from Brand Guidelines (2026, Handoff II LLC).
+   Colors, typeface, corner radius and texture treatments are
+   taken from that document rather than invented.
+   ============================================================ */
+
+@theme {
+  /* Brand colors, verbatim from the guidelines */
+  --color-ink: #1f1f1f;
+  --color-bone: #e9e9ea;
+  --color-cyan: #3dd6bd;
+  --color-royal: #2d42b9;
+
+  /* Caption acid yellow, from the video-editing page. Used sparingly. */
+  --color-acid: #f7fd47;
+
+  /* Tints derived from the four, for depth on dark surfaces */
+  --color-ink-100: #2a2a2c;
+  --color-ink-200: #333335;
+  --color-ink-300: #3f3f42;
+  --color-smoke: #a1a1a6;
+  --color-cyan-dim: #2bb8a1;
+
+  --font-sans: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+
+  /* Corner rounding: 33, per the Shapes page */
+  --radius-brand: 33px;
+  --radius-card: 20px;
+
+  --ease-out-brand: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --shell: min(1240px, calc(100% - 2.5rem));
+}
+
+* {
+  border-color: var(--color-ink-200);
+}
+
+/* The site runs light. Ink is reserved for a couple of contrast sections and
+   the footer, so the dark moments actually land. */
+html {
+  scroll-behavior: smooth;
+  background: #ffffff;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-cyan);
+  color: var(--color-ink);
+}
+
+/* ---------- Layout ---------- */
+.shell {
+  width: var(--shell);
+  margin-inline: auto;
+}
+
+/* ---------- Type ---------- */
+/* Headlines are heavy, uppercase and tight. Rubik Bold, per the guidelines. */
+.display {
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Outlined headline treatment, lifted from the social templates */
+.stroked {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-bone);
+  paint-order: stroke fill;
+}
+
+/* ---------- Brand textures ----------
+   The guidelines specify paper grain, a doodle pattern, dots, waves,
+   a halftone screen effect and a dark-to-cyan gradient. These are the
+   thing that stops the site reading as a generic template, so they are
+   real CSS rather than flat fills. */
+
+.tex-doodle {
+  background-image: url("/textures/doodle-light.svg");
+  background-size: 620px 620px;
+}
+
+.tex-doodle-dark {
+  background-image: url("/textures/doodle-dark.svg");
+  background-size: 620px 620px;
+}
+
+.tex-dots {
+  background-image: radial-gradient(var(--color-ink-300) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.tex-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("/textures/grain.svg");
+  mix-blend-mode: overlay;
+}
+
+.tex-gradient {
+  background-image: linear-gradient(155deg, var(--color-ink) 42%, #1c4a45 78%, var(--color-cyan-dim) 130%);
+}
+
+/* Halftone screen laid over photography.
+   No mix-blend-mode here: on a dark surface `multiply` blends with the page
+   backdrop rather than the photo alone and crushes the image to black. */
+.halftone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.85) 0.9px, transparent 1.3px);
+  background-size: 4px 4px;
+  opacity: 0.28;
+}
+
+/* ---------- Motion ----------
+   Everything is reveal-on-scroll driven by a single IntersectionObserver
+   in useReveal(). No animation library. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.75s var(--ease-out-brand),
+    transform 0.75s var(--ease-out-brand);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  70% { transform: scale(1.25); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .marquee-track { animation: none; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
