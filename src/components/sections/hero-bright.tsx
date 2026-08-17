@@ -89,16 +89,13 @@ export function HeroBright() {
         </div>
       </div>
 
-      {/* Staggered strip, bleeding off both edges. No shell: the row is meant
-          to run past the viewport so the page feels like a crop of something
-          bigger. */}
-      <div className="relative mt-16 flex gap-4 overflow-x-auto px-6 pb-16 sm:mt-8 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-24">
-        <div className="hidden shrink-0 sm:block sm:w-[calc((100vw-min(1240px,100%-2.5rem))/2-4rem)]" />
-
+      {/* Staggered strip, held inside the shell so no face is clipped. The
+          editorial feel comes from the offsets, not from running off the edge. */}
+      <div className="shell relative mt-16 flex gap-4 overflow-x-auto pb-16 sm:mt-10 sm:grid sm:grid-cols-7 sm:gap-3 sm:overflow-visible sm:pb-24 lg:gap-4">
         {STRIP.map((cell, i) => (
           <figure
             key={cell.slug}
-            className={`group relative w-[220px] shrink-0 sm:w-[clamp(150px,15vw,230px)] ${cell.offset}`}
+            className={`group relative w-[200px] shrink-0 sm:w-auto ${cell.offset}`}
           >
             <div className="relative aspect-[3/4] overflow-hidden rounded-[var(--radius-brand)] bg-bone">
               {cell.kind === "video" ? (
@@ -115,7 +112,7 @@ export function HeroBright() {
                   alt={`${cell.name}, ${cell.role} at Handoff`}
                   fill
                   priority={i < 4}
-                  sizes="(max-width: 640px) 220px, 15vw"
+                  sizes="(max-width: 640px) 200px, 14vw"
                   className="object-cover transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale"
                 />
               )}
