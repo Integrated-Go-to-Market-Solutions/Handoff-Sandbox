@@ -1,4 +1,5 @@
-import { Hero } from "@/components/sections/hero";
+import { HeroBright } from "@/components/sections/hero-bright";
+import { LogoMarquee } from "@/components/sections/logo-marquee";
 import { RoleTicker } from "@/components/sections/role-ticker";
 import { Problem } from "@/components/sections/problem";
 import { Proof } from "@/components/sections/proof";
@@ -12,7 +13,8 @@ import { Cta } from "@/components/sections/cta";
 export default function Home() {
   return (
     <>
-      <Hero />
+      <HeroBright />
+      <LogoMarquee />
       <RoleTicker />
       <Problem />
       <Proof />
