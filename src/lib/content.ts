@@ -182,6 +182,45 @@ export const faqs = [
   },
 ];
 
+/** Scrolling role ticker. Same roles as /talent, flattened. */
+export const roleTicker = [
+  "Chief of Staff",
+  "Operations Manager",
+  "Executive Assistant",
+  "Reservations Manager",
+  "Marketing Specialist",
+  "Project Manager",
+  "Bookkeeper",
+  "Media Buyer",
+  "Quality Assurance",
+  "Account Manager",
+  "Marketplace Manager",
+  "Client Services Lead",
+];
+
+/**
+ * "Alma" is the name of Handoff's managed-services platform. Anthony, 7/23:
+ * "Alma, which is soul in Spanish." Tony, 8/6, on why competitor sites fail:
+ * they are "missing a little bit of soul." Same word from both directions,
+ * so the site says it out loud.
+ */
+export const soul = {
+  headline: "Everyone else sends you",
+  headlineAccent: "a talent pool.",
+  body: "Our own client manager applied to our biggest competitor before he joined us. This is what that felt like from the other side.",
+  quote:
+    "I was just a number for them. They knew that I existed, but I was just part of the talent pool.",
+  attribution: "Ever Jaimes",
+  attributionRole: "Client Manager, Handoff",
+  closer:
+    "We named our platform Alma. It means soul. That is not branding, it is the entire argument: a person who is treated like a teammate stays, and a person who is treated like a line item leaves.",
+  culture: {
+    stat: "Several times a year",
+    label:
+      "the whole team flies to Medellín. Part working session, part the reason people do not leave.",
+  },
+};
+
 export const cta = {
   headline: "Stop being the bottleneck.",
   body: "Bring the role you cannot get off your plate. One call is usually enough to scope it, pick the model and give you a real timeline.",

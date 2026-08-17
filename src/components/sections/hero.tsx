@@ -1,13 +1,10 @@
 import Image from "next/image";
 import { Button } from "../brand";
 import { Reveal } from "../reveal";
+import { Counter } from "../counter";
 import { hero } from "@/lib/content";
 
-const facts = [
-  { value: "~300", label: "candidates reviewed per role" },
-  { value: "90-day", label: "guarantee on direct hires" },
-  { value: "Same", label: "time zone as your team" },
-];
+
 
 export function Hero() {
   return (
@@ -83,14 +80,28 @@ export function Hero() {
 
           <Reveal delay={260}>
             <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6">
-              {facts.map((fact) => (
-                <div key={fact.label}>
-                  <dt className="display text-2xl text-royal">{fact.value}</dt>
-                  <dd className="mt-1.5 text-[0.8rem] leading-snug text-ink/60">
-                    {fact.label}
-                  </dd>
-                </div>
-              ))}
+              <div>
+                <dt className="display text-3xl text-royal">
+                  <Counter to={300} prefix="~" />
+                </dt>
+                <dd className="mt-1.5 text-[0.8rem] leading-snug text-ink/60">
+                  candidates reviewed per role
+                </dd>
+              </div>
+              <div>
+                <dt className="display text-3xl text-cyan-dim">
+                  <Counter to={90} suffix="-day" />
+                </dt>
+                <dd className="mt-1.5 text-[0.8rem] leading-snug text-ink/60">
+                  guarantee on direct hires
+                </dd>
+              </div>
+              <div>
+                <dt className="display text-3xl text-ink">Same</dt>
+                <dd className="mt-1.5 text-[0.8rem] leading-snug text-ink/60">
+                  time zone as your team
+                </dd>
+              </div>
             </dl>
           </Reveal>
         </div>

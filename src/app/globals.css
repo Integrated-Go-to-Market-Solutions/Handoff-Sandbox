@@ -151,11 +151,35 @@ body {
 }
 
 .marquee-track {
-  animation: marquee 42s linear infinite;
+  animation: marquee 46s linear infinite;
 }
 
 .marquee-mask {
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Runs the opposite way to the logo marquee above it. */
+.marquee-reverse {
+  animation-direction: reverse;
+  animation-duration: 34s;
+}
+
+/* Slow colour-field drift. Translate only: scaling a heavily blurred layer
+   forces it to re-rasterise every frame and stalls the compositor. */
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(3.5%, -5%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.drift {
+  animation: drift 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+.drift-slow {
+  animation-duration: 31s;
+  animation-direction: reverse;
 }
 
 @keyframes pulse-ring {
@@ -167,7 +191,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
-  .marquee-track { animation: none; }
+  .marquee-track, .drift { animation: none; }
   *,
   *::before,
   *::after {
