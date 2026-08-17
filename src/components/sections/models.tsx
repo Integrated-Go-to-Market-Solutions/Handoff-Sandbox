@@ -1,10 +1,12 @@
 import { Button, Pill } from "../brand";
 import { Reveal } from "../reveal";
+import { EdgeFade } from "../edge-fade";
 import { models, site } from "@/lib/content";
 
 export function Models() {
   return (
     <section id="models" className="relative overflow-hidden bg-bone py-24 text-ink md:py-32">
+      <EdgeFade side="bottom" color="#fff" />
 
       <div className="shell relative">
         <Reveal className="max-w-3xl">

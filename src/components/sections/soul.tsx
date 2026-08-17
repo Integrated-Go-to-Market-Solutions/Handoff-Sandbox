@@ -1,9 +1,11 @@
 import { Reveal } from "../reveal";
+import { EdgeFade } from "../edge-fade";
 import { soul } from "@/lib/content";
 
 export function Soul() {
   return (
     <section className="relative overflow-hidden bg-ink py-24 text-bone md:py-32">
+      <EdgeFade side="top" color="var(--color-bone)" height="10rem" />
       {/* Slow-drifting colour fields keep the dark section from going flat. */}
       <div
         className="drift pointer-events-none absolute -left-40 top-0 h-[520px] w-[520px] rounded-full opacity-25 blur-[130px]"

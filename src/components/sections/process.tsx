@@ -1,4 +1,5 @@
 import { Reveal } from "../reveal";
+import { EdgeFade } from "../edge-fade";
 import { process } from "@/lib/content";
 
 export function Process() {
@@ -7,6 +8,7 @@ export function Process() {
       id="process"
       className="tex-gradient tex-grain relative overflow-hidden py-24 md:py-32"
     >
+      <EdgeFade side="bottom" color="var(--color-bone)" height="10rem" />
       <div className="shell relative">
         <Reveal className="max-w-3xl">
           <h2 className="display mt-5 text-[clamp(2.1rem,4.8vw,3.7rem)] text-bone">

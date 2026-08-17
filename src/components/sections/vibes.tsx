@@ -1,10 +1,12 @@
 import { Reveal } from "../reveal";
+import { EdgeFade } from "../edge-fade";
 import { VideoLoop } from "../video-loop";
 import { vibes } from "@/lib/content";
 
 export function Vibes() {
   return (
     <section className="relative overflow-hidden bg-bone py-24 md:py-32">
+      <EdgeFade side="top" color="#fff" />
       <div className="shell relative">
         <Reveal className="max-w-4xl">
           <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-ink">

@@ -1,9 +1,12 @@
 import { Reveal } from "../reveal";
+import { EdgeFade } from "../edge-fade";
 import { problem } from "@/lib/content";
 
 export function Problem() {
   return (
     <section className="relative overflow-hidden bg-bone py-24 text-ink md:py-32">
+      <EdgeFade side="top" color="#fff" />
+      <EdgeFade side="bottom" color="#fff" />
 
       <div className="shell relative">
         <Reveal className="max-w-3xl">

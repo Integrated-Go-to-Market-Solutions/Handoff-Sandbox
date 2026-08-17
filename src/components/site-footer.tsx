@@ -29,7 +29,7 @@ const columns = [
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden border-t border-ink-200 bg-ink text-bone">
+    <footer className="relative overflow-hidden bg-ink text-bone">
 
       <div className="shell relative py-16">
         <div className="grid gap-12 md:grid-cols-[1.5fr_repeat(3,1fr)]">
