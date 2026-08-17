@@ -97,20 +97,8 @@ body {
    thing that stops the site reading as a generic template, so they are
    real CSS rather than flat fills. */
 
-.tex-doodle {
-  background-image: url("/textures/doodle-light.svg");
-  background-size: 620px 620px;
-}
-
-.tex-doodle-dark {
-  background-image: url("/textures/doodle-dark.svg");
-  background-size: 620px 620px;
-}
-
-.tex-dots {
-  background-image: radial-gradient(var(--color-ink-300) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
+/* No pattern fills anywhere: no doodle, no dot grid, no rules between cells.
+   Backgrounds are flat colour, photography or gradient only. */
 
 .tex-grain::after {
   content: "";

@@ -26,8 +26,6 @@ const doodle = (stroke) =>
 </svg>`;
 
 // Light variant sits on white/bone surfaces, dark variant on ink sections.
-fs.writeFileSync('public/textures/doodle-light.svg', doodle('#dedee1'));
-fs.writeFileSync('public/textures/doodle-dark.svg', doodle('#2c2c2e'));
 
 fs.writeFileSync('public/textures/grain.svg',
 `<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220">

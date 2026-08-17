@@ -1,15 +1,12 @@
-import { Pill } from "../brand";
 import { Reveal } from "../reveal";
 import { problem } from "@/lib/content";
 
 export function Problem() {
   return (
     <section className="relative overflow-hidden bg-bone py-24 text-ink md:py-32">
-      <div className="tex-dots absolute inset-0 opacity-[0.12]" aria-hidden="true" />
 
       <div className="shell relative">
         <Reveal className="max-w-3xl">
-          <Pill tone="acid">{problem.eyebrow}</Pill>
           <h2 className="display mt-6 text-[clamp(2.2rem,5vw,3.9rem)]">
             {problem.headline}
           </h2>

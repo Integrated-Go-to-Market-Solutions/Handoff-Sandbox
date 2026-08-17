@@ -5,11 +5,9 @@ import { models, site } from "@/lib/content";
 export function Models() {
   return (
     <section id="models" className="relative overflow-hidden bg-bone py-24 text-ink md:py-32">
-      <div className="tex-dots absolute inset-0 opacity-[0.12]" aria-hidden="true" />
 
       <div className="shell relative">
         <Reveal className="max-w-3xl">
-          <p className="eyebrow text-royal">Engagement models</p>
           <h2 className="display mt-5 text-[clamp(2.1rem,4.8vw,3.7rem)]">
             Three ways to work together
           </h2>

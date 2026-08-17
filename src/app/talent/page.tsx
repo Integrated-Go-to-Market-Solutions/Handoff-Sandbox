@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Button, Pill } from "@/components/brand";
+import { Button } from "@/components/brand";
 import { Reveal } from "@/components/reveal";
 import { TalentCard } from "@/components/talent-card";
 import { Cta } from "@/components/sections/cta";
@@ -22,9 +22,6 @@ export default function TalentPage() {
         />
 
         <div className="shell relative max-w-4xl">
-          <Reveal>
-            <Pill>{talentPage.eyebrow}</Pill>
-          </Reveal>
           <Reveal delay={80}>
             <h1 className="display mt-6 text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
               {talentPage.headline}{" "}
@@ -64,11 +61,9 @@ export default function TalentPage() {
       </section>
 
       <section className="relative overflow-hidden bg-bone py-24 md:py-28">
-        <div className="tex-dots absolute inset-0 opacity-[0.12]" aria-hidden="true" />
 
         <div className="shell relative">
           <Reveal className="max-w-3xl">
-            <p className="eyebrow text-royal">The list</p>
             <h2 className="display mt-5 text-[clamp(2.1rem,4.6vw,3.4rem)] text-ink">
               {talentPage.rolesHeadline}
             </h2>

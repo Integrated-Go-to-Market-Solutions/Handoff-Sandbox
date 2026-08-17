@@ -6,7 +6,6 @@ export function Faq() {
     <section className="relative overflow-hidden bg-white py-24 md:py-32">
       <div className="shell relative grid gap-14 lg:grid-cols-[0.85fr_1.15fr]">
         <Reveal>
-          <p className="eyebrow text-royal">Straight answers</p>
           <h2 className="display mt-5 text-[clamp(2.1rem,4.5vw,3.4rem)] text-ink">
             The questions
             <br />

@@ -8,7 +8,6 @@ export function Proof() {
     <section id="talent" className="relative overflow-hidden bg-white py-24 md:py-32">
       <div className="shell relative">
         <Reveal className="max-w-4xl">
-          <p className="eyebrow text-royal">{proof.eyebrow}</p>
           <h2 className="display mt-5 text-[clamp(2.1rem,4.8vw,3.7rem)] text-ink">
             {proof.headline}
             <br />

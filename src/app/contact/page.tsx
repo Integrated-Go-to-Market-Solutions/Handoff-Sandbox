@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Pill } from "@/components/brand";
 import { Reveal } from "@/components/reveal";
 import { ContactForm } from "@/components/contact-form";
 import { contactPage, models } from "@/lib/content";
@@ -22,10 +21,6 @@ export default function ContactPage() {
 
         <div className="shell relative grid gap-14 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
-            <Reveal>
-              <Pill>{contactPage.eyebrow}</Pill>
-            </Reveal>
-
             <Reveal delay={80}>
               <h1 className="display mt-6 text-[clamp(2.4rem,5.4vw,4.1rem)] text-ink">
                 {contactPage.headline}{" "}
@@ -41,7 +36,6 @@ export default function ContactPage() {
 
             <Reveal delay={240}>
               <div className="mt-10 rounded-[var(--radius-card)] border border-ink/12 bg-bone p-7">
-                <p className="eyebrow text-royal">What to expect</p>
                 <ul className="mt-5 space-y-3.5">
                   {contactPage.expect.map((item) => (
                     <li key={item} className="flex gap-3 text-[0.97rem] text-ink/80">

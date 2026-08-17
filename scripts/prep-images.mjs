@@ -30,17 +30,21 @@ const TEAM = [
   { file: 'Team Pictures/Leidy Quintero - Project Manager.png', slug: 'leidy-quintero' },
 ];
 
+// Prefer the full-colour source where one exists and reads on a light
+// background. Falls back to the black-on-transparent set for the marks that
+// only ship white or black.
 const LOGOS = [
-  ['Website Logos/Black Trasnparent Background logos/Best Western Logo.png', 'best-western'],
-  ['Website Logos/Black Trasnparent Background logos/Dwellworks logo.png', 'dwellworks'],
+  ['Website Logos/Best_Western_logo.svg.png', 'best-western'],
+  ['Website Logos/dwellworks logo.png', 'dwellworks'],
+  ['Website Logos/Quest logo dark gold low res.avif', 'quest-relocation'],
+  ['Website Logos/Jacob Street Logo.webp', 'jacob-street'],
+  ['Website Logos/Elevate to even plus logo.avif', 'elevate'],
+  ['Website Logos/GCC_logo.png', 'good-carma'],
+  ['Website Logos/Utility-Basics-Logo_30789a77-d54e-43c3-8d95-f9b98a1bbc1f.avif', 'utility-basics'],
+  // Black-only marks
   ['Website Logos/Black Trasnparent Background logos/Fragomen logo.png', 'fragomen'],
-  ['Website Logos/Black Trasnparent Background logos/Quest Relocation Group Logo.png', 'quest-relocation'],
-  ['Website Logos/Black Trasnparent Background logos/United Corporate Housing logo.png', 'united-corporate-housing'],
-  ['Website Logos/Black Trasnparent Background logos/Jacob Street logo.png', 'jacob-street'],
   ['Website Logos/Black Trasnparent Background logos/Nyc Navigator.png', 'nyc-navigator'],
-  ['Website Logos/Black Trasnparent Background logos/Elevate logo.png', 'elevate'],
-  ['Website Logos/Black Trasnparent Background logos/Good Carma Consulting Logo.png', 'good-carma'],
-  ['Website Logos/Black Trasnparent Background logos/Utility Basics Logo.png', 'utility-basics'],
+  ['Website Logos/Black Trasnparent Background logos/United Corporate Housing logo.png', 'united-corporate-housing'],
 ];
 
 async function ensure(dir) {
@@ -85,7 +89,7 @@ async function portrait(srcPath, outBase, width = 1000, crop = null) {
     .toFile(`${outBase}.webp`);
 }
 
-async function logo(srcPath, outBase, width = 420) {
+async function logo(srcPath, outBase, width = 700) {
   await sharp(srcPath)
     .resize({ width, withoutEnlargement: true, fit: 'inside' })
     .webp({ quality: 90, alphaQuality: 100 })

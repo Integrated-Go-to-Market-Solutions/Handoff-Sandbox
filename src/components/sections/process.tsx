@@ -9,7 +9,6 @@ export function Process() {
     >
       <div className="shell relative">
         <Reveal className="max-w-3xl">
-          <p className="eyebrow text-cyan">{process.eyebrow}</p>
           <h2 className="display mt-5 text-[clamp(2.1rem,4.8vw,3.7rem)] text-bone">
             {process.headline}
           </h2>
@@ -18,10 +17,10 @@ export function Process() {
           </p>
         </Reveal>
 
-        <ol className="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {process.steps.map((step, i) => (
             <Reveal key={step.n} delay={i * 90} as="li">
-              <div className="group h-full bg-ink/70 p-8 backdrop-blur-sm transition-colors duration-500 hover:bg-ink/40">
+              <div className="group h-full rounded-[var(--radius-card)] bg-white/[0.06] p-8 backdrop-blur-sm transition-colors duration-500 hover:bg-white/[0.11]">
                 <span className="display text-sm text-cyan">{step.n}</span>
                 <h3 className="mt-4 text-lg font-semibold leading-snug text-bone">
                   {step.title}

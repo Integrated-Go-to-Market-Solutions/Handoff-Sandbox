@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button, Pill } from "../brand";
+import { Button } from "../brand";
 import { Reveal } from "../reveal";
 import { hero } from "@/lib/content";
 
@@ -11,40 +11,54 @@ const facts = [
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white pb-20 pt-14 md:pb-28 md:pt-20">
-      {/* Bright cyan wash rather than a dark vignette. */}
-      <div
-        className="pointer-events-none absolute -right-52 -top-56 h-[680px] w-[680px] rounded-full opacity-35 blur-[130px]"
-        style={{ background: "var(--color-cyan)" }}
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -bottom-64 -left-56 h-[520px] w-[520px] rounded-full opacity-20 blur-[130px]"
-        style={{ background: "var(--color-royal)" }}
-        aria-hidden="true"
-      />
+    <section className="relative isolate overflow-hidden bg-white">
+      {/* Full-bleed photograph. Anchored right so the team stays clear of the
+          copy, then washed to white across the left half. */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <Image
+          src="/images/team-group.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          // Square source on a wide band crops hard vertically. Bias upward so
+          // faces stay in frame rather than torsos.
+          className="object-cover object-[64%_26%]"
+        />
+        {/* Horizontal wash: solid white under the text, clearing by the right edge. */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(100deg, #fff 0%, #fff 34%, rgba(255,255,255,0.94) 46%, rgba(255,255,255,0.55) 62%, rgba(255,255,255,0.12) 78%, rgba(255,255,255,0) 92%)",
+          }}
+        />
+        {/* Vertical fade so the section dissolves into the page below. */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-80"
+          style={{
+            background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 72%)",
+          }}
+        />
+      </div>
 
-      <div className="shell relative grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
-        <div>
+      <div className="shell relative flex min-h-[clamp(560px,82vh,860px)] items-center py-20">
+        <div className="max-w-[38rem]">
           <Reveal>
-            <Pill>{hero.eyebrow}</Pill>
-          </Reveal>
-
-          <Reveal delay={80}>
-            <h1 className="display mt-6 text-[clamp(2.9rem,7.2vw,5.4rem)] text-ink">
+            <h1 className="display text-[clamp(2.9rem,7vw,5.4rem)] text-ink">
               {hero.headline[0]}{" "}
               <span className="text-royal">{hero.headline[1]}</span>{" "}
               {hero.headline[2]}
             </h1>
           </Reveal>
 
-          <Reveal delay={160}>
-            <p className="mt-6 max-w-[54ch] text-lg leading-relaxed text-ink/70">
+          <Reveal delay={90}>
+            <p className="mt-6 max-w-[50ch] text-lg leading-relaxed text-ink/75">
               {hero.body}
             </p>
           </Reveal>
 
-          <Reveal delay={240}>
+          <Reveal delay={180}>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Button href={hero.primary.href}>{hero.primary.label}</Button>
               <Button href={hero.secondary.href} variant="ghost">
@@ -54,8 +68,8 @@ export function Hero() {
             <p className="mt-5 text-sm text-ink/55">{hero.note}</p>
           </Reveal>
 
-          <Reveal delay={320}>
-            <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-ink/12 pt-7">
+          <Reveal delay={260}>
+            <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6">
               {facts.map((fact) => (
                 <div key={fact.label}>
                   <dt className="display text-2xl text-royal">{fact.value}</dt>
@@ -67,23 +81,6 @@ export function Hero() {
             </dl>
           </Reveal>
         </div>
-
-        <Reveal delay={200} className="relative">
-          <div className="relative aspect-square overflow-hidden rounded-[var(--radius-brand)] shadow-xl">
-            <Image
-              src="/images/team-group.webp"
-              alt="Members of the Handoff team together at a company offsite"
-              fill
-              sizes="(max-width: 1024px) 100vw, 44vw"
-              priority
-              className="object-cover"
-            />
-          </div>
-
-          <div className="absolute -bottom-5 left-6 z-10 rounded-full bg-ink px-5 py-2.5 shadow-xl">
-            <span className="eyebrow text-cyan">This is the team</span>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
