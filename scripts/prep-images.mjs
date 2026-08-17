@@ -124,7 +124,7 @@ async function main() {
   try {
     await sharp(path.join(SRC, 'Newsletter 12_17.png'))
       .resize({ width: 1400, withoutEnlargement: true })
-      .webp({ quality: 84 })
+      .webp({ quality: 94 })
       .toFile(path.join(OUT, 'team-group.webp'));
     console.log('group ✓ team-group');
   } catch (err) {

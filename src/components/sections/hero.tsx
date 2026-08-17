@@ -12,32 +12,45 @@ const facts = [
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-white">
-      {/* Full-bleed photograph. Anchored right so the team stays clear of the
-          copy, then washed to white across the left half. */}
-      <div className="absolute inset-0" aria-hidden="true">
+      {/* The photograph occupies the right of the frame at close to its native
+          size, so the whole group stays visible and sharp rather than being
+          cropped to torsos by a full-width cover. Its left edge dissolves into
+          the page. */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[60%]"
+        aria-hidden="true"
+      >
         <Image
           src="/images/team-group.webp"
           alt=""
           fill
           priority
-          sizes="100vw"
-          // Square source on a wide band crops hard vertically. Bias upward so
-          // faces stay in frame rather than torsos.
-          className="object-cover object-[64%_26%]"
+          quality={95}
+          sizes="(max-width: 1024px) 100vw, 60vw"
+          className="object-cover object-center"
         />
-        {/* Horizontal wash: solid white under the text, clearing by the right edge. */}
+        {/* Left edge fade. Heavier below lg, where the photo sits behind the copy. */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 lg:hidden"
           style={{
             background:
-              "linear-gradient(100deg, #fff 0%, #fff 34%, rgba(255,255,255,0.94) 46%, rgba(255,255,255,0.55) 62%, rgba(255,255,255,0.12) 78%, rgba(255,255,255,0) 92%)",
+              "linear-gradient(90deg, #fff 0%, rgba(255,255,255,0.97) 45%, rgba(255,255,255,0.86) 100%)",
           }}
         />
-        {/* Vertical fade so the section dissolves into the page below. */}
         <div
-          className="absolute inset-x-0 bottom-0 h-80"
+          className="absolute inset-0 hidden lg:block"
           style={{
-            background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 72%)",
+            background:
+              // Hold solid white across the first few percent so the photo's
+              // left edge can never show as a seam.
+              "linear-gradient(90deg, #fff 0%, #fff 7%, rgba(255,255,255,0.88) 17%, rgba(255,255,255,0.45) 32%, rgba(255,255,255,0.08) 49%, rgba(255,255,255,0) 63%)",
+          }}
+        />
+        {/* Vertical fades so the photo dissolves into the page above and below. */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-40"
+          style={{
+            background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 78%)",
           }}
         />
       </div>
