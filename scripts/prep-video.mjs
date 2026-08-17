@@ -3,8 +3,12 @@
  *
  * The source files are 4K vertical HEVC (.MOV) straight off a phone or
  * mirrorless. HEVC does not play in most browsers, so everything is
- * re-encoded to H.264 MP4, stripped of audio (these autoplay muted) and
- * scaled down hard. Run with `node scripts/prep-video.mjs`.
+ * re-encoded to H.264 MP4 and scaled down hard.
+ *
+ * Audio is kept (AAC, mono, 96k). The players still start muted because every
+ * browser blocks autoplay with sound, but the track is there so the unmute
+ * control in VideoLoop has something to turn on.
+ * Run with `node scripts/prep-video.mjs`.
  */
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -40,7 +44,9 @@ for (const clip of CLIPS) {
       '-ss', String(clip.start),
       '-i', src,
       '-t', String(clip.duration),
-      '-an',                                   // muted autoplay, so drop audio entirely
+      '-c:a', 'aac',                           // keep sound for the unmute control
+      '-b:a', '96k',
+      '-ac', '1',                              // mono is plenty for talking heads
       '-vf', 'scale=-2:1280',                  // 720x1280 for a 9:16 player
       '-c:v', 'libx264',
       '-profile:v', 'high',

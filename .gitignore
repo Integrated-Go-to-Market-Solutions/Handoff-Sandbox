@@ -51,3 +51,6 @@ scripts/team-sheet.png
 _brand/
 
 # Raw video exports are large; transcoded loops live in public/video
+
+.vercel
+.env*
