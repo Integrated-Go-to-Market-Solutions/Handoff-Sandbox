@@ -16,11 +16,14 @@ export function VideoLoop({
   poster,
   caption,
   name,
+  bare = false,
 }: {
   src: string;
   poster: string;
   caption: string;
   name: string;
+  /** Strip the caption and chrome so it can sit inside a photo wall. */
+  bare?: boolean;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const id = useId();
@@ -91,10 +94,20 @@ export function VideoLoop({
   }
 
   return (
-    <figure className="group relative overflow-hidden rounded-[var(--radius-brand)] bg-ink">
+    <figure
+      className={
+        bare
+          ? "absolute inset-0 bg-ink"
+          : "group relative overflow-hidden rounded-[var(--radius-brand)] bg-ink"
+      }
+    >
       <video
         ref={ref}
-        className="aspect-[9/16] w-full object-cover"
+        className={
+          bare
+            ? "h-full w-full object-cover"
+            : "aspect-[9/16] w-full object-cover"
+        }
         poster={poster}
         muted
         loop
@@ -110,7 +123,9 @@ export function VideoLoop({
         onClick={toggleSound}
         aria-pressed={!muted}
         aria-label={muted ? `Unmute ${name}` : `Mute ${name}`}
-        className="absolute right-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full bg-ink/65 text-bone backdrop-blur-sm transition-all duration-300 hover:bg-cyan hover:text-ink"
+        className={`absolute z-10 grid place-items-center rounded-full bg-ink/65 text-bone backdrop-blur-sm transition-all duration-300 hover:bg-cyan hover:text-ink ${
+          bare ? "right-3 top-3 h-9 w-9" : "right-4 top-4 h-11 w-11"
+        }`}
       >
         {muted ? (
           <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
@@ -140,10 +155,14 @@ export function VideoLoop({
         )}
       </button>
 
-      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-5 pt-14">
-        <p className="display text-lg text-bone">{name}</p>
-        <p className="mt-1 text-[0.85rem] leading-snug text-bone/70">{caption}</p>
-      </figcaption>
+      {!bare && (
+        <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-5 pt-14">
+          <p className="display text-lg text-bone">{name}</p>
+          <p className="mt-1 text-[0.85rem] leading-snug text-bone/70">
+            {caption}
+          </p>
+        </figcaption>
+      )}
     </figure>
   );
 }
