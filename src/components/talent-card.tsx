@@ -3,8 +3,8 @@ import { Reveal } from "./reveal";
 
 /**
  * The cyan pill talent card from the Templates page of the brand guidelines.
- * Photography is black and white at rest and comes to colour on hover: these
- * are real people, not avatars. Shared by the homepage and /talent.
+ * Full colour at rest, dropping to black and white on hover. Shared by the
+ * homepage and /talent.
  */
 export function TalentCard({
   slug,
@@ -31,7 +31,7 @@ export function TalentCard({
             alt={`${name}, ${role} at Handoff`}
             fill
             sizes="(max-width: 640px) 268px, (max-width: 1024px) 33vw, 22vw"
-            className="object-cover grayscale transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale-0"
+            className="object-cover transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale"
           />
         </div>
       </article>
