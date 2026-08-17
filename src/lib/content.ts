@@ -199,6 +199,35 @@ export const roleTicker = [
 ];
 
 /**
+ * Day-in-the-life video band. Mark, 8/13: "we don't talk about overseas
+ * talent. We are the overseas talent. And that's the difference." Clips are
+ * Handoff's own footage, transcoded by scripts/prep-video.mjs.
+ */
+export const vibes = {
+  headline: "We don't talk about",
+  headlineStrike: "overseas talent.",
+  headlineAccent: "We are the overseas talent.",
+  body: "Competitors film their founders describing how good the talent is. You never actually see the talent. This is ours, in their own words, shot where they work.",
+  clips: [
+    {
+      slug: "vibes",
+      name: "A day at Handoff",
+      caption: "Medellín. Part working session, part the reason people stay.",
+    },
+    {
+      slug: "jazmin",
+      name: "Jazmin Esparza",
+      caption: "Chief of Staff. Started as employee number two.",
+    },
+    {
+      slug: "shaori",
+      name: "Shaori Velueta",
+      caption: "Digital Marketer, on what changed for her.",
+    },
+  ],
+};
+
+/**
  * "Alma" is the name of Handoff's managed-services platform. Anthony, 7/23:
  * "Alma, which is soul in Spanish." Tony, 8/6, on why competitor sites fail:
  * they are "missing a little bit of soul." Same word from both directions,

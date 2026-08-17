@@ -49,3 +49,5 @@ scripts/team-sheet.png
 # Source PDFs stay local. The ICP is marked Internal Use Only and carries
 # internal pricing; neither is needed to build the site.
 _brand/
+
+# Raw video exports are large; transcoded loops live in public/video
