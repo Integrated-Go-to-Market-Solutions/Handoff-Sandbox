@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Button } from "../brand";
 import { Counter } from "../counter";
-import { VideoLoop } from "../video-loop";
 import { hero } from "@/lib/content";
 
 /**
@@ -14,13 +13,13 @@ import { hero } from "@/lib/content";
  * rather than template.
  */
 const STRIP = [
-  { kind: "photo", slug: "jazmin-esparza", name: "Jazmin Esparza", role: "Chief of Staff", offset: "sm:mt-16" },
-  { kind: "photo", slug: "catalina-saldarriaga", name: "Catalina Saldarriaga", role: "Operations Manager", offset: "sm:mt-0" },
-  { kind: "video", slug: "vibes", name: "Medellín", role: "A day at Handoff", offset: "sm:mt-24" },
-  { kind: "photo", slug: "jake-castro", name: "Jake Castro", role: "VP of Automation", offset: "sm:mt-6" },
-  { kind: "photo", slug: "leidy-quintero", name: "Leidy Quintero", role: "Project Manager", offset: "sm:mt-28" },
-  { kind: "photo", slug: "simon-quintero", name: "Simon Quintero", role: "Executive Assistant", offset: "sm:mt-10" },
-  { kind: "photo", slug: "shaori-velueta", name: "Shaori Velueta", role: "Digital Marketer", offset: "sm:mt-20" },
+  { slug: "jazmin-esparza", name: "Jazmin Esparza", role: "Chief of Staff", offset: "sm:mt-16" },
+  { slug: "catalina-saldarriaga", name: "Catalina Saldarriaga", role: "Operations Manager", offset: "sm:mt-0" },
+  { slug: "karla-patron", name: "Karla Patrón", role: "Marketing Specialist", offset: "sm:mt-24" },
+  { slug: "jake-castro", name: "Jake Castro", role: "VP of Automation", offset: "sm:mt-6" },
+  { slug: "leidy-quintero", name: "Leidy Quintero", role: "Project Manager", offset: "sm:mt-28" },
+  { slug: "simon-quintero", name: "Simon Quintero", role: "Executive Assistant", offset: "sm:mt-10" },
+  { slug: "shaori-velueta", name: "Shaori Velueta", role: "Digital Marketer", offset: "sm:mt-20" },
 ] as const;
 
 export function HeroBright() {
@@ -98,15 +97,6 @@ export function HeroBright() {
             className={`group relative w-[200px] shrink-0 sm:w-auto ${cell.offset}`}
           >
             <div className="relative aspect-[3/4] overflow-hidden rounded-[var(--radius-brand)] bg-bone">
-              {cell.kind === "video" ? (
-                <VideoLoop
-                  src="/video/vibes.mp4"
-                  poster="/video/vibes.jpg"
-                  name=""
-                  caption=""
-                  bare
-                />
-              ) : (
                 <Image
                   src={`/images/team/${cell.slug}.webp`}
                   alt={`${cell.name}, ${cell.role} at Handoff`}
@@ -115,7 +105,6 @@ export function HeroBright() {
                   sizes="(max-width: 640px) 200px, 14vw"
                   className="object-cover transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale"
                 />
-              )}
             </div>
 
             <figcaption className="mt-3">
