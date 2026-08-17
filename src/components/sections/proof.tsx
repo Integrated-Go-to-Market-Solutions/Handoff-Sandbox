@@ -5,7 +5,7 @@ import { proof, team, site } from "@/lib/content";
 
 export function Proof() {
   return (
-    <section id="talent" className="relative overflow-hidden bg-white py-24 md:py-32">
+    <section id="talent" className="relative bg-white pb-0 pt-24 md:pt-32">
       <div className="shell relative">
         <Reveal className="max-w-4xl">
           <h2 className="display mt-5 text-[clamp(2.1rem,4.8vw,3.7rem)] text-ink">
@@ -19,8 +19,11 @@ export function Proof() {
         </Reveal>
       </div>
 
-      {/* Scroll-snap row on small screens, grid from sm up. */}
-      <div className="relative mt-14">
+      {/* Scroll-snap row on small screens, grid from sm up.
+          The negative bottom margin lets the last row cross the section seam
+          into the block below, so the page reads as one surface rather than
+          a stack of sealed panels. Vibes carries matching top padding. */}
+      <div className="relative z-10 mt-14 sm:-mb-28 lg:-mb-32">
         <div className="shell flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 sm:grid sm:grid-cols-3 sm:overflow-visible lg:grid-cols-4">
           {team.map((person, i) => (
             <TalentCard key={person.slug} {...person} index={i} />

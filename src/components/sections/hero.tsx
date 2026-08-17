@@ -2,17 +2,17 @@ import Image from "next/image";
 import { Button } from "../brand";
 import { Reveal } from "../reveal";
 import { Counter } from "../counter";
+import { LogoMarquee } from "./logo-marquee";
 import { hero } from "@/lib/content";
-
-
 
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-white">
       {/* The photograph occupies the right of the frame at close to its native
           size, so the whole group stays visible and sharp rather than being
-          cropped to torsos by a full-width cover. Its left edge dissolves into
-          the page. */}
+          cropped to torsos by a full-width cover. It runs the full height of
+          this block, which includes the client logos, so it bleeds down behind
+          them instead of stopping at a hard edge. */}
       <div
         className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[60%]"
         aria-hidden="true"
@@ -38,21 +38,20 @@ export function Hero() {
           className="absolute inset-0 hidden lg:block"
           style={{
             background:
-              // Hold solid white across the first few percent so the photo's
-              // left edge can never show as a seam.
               "linear-gradient(90deg, #fff 0%, #fff 7%, rgba(255,255,255,0.88) 17%, rgba(255,255,255,0.45) 32%, rgba(255,255,255,0.08) 49%, rgba(255,255,255,0) 63%)",
           }}
         />
-        {/* Vertical fades so the photo dissolves into the page above and below. */}
+        {/* Long vertical fade so the photo dissolves through the logo bar. */}
         <div
-          className="absolute inset-x-0 bottom-0 h-40"
+          className="absolute inset-x-0 bottom-0 h-[26rem]"
           style={{
-            background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 78%)",
+            background:
+              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.72) 45%, #fff 82%)",
           }}
         />
       </div>
 
-      <div className="shell relative flex min-h-[clamp(560px,82vh,860px)] items-center py-20">
+      <div className="shell relative flex min-h-[clamp(560px,78vh,820px)] items-center pt-20">
         <div className="max-w-[38rem]">
           <Reveal>
             <h1 className="display text-[clamp(2.9rem,7vw,5.4rem)] text-ink">
@@ -105,6 +104,11 @@ export function Hero() {
             </dl>
           </Reveal>
         </div>
+      </div>
+
+      {/* Inside the hero on purpose: the photograph carries on behind it. */}
+      <div className="relative pb-16 pt-20">
+        <LogoMarquee bare />
       </div>
     </section>
   );

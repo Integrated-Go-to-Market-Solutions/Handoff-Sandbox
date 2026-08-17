@@ -5,7 +5,7 @@ import { vibes } from "@/lib/content";
 
 export function Vibes() {
   return (
-    <section className="relative overflow-hidden bg-bone py-24 md:py-32">
+    <section className="relative overflow-hidden bg-bone pb-24 pt-24 sm:pt-52 md:pb-32 lg:pt-56">
       <EdgeFade side="top" color="#fff" />
       <div className="shell relative">
         <Reveal className="max-w-4xl">
