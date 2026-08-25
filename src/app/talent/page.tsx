@@ -28,7 +28,7 @@ export default function TalentPage() {
         <div className="shell relative max-w-4xl">
           <Reveal>
             <Pill>{talentPage.eyebrow}</Pill>
-            <h1 className="display text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
+            <h1 className="display mt-5 text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
               The roles you can
               <br />
               <span className="text-royal">actually hand off.</span>
@@ -42,7 +42,7 @@ export default function TalentPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-bone pb-20 pt-14 md:pb-24 md:pt-16">
+      <section className="relative overflow-hidden bg-bone pb-20 pt-20 md:pb-24 md:pt-24">
         <div className="shell relative grid gap-5 md:grid-cols-2">
           {roleGroups.map((group, i) => (
             <Reveal key={group.name} delay={i * 90}>
