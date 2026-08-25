@@ -1,33 +1,39 @@
 import { Reveal } from "../reveal";
-import { EdgeFade } from "../edge-fade";
 import { process } from "@/lib/content";
+
+const stepAccents = [
+  "bg-cyan text-ink",
+  "bg-acid text-ink",
+  "bg-ink text-bone",
+  "bg-white text-ink",
+] as const;
 
 export function Process() {
   return (
     <section
       id="process"
-      className="tex-gradient tex-grain relative overflow-hidden py-16 md:py-24"
+      className="relative overflow-hidden bg-bone pb-10 pt-10 text-ink md:pb-16 md:pt-16"
     >
-      <EdgeFade side="bottom" color="var(--color-bone)" height="10rem" />
       <div className="shell relative">
         <Reveal className="max-w-4xl">
-          <h2 className="display mt-5 max-w-[18ch] text-[clamp(2.1rem,4.8vw,3.7rem)] text-bone">
+          <h2 className="display max-w-[18ch] text-[clamp(2.1rem,4.8vw,3.7rem)] text-ink">
             {process.headline}
           </h2>
-          <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-bone/85 md:text-lg">
+          <p className="mt-4 max-w-[54ch] text-base font-medium leading-relaxed text-ink md:text-lg">
             {process.body}
           </p>
         </Reveal>
 
-        <ol className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-7 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
           {process.steps.map((step, i) => (
             <Reveal key={step.n} delay={i * 90} as="li">
-              <div className="group h-full border-t border-white/20 py-5 transition-colors duration-500 hover:border-cyan md:p-6 md:pt-5">
-                <span className="display text-sm text-cyan">{step.n}</span>
-                <h3 className="mt-3 text-lg font-semibold leading-snug text-bone">
+              <div
+                className={`group h-full rounded-[var(--radius-card)] p-6 transition-transform duration-500 hover:-translate-y-1 hover:shadow-xl ${stepAccents[i]}`}
+              >
+                <h3 className="text-lg font-bold leading-snug">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-[0.9rem] leading-relaxed text-bone/80">
+                <p className="mt-2 text-[0.9rem] font-medium leading-relaxed opacity-80">
                   {step.copy}
                 </p>
               </div>

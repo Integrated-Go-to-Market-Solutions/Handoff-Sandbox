@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
+import { Pill } from "@/components/brand";
 import { Cta } from "@/components/sections/cta";
 import { talentPage, roleGroups } from "@/lib/content";
+
+const groupAccents = [
+  "bg-cyan text-ink",
+  "bg-acid text-ink",
+  "bg-royal text-bone",
+  "bg-ink text-bone",
+] as const;
 
 export const metadata: Metadata = {
   title: "Roles we fill | Handoff",
@@ -16,15 +24,10 @@ export const metadata: Metadata = {
 export default function TalentPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-white pb-20 pt-14 md:pt-20">
-        <div
-          className="drift pointer-events-none absolute -right-52 -top-56 h-[620px] w-[620px] rounded-full opacity-28 blur-[130px]"
-          style={{ background: "var(--color-cyan)" }}
-          aria-hidden="true"
-        />
-
+      <section className="relative overflow-hidden bg-white pb-16 pt-14 md:pb-20 md:pt-20">
         <div className="shell relative max-w-4xl">
           <Reveal>
+            <Pill>{talentPage.eyebrow}</Pill>
             <h1 className="display text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
               The roles you can
               <br />
@@ -32,27 +35,29 @@ export default function TalentPage() {
             </h1>
           </Reveal>
           <Reveal delay={90}>
-            <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-ink/70">
+            <p className="mt-5 max-w-[62ch] text-lg font-medium leading-relaxed text-ink/80">
               {talentPage.rolesBody}
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-bone pb-24 pt-20 md:pb-28">
+      <section className="relative overflow-hidden bg-bone pb-20 pt-14 md:pb-24 md:pt-16">
         <div className="shell relative grid gap-5 md:grid-cols-2">
           {roleGroups.map((group, i) => (
             <Reveal key={group.name} delay={i * 90}>
-              <article className="h-full rounded-[var(--radius-card)] border border-ink/12 bg-white p-8">
-                <h2 className="display text-2xl text-ink">{group.name}</h2>
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-ink/60">
+              <article
+                className={`group h-full rounded-[var(--radius-card)] p-7 transition-transform duration-500 hover:-translate-y-1 hover:shadow-xl md:p-8 ${groupAccents[i]}`}
+              >
+                <h2 className="display text-2xl">{group.name}</h2>
+                <p className="mt-3 text-[0.95rem] font-medium leading-relaxed opacity-80">
                   {group.blurb}
                 </p>
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {group.roles.map((role) => (
                     <li
                       key={role}
-                      className="rounded-full border border-ink/15 px-3.5 py-1.5 text-[0.85rem] font-medium text-ink/80"
+                      className="rounded-full border-current/30 bg-white/15 px-3.5 py-1.5 text-[0.85rem] font-bold"
                     >
                       {role}
                     </li>

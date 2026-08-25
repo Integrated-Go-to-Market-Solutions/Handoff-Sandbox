@@ -20,7 +20,7 @@ const columns = [
   {
     title: "Get started",
     links: [
-      { label: "Book a call", href: site.bookCall },
+      { label: "Talk to Our Team", href: site.bookCall },
       { label: "hello@handoff.com", href: "mailto:hello@handoff.com" },
     ],
   },
@@ -37,7 +37,7 @@ export function SiteFooter() {
               <LogoMark className="h-10 w-10" tone="dark" />
               <Wordmark className="text-base" />
             </Link>
-            <p className="mt-5 max-w-[30ch] text-sm leading-relaxed text-smoke">
+            <p className="mt-5 max-w-[30ch] text-base font-medium leading-relaxed text-bone/80">
               The top 1% of Latin American talent, AI-enabled, placed inside the
               best US companies.
             </p>
@@ -46,12 +46,12 @@ export function SiteFooter() {
           {columns.map((col) => (
             <div key={col.title}>
               <h4 className="eyebrow text-bone">{col.title}</h4>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-smoke transition-colors hover:text-cyan"
+                      className="text-base font-medium text-bone/75 transition-colors hover:text-cyan"
                     >
                       {link.label}
                     </Link>
@@ -63,10 +63,10 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-ink-200 pt-6">
-          <span className="text-xs text-smoke">
+          <span className="text-sm font-medium text-bone/70">
             &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
           </span>
-          <span className="display text-xs text-cyan">{site.tagline}</span>
+          <span className="display text-sm text-cyan">{site.tagline}</span>
         </div>
       </div>
     </footer>

@@ -151,7 +151,7 @@ export function ContactForm() {
         disabled={status === "sending"}
         className="mt-7 w-full rounded-full bg-cyan px-7 py-4 text-[0.98rem] font-semibold text-ink transition-all duration-300 hover:bg-ink hover:text-cyan disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "sending" ? "Sending..." : "Request a call"}
+        {status === "sending" ? "Sending..." : "Get Started Today"}
       </button>
 
       {message && (

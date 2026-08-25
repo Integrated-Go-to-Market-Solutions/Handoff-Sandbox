@@ -46,7 +46,7 @@ export function SiteHeader() {
             </Link>
           ))}
           <Button href={site.bookCall} className="px-5 py-2.5 text-sm">
-            Book a call
+            Talk to Our Team
           </Button>
         </nav>
 
@@ -89,7 +89,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <Button href={site.bookCall} className="mt-8 w-full">
-              Book a call
+              Talk to Our Team
             </Button>
           </nav>
         </div>

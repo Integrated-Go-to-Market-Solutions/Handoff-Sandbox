@@ -42,7 +42,7 @@ export function HeroBright() {
 
         <div className="mt-10 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="max-w-[46ch] text-lg leading-relaxed text-ink/75">
+            <p className="max-w-[46ch] border-l-4 border-acid pl-4 text-lg font-semibold leading-relaxed text-ink md:text-xl">
               {hero.body}
             </p>
 

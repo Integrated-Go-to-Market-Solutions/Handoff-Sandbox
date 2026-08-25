@@ -1,12 +1,10 @@
 import { Reveal } from "../reveal";
-import { EdgeFade } from "../edge-fade";
 import { VideoLoop } from "../video-loop";
 import { vibes } from "@/lib/content";
 
 export function Vibes() {
   return (
-    <section className="relative overflow-hidden bg-bone pb-24 pt-24 sm:pt-52 md:pb-32 lg:pt-56">
-      <EdgeFade side="top" color="#fff" />
+    <section className="relative overflow-hidden bg-bone pb-20 pt-16 sm:pt-24 md:pb-28 lg:pt-28">
       <div className="shell relative">
         <Reveal className="max-w-4xl">
           <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-ink">

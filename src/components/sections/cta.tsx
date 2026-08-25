@@ -3,23 +3,13 @@ import { Reveal } from "../reveal";
 import { cta } from "@/lib/content";
 
 /**
- * Closing section. Deliberately not a card: it is a full-bleed gradient that
- * starts as the page's white, saturates to cyan, then settles into ink so it
- * hands straight off to the footer with no seam.
+ * Closing section. A single cyan field gives the final CTA energy without
+ * competing with the photography and typography above it.
  */
 export function Cta() {
   return (
-    <section className="relative overflow-hidden">
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to bottom, #fff 0%, #d8f5ee 16%, var(--color-cyan) 42%, var(--color-cyan) 64%, #1c8e7d 84%, var(--color-ink) 100%)",
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="shell relative py-32 text-center md:py-40">
+    <section className="relative overflow-hidden bg-cyan">
+      <div className="shell relative py-16 text-center md:py-20">
         <Reveal>
           <h2 className="display mx-auto max-w-[16ch] text-[clamp(2.2rem,5.2vw,4rem)] text-ink">
             {cta.headline}

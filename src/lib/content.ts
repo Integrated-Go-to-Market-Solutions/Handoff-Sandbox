@@ -15,12 +15,30 @@ export const site = {
   seeTalent: "/talent",
 };
 
+export const socialLinks = [
+  {
+    label: "YouTube",
+    platform: "youtube",
+    href: "https://www.youtube.com/@yourhandoff",
+  },
+  {
+    label: "LinkedIn",
+    platform: "linkedin",
+    href: "https://www.linkedin.com/company/yourhandoff/",
+  },
+  {
+    label: "Instagram",
+    platform: "instagram",
+    href: "https://www.instagram.com/talenthandoff/",
+  },
+] as const;
+
 export const hero = {
   eyebrow: "Staffing and Recruiting",
   headline: ["The best of", "LATAM.", "AI trained. Here to stay."],
   body: "We help the best US companies hire Latin America's top 1% talent.",
-  primary: { label: "See who we'd hire for you", href: site.seeTalent },
-  secondary: { label: "Book a call", href: site.bookCall },
+  primary: { label: "Get Started Today", href: site.bookCall },
+  secondary: { label: "Talk to Our Team", href: site.bookCall },
   note: "Full-time, dedicated teammates. Not a marketplace.",
 };
 
@@ -253,8 +271,8 @@ export const soul = {
 export const cta = {
   headline: "Stop being the bottleneck.",
   body: "Bring the role you cannot get off your plate. One call is usually enough to scope it, pick the model and give you a real timeline.",
-  primary: { label: "Book a call", href: site.bookCall },
-  secondary: { label: "See who you could be hiring", href: site.seeTalent },
+  primary: { label: "Get Started Today", href: site.bookCall },
+  secondary: { label: "Talk to Our Team", href: site.bookCall },
 };
 
 /**
