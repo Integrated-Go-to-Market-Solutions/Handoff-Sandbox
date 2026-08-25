@@ -16,12 +16,12 @@ export const site = {
 };
 
 export const hero = {
-  eyebrow: "Latin America's top 1%, AI-enabled",
-  headline: ["The team", "behind", "your team."],
-  body: "We take the top 1% of talent in Latin America, make sure they are AI-enabled and trained, and place them inside the best US companies. Then we build the environment where they thrive.",
-  primary: { label: "See who you could be hiring", href: site.seeTalent },
+  eyebrow: "Staffing and Recruiting",
+  headline: ["The best of", "LATAM.", "AI trained. Here to stay."],
+  body: "We help the best US companies hire Latin America's top 1% talent.",
+  primary: { label: "See who we'd hire for you", href: site.seeTalent },
   secondary: { label: "Book a call", href: site.bookCall },
-  note: "Full-time, dedicated, and employed on our entity. Not a marketplace.",
+  note: "Full-time, dedicated teammates. Not a marketplace.",
 };
 
 /** The founder's situation, in his own terms. From the workshopped ICP. */
@@ -129,8 +129,8 @@ export const logos = [
 
 export const process = {
   eyebrow: "How it works",
-  headline: "A shared hiring experience",
-  body: "We do the finding and the assessment. You make the call on fit. That shared decision is why our placements stay, and why you avoid paying the sunk cost of turnover twice.",
+  headline: "We find the person. You keep moving.",
+  body: "We do the hunting and the hard assessment. You make the call on fit. That is how the right person lands in the right seat and stays there.",
   steps: [
     {
       n: "01",

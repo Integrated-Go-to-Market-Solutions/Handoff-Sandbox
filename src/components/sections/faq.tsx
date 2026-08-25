@@ -11,7 +11,7 @@ export function Faq() {
             <br />
             <span className="text-royal">we actually get</span>
           </h2>
-          <p className="mt-6 max-w-[42ch] leading-relaxed text-ink/65">
+          <p className="mt-6 max-w-[42ch] leading-relaxed text-ink/80">
             If the honest answer is that we are not your fit, that is the answer
             you will get on the call.
           </p>
@@ -28,7 +28,7 @@ export function Faq() {
                     <span className="absolute left-1/2 top-0 h-4 w-0.5 -translate-x-1/2 bg-current transition-transform duration-300 group-open:rotate-90 group-open:opacity-0" />
                   </span>
                 </summary>
-                <p className="mt-4 max-w-[68ch] leading-relaxed text-ink/70">
+                <p className="mt-4 max-w-[68ch] leading-relaxed text-ink/80">
                   {faq.a}
                 </p>
               </details>

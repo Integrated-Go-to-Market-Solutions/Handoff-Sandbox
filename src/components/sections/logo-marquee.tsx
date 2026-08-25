@@ -34,5 +34,15 @@ export function LogoMarquee({ bare = false }: { bare?: boolean }) {
 
   if (bare) return track;
 
-  return <section className="bg-white py-14">{track}</section>;
+  return (
+    <section className="border-y border-ink/10 bg-white py-14" aria-label="Client logos">
+      <div className="shell mb-8 flex items-center gap-4">
+        <span className="h-px w-10 bg-cyan-dim" aria-hidden="true" />
+        <p className="eyebrow text-sm font-bold text-ink/75 md:text-base">
+          Trusted by teams that keep moving
+        </p>
+      </div>
+      {track}
+    </section>
+  );
 }

@@ -24,7 +24,7 @@ export function Cta() {
           <h2 className="display mx-auto max-w-[16ch] text-[clamp(2.2rem,5.2vw,4rem)] text-ink">
             {cta.headline}
           </h2>
-          <p className="mx-auto mt-6 max-w-[52ch] text-lg leading-relaxed text-ink/75">
+          <p className="mx-auto mt-6 max-w-[52ch] text-lg leading-relaxed text-ink/85">
             {cta.body}
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "../brand";
+import { Button, Pill } from "../brand";
 import { Counter } from "../counter";
 import { hero } from "@/lib/content";
 
@@ -33,6 +33,7 @@ export function HeroBright() {
       />
 
       <div className="shell relative">
+        <Pill>{hero.eyebrow}</Pill>
         <h1 className="display max-w-[15ch] text-[clamp(3rem,9vw,7.5rem)] text-ink">
           {hero.headline[0]}{" "}
           <span className="text-royal">{hero.headline[1]}</span>{" "}
@@ -42,9 +43,7 @@ export function HeroBright() {
         <div className="mt-10 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="max-w-[46ch] text-lg leading-relaxed text-ink/75">
-              Every face below works at Handoff. Not a stock library, not a
-              bench of avatars. We place the top 1% of Latin American talent
-              inside US companies, and we hired ourselves the same way.
+              {hero.body}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -60,7 +59,7 @@ export function HeroBright() {
               <dt className="display text-3xl text-royal">
                 <Counter to={300} prefix="~" />
               </dt>
-              <dd className="mt-1 text-[0.78rem] leading-snug text-ink/60">
+              <dd className="mt-1 text-[0.78rem] font-medium leading-snug text-ink/75">
                 candidates
                 <br />
                 per role
@@ -70,7 +69,7 @@ export function HeroBright() {
               <dt className="display text-3xl text-cyan-dim">
                 <Counter to={90} suffix="-day" />
               </dt>
-              <dd className="mt-1 text-[0.78rem] leading-snug text-ink/60">
+              <dd className="mt-1 text-[0.78rem] font-medium leading-snug text-ink/75">
                 guarantee on
                 <br />
                 direct hires
@@ -78,7 +77,7 @@ export function HeroBright() {
             </div>
             <div>
               <dt className="display text-3xl text-ink">7</dt>
-              <dd className="mt-1 text-[0.78rem] leading-snug text-ink/60">
+              <dd className="mt-1 text-[0.78rem] font-medium leading-snug text-ink/75">
                 of us, all
                 <br />
                 hired this way
@@ -90,7 +89,7 @@ export function HeroBright() {
 
       {/* Staggered strip, held inside the shell so no face is clipped. The
           editorial feel comes from the offsets, not from running off the edge. */}
-      <div className="shell relative mt-16 flex gap-4 overflow-x-auto pb-16 sm:mt-10 sm:grid sm:grid-cols-7 sm:gap-3 sm:overflow-visible sm:pb-24 lg:gap-4">
+      <div className="shell relative mt-12 flex gap-4 overflow-x-auto pb-12 sm:mt-8 sm:grid sm:grid-cols-7 sm:gap-3 sm:overflow-visible sm:pb-16 lg:gap-4">
         {STRIP.map((cell, i) => (
           <figure
             key={cell.slug}

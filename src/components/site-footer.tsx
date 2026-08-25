@@ -15,7 +15,6 @@ const columns = [
     title: "Talent",
     links: [
       { label: "Who you could hire", href: "/talent" },
-      { label: "Work at Handoff", href: "/careers" },
     ],
   },
   {

@@ -1,6 +1,5 @@
 import { HeroBright } from "@/components/sections/hero-bright";
 import { LogoMarquee } from "@/components/sections/logo-marquee";
-import { RoleTicker } from "@/components/sections/role-ticker";
 import { Problem } from "@/components/sections/problem";
 import { Vibes } from "@/components/sections/vibes";
 import { Soul } from "@/components/sections/soul";
@@ -14,7 +13,6 @@ export default function Home() {
     <>
       <HeroBright />
       <LogoMarquee />
-      <RoleTicker />
       <Problem />
       <Vibes />
       <Soul />

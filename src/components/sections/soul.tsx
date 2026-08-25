@@ -25,7 +25,7 @@ export function Soul() {
             <br />
             <span className="text-acid">{soul.headlineAccent}</span>
           </h2>
-          <p className="mt-6 max-w-[50ch] text-lg leading-relaxed text-bone/70">
+          <p className="mt-6 max-w-[50ch] text-lg leading-relaxed text-bone/85">
             {soul.body}
           </p>
 
@@ -36,21 +36,21 @@ export function Soul() {
             <p className="mt-4 text-sm font-semibold text-cyan">
               {soul.attribution}
             </p>
-            <p className="text-sm text-bone/50">{soul.attributionRole}</p>
+            <p className="text-sm text-bone/70">{soul.attributionRole}</p>
           </div>
         </Reveal>
 
         <Reveal delay={140}>
           <div className="rounded-[var(--radius-brand)] bg-white/[0.06] p-9 backdrop-blur-sm">
             <p className="display text-6xl leading-none text-cyan">Alma</p>
-            <p className="mt-3 text-sm uppercase tracking-[0.18em] text-bone/45">
+            <p className="mt-3 text-sm uppercase tracking-[0.18em] text-bone/65">
               Spanish for soul
             </p>
-            <p className="mt-6 leading-relaxed text-bone/75">{soul.closer}</p>
+            <p className="mt-6 leading-relaxed text-bone/85">{soul.closer}</p>
 
             <div className="mt-9 border-t border-white/10 pt-7">
               <p className="display text-2xl text-acid">{soul.culture.stat}</p>
-              <p className="mt-2 max-w-[38ch] text-[0.95rem] leading-relaxed text-bone/65">
+              <p className="mt-2 max-w-[38ch] text-[0.95rem] leading-relaxed text-bone/80">
                 {soul.culture.label}
               </p>
             </div>

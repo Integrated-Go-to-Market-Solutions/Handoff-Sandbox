@@ -14,9 +14,10 @@ export function Models() {
             Three ways to work together
           </h2>
           <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-ink/70">
-            Pick the one that matches how much you want to own. We will
-            recommend the right fit on the first call, and we will tell you if
-            the cheapest option is the correct one.
+            Start with the level of ownership that fits your team. Managed
+            Staffing is the full-service path, Employer of Record keeps the
+            day to day with you, and Direct-Hire Recruiting is the simplest
+            way to make one great hire.
           </p>
         </Reveal>
 
@@ -26,7 +27,7 @@ export function Models() {
               <article
                 className={`flex h-full flex-col rounded-[var(--radius-card)] p-8 transition-transform duration-500 hover:-translate-y-1.5 ${
                   model.featured
-                    ? "bg-ink text-bone shadow-2xl"
+                    ? "border-2 border-cyan bg-white text-ink shadow-lg"
                     : "border border-ink/12 bg-white"
                 }`}
               >
@@ -35,46 +36,28 @@ export function Models() {
                 </Pill>
 
                 <h3
-                  className={`display mt-5 text-3xl ${
-                    model.featured ? "text-bone" : "text-ink"
-                  }`}
+                  className="display mt-5 min-h-[4.5rem] text-3xl text-ink"
                 >
                   {model.name}
                 </h3>
                 <p
-                  className={`mt-2 text-sm ${
-                    model.featured ? "text-bone/60" : "text-ink/55"
-                  }`}
+                  className="mt-2 min-h-[2.5rem] text-sm font-medium text-ink/75"
                 >
                   {model.forWho}
                 </p>
 
-                <div
-                  className={`mt-6 border-y py-5 ${
-                    model.featured ? "border-ink-200" : "border-ink/10"
-                  }`}
-                >
+                <div className="mt-6 min-h-[6.5rem] border-y border-ink/10 py-5">
                   <p
-                    className={`display text-2xl ${
-                      model.featured ? "text-cyan" : "text-royal"
-                    }`}
+                    className="display text-2xl text-royal"
                   >
                     {model.price}
                   </p>
-                  <p
-                    className={`mt-1 text-xs ${
-                      model.featured ? "text-bone/55" : "text-ink/50"
-                    }`}
-                  >
+                  <p className="mt-1 text-xs font-medium text-ink/70">
                     {model.terms}
                   </p>
                 </div>
 
-                <p
-                  className={`mt-6 text-[0.97rem] leading-relaxed ${
-                    model.featured ? "text-bone/75" : "text-ink/70"
-                  }`}
-                >
+                <p className="mt-6 min-h-[7.5rem] text-[0.97rem] leading-relaxed text-ink/80">
                   {model.copy}
                 </p>
 
@@ -82,9 +65,7 @@ export function Models() {
                   {model.points.map((point) => (
                     <li
                       key={point}
-                      className={`flex gap-3 text-[0.93rem] leading-snug ${
-                        model.featured ? "text-bone/80" : "text-ink/70"
-                      }`}
+                      className="flex gap-3 text-[0.93rem] leading-snug text-ink/80"
                     >
                       <svg
                         viewBox="0 0 20 20"
@@ -94,7 +75,7 @@ export function Models() {
                         <path
                           d="M4 10.5l4 4 8-9"
                           fill="none"
-                          stroke={model.featured ? "var(--color-cyan)" : "var(--color-royal)"}
+                          stroke="var(--color-royal)"
                           strokeWidth="2.4"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -107,8 +88,8 @@ export function Models() {
 
                 <Button
                   href={site.bookCall}
-                  variant={model.featured ? "cyan" : "ink"}
-                  className="mt-8 w-full"
+                  variant="ink"
+                  className="mt-auto w-full"
                 >
                   Book a call
                 </Button>
