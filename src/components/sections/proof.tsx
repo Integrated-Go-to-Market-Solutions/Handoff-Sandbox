@@ -40,7 +40,7 @@ export function Proof() {
                 <span className="text-cyan">goes here.</span>
               </p>
               <Button href={site.bookCall} className="mt-8 w-full">
-                Book a call
+                Get Started Today
               </Button>
             </div>
           </Reveal>
