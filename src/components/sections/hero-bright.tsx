@@ -23,9 +23,9 @@ const STRIP = [
 ] as const;
 
 /**
- * `subhead` is the one line an industry page swaps. Everything else -- the
- * label, the headline, the CTAs, the team strip -- stays identical, so the
- * industry pages read as the same site rather than as landing pages.
+ * `subhead` is the one line an industry page swaps. The label, the headline,
+ * the CTAs and the team strip all stay identical, so the industry pages read
+ * as the same site rather than as landing pages.
  */
 export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
