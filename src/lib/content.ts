@@ -47,6 +47,20 @@ export const problem = {
   eyebrow: "Sound familiar",
   headline: "You are the bottleneck",
   body: "You are still doing the work you should have handed off two hires ago. You tried a cheap offshore hire and got someone who needed managing. What you actually need is a person who can run something, not another task list to supervise.",
+  /**
+   * The same pressure as an ops leader or COO experiences it. They do not
+   * think of themselves as the bottleneck, they think of themselves as
+   * under-resourced, so the section has to speak both ways.
+   */
+  bodyDepartment:
+    "And if you are running a department rather than the whole company, the version of this you know is different. The headcount is approved or it is not. The work does not wait either way, and the good people you already have are covering for a seat that has been open for two months.",
+  /**
+   * All four card backs say the same thing on purpose. This line sets that
+   * up so it reads as the argument rather than as a mistake.
+   */
+  cardsLead: "Different problems. Same fix.",
+  cardsActionDesktop: "Flip any of them.",
+  cardsActionMobile: "Tap any of them.",
   cards: [
     {
       title: "The one who never says no",
@@ -59,6 +73,10 @@ export const problem = {
     {
       title: "The one whose ops person just quit",
       copy: "Two weeks' notice, and the person who held the operation together is walking out with everything in their head.",
+    },
+    {
+      title: "The one hiring abroad for the first time",
+      copy: "You know the talent is out there. You do not know how to tell a great candidate from a good interview, or what happens after you say yes. So the search keeps getting pushed to next quarter.",
     },
   ],
 };
@@ -162,8 +180,8 @@ export const process = {
     },
     {
       n: "03",
-      title: "Skills, English and fit",
-      copy: "Video skills assessments and multiple interview rounds. We screen for communication and judgement, not just the technical checklist.",
+      title: "Skills, English, AI and fit",
+      copy: "Video skills assessments and multiple interview rounds. We screen for communication, judgement, and how well someone works with AI tools, not just the technical checklist.",
     },
     {
       n: "04",
@@ -171,6 +189,15 @@ export const process = {
       copy: "You meet a short list and decide. We handle contracts, compliant employment, payroll and the onboarding that gets them productive fast.",
     },
   ],
+};
+
+/**
+ * The hero says AI TRAINED and nothing else on the site backed it up. This
+ * block does, immediately after the process, where the vetting claim lands.
+ */
+export const aiTrained = {
+  headline: "What “AI trained” actually means",
+  body: "Every person we place already works with AI tools daily and knows where to use them and where not to. That is a hiring standard for us, not a feature we added. It is also why they move faster on the same work. The judgement stays human. The busywork does not.",
 };
 
 export const faqs = [
@@ -258,7 +285,10 @@ export const soul = {
   quote:
     "I was just a number for them. They knew that I existed, but I was just part of the talent pool.",
   attribution: "Ever Jaimes",
-  attributionRole: "Client Manager, Handoff",
+  // Without the second clause this reads as a current employee describing
+  // Handoff. She is describing the competitor she applied to before.
+  attributionRole:
+    "Client Manager at Handoff, on the agency she worked with before.",
   closer:
     "We named our platform Alma. It means soul. That is not branding, it is the entire argument: a person who is treated like a teammate stays, and a person who is treated like a line item leaves.",
   culture: {
@@ -363,9 +393,143 @@ export const contactPage = {
   ],
 };
 
-export const nav = [
+/**
+ * Industry pages sit underneath a deliberately general homepage, so nobody
+ * leaves because they do not see their own industry, and each page still
+ * speaks to one room at a time.
+ *
+ * Rule for adding to this list: only build a page for an industry where a
+ * client will go on the record. Until then the industry is a dropdown line
+ * that points at the homepage.
+ */
+export const industries = [
+  {
+    slug: "corporate-housing",
+    navLabel: "Corporate housing",
+    name: "Corporate housing and furnished rentals",
+    subhead:
+      "We help corporate housing and furnished rental operators hire Latin America's top 1% talent.",
+    problemHeadline: "Your season does not wait for a hire",
+    problemBody:
+      "Occupancy climbs, the reservations inbox fills, and the person holding it together is doing three jobs. Hiring for it in the US does not pencil out at these margins, and the last remote assistant you tried needed a script for every guest message.",
+    triggers: [
+      "Peak season arrives and your reservations team is underwater.",
+      "Your operations manager gives notice and takes the vendor relationships with them.",
+      "You are turning down units because nobody can handle the coordination.",
+      "You tried a VA for guest messaging and got someone who could not make a judgement call.",
+    ],
+    rolesHeadline: "The roles we fill most in corporate housing",
+    roles: [
+      "Reservations Manager",
+      "Operations Manager",
+      "Quality Assurance Specialist",
+      "Guest Services Coordinator",
+      "Bookkeeper",
+    ],
+    rolesCloser:
+      "These are the roles Anthony hired for himself over ten years in this industry, which is why our recruiting is deepest here.",
+  },
+  {
+    slug: "corporate-relocation",
+    navLabel: "Corporate relocation",
+    name: "Corporate relocation",
+    subhead:
+      "We help relocation management companies, movers, and immigration and tax providers hire Latin America's top 1% talent.",
+    problemHeadline: "Assignment volume moves faster than hiring does",
+    problemBody:
+      "A client wins a contract and suddenly you are coordinating twice the assignments with the same team. Adding a US coordinator takes three months and costs more than the account can carry. The work lands on people who are already at capacity, and clients notice before you do.",
+    triggers: [
+      "Assignment volume spikes and coordination falls behind.",
+      "Your client services lead leaves in the middle of assignment season.",
+      "You are quoting work you are not sure you can staff.",
+      "You tried offshore support and your clients could tell.",
+    ],
+    rolesHeadline: "The roles we fill most in relocation",
+    roles: [
+      "Operations Coordinator",
+      "Account Manager",
+      "Client Services Lead",
+      "Quality Assurance Specialist",
+      "Bookkeeper",
+    ],
+    rolesCloser:
+      "Same time zone as your clients, client-ready English, and people who understand that a delayed assignment is somebody's family waiting in a hotel.",
+  },
+] as const;
+
+/**
+ * "Talent" read as a page for job seekers, so buyers skipped it and candidates
+ * landed on it. It is a page about roles you can hire, so it is called Roles.
+ */
+export type NavItem = {
+  label: string;
+  href: string;
+  /** Renders as a dropdown on desktop and an indented group on mobile. */
+  children?: { label: string; href: string }[];
+};
+
+export const nav: NavItem[] = [
   { label: "How it works", href: "/#process" },
-  { label: "Talent", href: "/talent" },
+  {
+    label: "Industries",
+    href: "/industries/corporate-housing",
+    children: industries.map((industry) => ({
+      label: industry.navLabel,
+      href: `/industries/${industry.slug}`,
+    })),
+  },
+  { label: "Roles", href: "/talent" },
+  { label: "Results", href: "/results" },
   { label: "Pricing", href: "/#models" },
   { label: "About", href: "/about" },
 ];
+
+/**
+ * Client proof. The quotes are cleared for the site but not yet cleared with
+ * the individual clients, so the module ships with the slots visible and the
+ * copy obviously fake. Each live quote needs a real name, title, company and
+ * a link to that person's actual LinkedIn profile.
+ */
+export const clientQuotes = {
+  eyebrow: "In their words",
+  headline: "What clients say when we are not on the call",
+  slots: [
+    { id: "quote-1", quote: "[CLIENT QUOTE PENDING APPROVAL]", name: "[NAME PENDING]", title: "[TITLE PENDING]", company: "[COMPANY PENDING]", linkedin: "" },
+    { id: "quote-2", quote: "[CLIENT QUOTE PENDING APPROVAL]", name: "[NAME PENDING]", title: "[TITLE PENDING]", company: "[COMPANY PENDING]", linkedin: "" },
+    { id: "quote-3", quote: "[CLIENT QUOTE PENDING APPROVAL]", name: "[NAME PENDING]", title: "[TITLE PENDING]", company: "[COMPANY PENDING]", linkedin: "" },
+  ],
+};
+
+/**
+ * /results. Built empty on purpose: the case study, the retention figure and
+ * the video testimonials are all real but still anonymised, so the structure
+ * ships now and the copy drops in when the clients clear it.
+ */
+export const resultsPage = {
+  eyebrow: "Results",
+  headline: "What happens after the hire",
+  headlineAccent: "is the whole point.",
+  body: "Placing someone is the easy half. These are the numbers and the stories from companies that made the hire and kept the person.",
+  numbers: [
+    { value: "[PENDING]", label: "[RETENTION FIGURE PENDING CLIENT APPROVAL]" },
+    { value: "[PENDING]", label: "[METRIC PENDING CLIENT APPROVAL]" },
+    { value: "[PENDING]", label: "[METRIC PENDING CLIENT APPROVAL]" },
+  ],
+  caseStudy: {
+    eyebrow: "Case study",
+    company: "[COMPANY PENDING APPROVAL]",
+    headline: "[CASE STUDY HEADLINE PENDING APPROVAL]",
+    situation: "[SITUATION PENDING APPROVAL]",
+    work: "[WHAT WE DID PENDING APPROVAL]",
+    outcome: "[OUTCOME PENDING APPROVAL]",
+  },
+  videos: {
+    headline: "Video testimonials",
+    body: "Filmed with clients, on their own terms. Dropping in as each one clears.",
+    slots: [
+      { id: "video-1", label: "[VIDEO TESTIMONIAL PENDING APPROVAL]" },
+      { id: "video-2", label: "[VIDEO TESTIMONIAL PENDING APPROVAL]" },
+      { id: "video-3", label: "[VIDEO TESTIMONIAL PENDING APPROVAL]" },
+    ],
+  },
+};

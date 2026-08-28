@@ -8,6 +8,7 @@ const accents = [
   { front: "bg-cyan", back: "bg-ink text-bone" },
   { front: "bg-royal text-bone", back: "bg-acid text-ink" },
   { front: "bg-acid text-ink", back: "bg-cyan text-ink" },
+  { front: "bg-ink text-bone", back: "bg-royal text-bone" },
 ] as const;
 
 function ProblemCard({
@@ -26,29 +27,26 @@ function ProblemCard({
     <button
       type="button"
       aria-pressed={flipped}
-      aria-label={`${flipped ? "Show" : "Flip"} ${title}`}
+      aria-label={`${title}. ${flipped ? "Show the problem" : "Show the fix"}`}
       onClick={() => setFlipped((value) => !value)}
-      className="group block h-[18rem] w-full text-left [perspective:1200px]"
+      className="group block h-[20rem] w-full text-left [perspective:1200px]"
     >
       <span
         className={`relative block h-full w-full transition-transform duration-700 [transform-style:preserve-3d] ${
           flipped ? "[transform:rotateY(180deg)]" : ""
         }`}
       >
+        {/* The repeated "Sound familiar" and "Flip to stop this" labels moved
+            up to the section intro. Four cards each carrying both read as
+            four identical labels rather than as four problems. */}
         <span
-          className={`absolute inset-0 flex h-full flex-col justify-between rounded-[var(--radius-card)] p-7 shadow-sm transition-shadow duration-500 group-hover:shadow-xl [backface-visibility:hidden] ${accent.front}`}
+          className={`absolute inset-0 flex h-full flex-col justify-end rounded-[var(--radius-card)] p-7 shadow-sm transition-shadow duration-500 group-hover:shadow-xl [backface-visibility:hidden] ${accent.front}`}
         >
-          <span className="eyebrow opacity-65">Sound familiar</span>
-          <span>
-            <span className="block whitespace-nowrap text-[clamp(1.05rem,1.6vw,1.3rem)] font-bold leading-tight tracking-tight">
-              {title}
-            </span>
-            <span className="mt-3 block text-base font-medium leading-relaxed opacity-85">
-              {copy}
-            </span>
+          <span className="block text-[clamp(1.05rem,1.6vw,1.3rem)] font-bold leading-tight tracking-tight">
+            {title}
           </span>
-          <span className="text-xs font-bold uppercase tracking-[0.16em] opacity-70">
-            Flip to stop this
+          <span className="mt-3 block text-base font-medium leading-relaxed opacity-85">
+            {copy}
           </span>
         </span>
 
@@ -62,9 +60,6 @@ function ProblemCard({
               A capable teammate can own this work without becoming another task
               for you to manage.
             </span>
-          </span>
-          <span className="text-xs font-bold uppercase tracking-[0.16em] opacity-70">
-            Click to flip back
           </span>
         </span>
       </span>
@@ -83,9 +78,24 @@ export function Problem() {
           <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-ink/70 md:text-lg">
             {problem.body}
           </p>
+          <p className="mt-4 max-w-[58ch] text-base leading-relaxed text-ink/70 md:text-lg">
+            {problem.bodyDepartment}
+          </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <Reveal className="mt-14">
+          <p className="eyebrow text-ink/55">{problem.eyebrow}</p>
+          <p className="mt-2 text-lg font-semibold text-ink md:text-xl">
+            {problem.cardsLead}{" "}
+            {/* "Flip" is a desktop word. On a phone the gesture is a tap. */}
+            <span className="md:hidden">{problem.cardsActionMobile}</span>
+            <span className="hidden md:inline">
+              {problem.cardsActionDesktop}
+            </span>
+          </p>
+        </Reveal>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {problem.cards.map((card, i) => (
             <Reveal key={card.title} delay={i * 110}>
               <ProblemCard title={card.title} copy={card.copy} index={i} />

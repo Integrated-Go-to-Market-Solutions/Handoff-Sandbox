@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LogoMark, Wordmark } from "./brand";
-import { site } from "@/lib/content";
+import { site, industries } from "@/lib/content";
 
 const columns = [
   {
@@ -8,13 +8,18 @@ const columns = [
     links: [
       { label: "How it works", href: "/#process" },
       { label: "Pricing", href: "/#models" },
+      { label: "Results", href: "/results" },
       { label: "About", href: "/about" },
     ],
   },
   {
     title: "Talent",
     links: [
-      { label: "Who you could hire", href: "/talent" },
+      { label: "Roles you can hire", href: "/talent" },
+      ...industries.map((industry) => ({
+        label: industry.navLabel,
+        href: `/industries/${industry.slug}`,
+      })),
     ],
   },
   {
@@ -37,10 +42,6 @@ export function SiteFooter() {
               <LogoMark className="h-10 w-10" tone="dark" />
               <Wordmark className="text-base" />
             </Link>
-            <p className="mt-5 max-w-[30ch] text-base font-medium leading-relaxed text-bone/80">
-              The top 1% of Latin American talent, AI-enabled, placed inside the
-              best US companies.
-            </p>
           </div>
 
           {columns.map((col) => (

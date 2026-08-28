@@ -4,7 +4,7 @@ import { models, site } from "@/lib/content";
 
 export function Models() {
   return (
-    <section id="models" className="relative overflow-hidden bg-bone py-20 text-ink md:py-24">
+    <section id="models" className="relative overflow-hidden bg-bone pb-20 pt-28 text-ink md:pb-24 md:pt-36">
 
       <div className="shell relative">
         <Reveal className="max-w-3xl">
@@ -36,7 +36,7 @@ export function Models() {
                 <h3
                   className="display mt-5 min-h-[4.5rem] text-3xl text-ink"
                 >
-                  {model.name}
+                  {model.name.replace("-", "‑")}
                 </h3>
                 <p
                   className="mt-2 min-h-[2.5rem] text-sm font-medium text-ink/75"
@@ -59,7 +59,7 @@ export function Models() {
                   {model.copy}
                 </p>
 
-                <ul className="mt-6 space-y-3">
+                <ul className="mb-9 mt-6 space-y-3">
                   {model.points.map((point) => (
                     <li
                       key={point}
@@ -87,9 +87,10 @@ export function Models() {
                 <Button
                   href={site.bookCall}
                   variant="ink"
+                  size="lg"
                   className="mt-auto w-full"
                 >
-                  Get Started Today
+                  Find out more
                 </Button>
               </article>
             </Reveal>

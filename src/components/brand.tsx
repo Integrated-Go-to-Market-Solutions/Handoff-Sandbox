@@ -56,6 +56,8 @@ type ButtonProps = {
   children: React.ReactNode;
   /** `ghost` sits on light surfaces, `ghostDark` on ink ones. */
   variant?: "cyan" | "ink" | "ghost" | "ghostDark";
+  /** `sm` is the header button, `lg` the block button in the pricing cards. */
+  size?: "sm" | "default" | "lg";
   className?: string;
 };
 
@@ -63,10 +65,16 @@ export function Button({
   href,
   children,
   variant = "cyan",
+  size = "default",
   className = "",
 }: ButtonProps) {
   const base =
-    "group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[0.95rem] font-semibold transition-all duration-300 will-change-transform hover:-translate-y-0.5";
+    "group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 will-change-transform hover:-translate-y-0.5";
+  const sizes = {
+    sm: "px-5 py-2.5 text-sm",
+    default: "px-7 py-3.5 text-[0.95rem]",
+    lg: "px-9 py-5 text-[1rem]",
+  };
   const variants = {
     cyan: "bg-cyan text-ink hover:bg-ink hover:text-cyan",
     ink: "bg-ink text-bone hover:bg-royal hover:text-white",
@@ -75,7 +83,10 @@ export function Button({
       "border-2 border-white/25 text-bone hover:border-cyan hover:text-cyan",
   };
   return (
-    <Link href={href} className={`${base} ${variants[variant]} ${className}`}>
+    <Link
+      href={href}
+      className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}
+    >
       {children}
       <span className="transition-transform duration-300 group-hover:translate-x-1">
         &rarr;
