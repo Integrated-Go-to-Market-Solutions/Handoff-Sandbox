@@ -63,21 +63,21 @@ export default function AboutPage() {
           aria-hidden="true"
         />
 
-        <div className="shell relative max-w-4xl">
-          <Reveal>
+        <div className="shell relative">
+          <Reveal className="max-w-4xl">
             <h1 className="display text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
               {proof.headline}
               <br />
               <span className="text-royal">{proof.headlineAccent}</span>
             </h1>
           </Reveal>
-          <Reveal delay={90}>
+          <Reveal delay={90} className="max-w-4xl">
             <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-ink/70">
               {proof.body}
             </p>
           </Reveal>
 
-          <Reveal delay={150}>
+          <Reveal delay={150} className="max-w-4xl">
             <nav aria-label="Handoff social media" className="mt-8 flex flex-wrap gap-4">
               {socialLinks.map((social) => (
                 <a

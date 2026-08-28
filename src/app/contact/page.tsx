@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
+import { Eyebrow } from "@/components/brand";
 import { ContactForm } from "@/components/contact-form";
 import { contactPage, models } from "@/lib/content";
 
@@ -22,7 +23,8 @@ export default function ContactPage() {
         <div className="shell relative grid gap-14 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
             <Reveal delay={80}>
-              <h1 className="display mt-6 text-[clamp(2.4rem,5.4vw,4.1rem)] text-ink">
+              <Eyebrow className="mb-5 md:mb-6">{contactPage.eyebrow}</Eyebrow>
+              <h1 className="display text-[clamp(2.4rem,5.4vw,4.1rem)] text-ink">
                 {contactPage.headline}{" "}
                 <span className="text-royal">{contactPage.headlineAccent}</span>
               </h1>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "../brand";
+import { Button, Eyebrow } from "../brand";
 import { Counter } from "../counter";
 import { hero } from "@/lib/content";
 
@@ -29,7 +29,7 @@ const STRIP = [
  */
 export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
-    <section className="relative overflow-hidden bg-white pt-12 md:pt-20">
+    <section className="relative overflow-hidden bg-white pt-14 md:pt-20">
       {/* Bright colour wash rather than a dark vignette. */}
       <div
         className="drift pointer-events-none absolute -right-40 -top-48 h-[620px] w-[620px] rounded-full opacity-30 blur-[130px]"
@@ -38,11 +38,7 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
       />
 
       <div className="shell relative">
-        {/* Plain label, not a pill: a filled bubble here read as a third
-            button and pulled attention off the actual CTAs. */}
-        <p className="eyebrow mb-5 text-[0.8125rem] tracking-[0.22em] text-royal md:mb-6 md:text-sm">
-          {hero.eyebrow}
-        </p>
+        <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>
         <h1 className="display max-w-[15ch] text-[clamp(3rem,9vw,7.5rem)] text-ink">
           {hero.headline[0]}{" "}
           <span className="text-royal">{hero.headline[1]}</span>{" "}

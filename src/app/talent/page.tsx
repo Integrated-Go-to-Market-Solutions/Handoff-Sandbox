@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
-import { Pill } from "@/components/brand";
+import { Eyebrow } from "@/components/brand";
 import { Cta } from "@/components/sections/cta";
 import { talentPage, roleGroups } from "@/lib/content";
 
@@ -25,16 +25,19 @@ export default function TalentPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-white pb-16 pt-14 md:pb-20 md:pt-20">
-        <div className="shell relative max-w-4xl">
-          <Reveal>
-            <Pill>{talentPage.eyebrow}</Pill>
-            <h1 className="display mt-5 text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
+        {/* max-w on the shell itself re-centres the block, so the top of the
+            page sat ~170px right of every section below it. The cap belongs
+            on an inner element, which left-aligns by default. */}
+        <div className="shell relative">
+          <Reveal className="max-w-4xl">
+            <Eyebrow className="mb-5 md:mb-6">{talentPage.eyebrow}</Eyebrow>
+            <h1 className="display text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
               The roles you can
               <br />
               <span className="text-royal">actually hand off.</span>
             </h1>
           </Reveal>
-          <Reveal delay={90}>
+          <Reveal delay={90} className="max-w-4xl">
             <p className="mt-5 max-w-[62ch] text-lg font-medium leading-relaxed text-ink/80">
               {talentPage.rolesBody}
             </p>

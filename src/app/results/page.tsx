@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
+import { Eyebrow } from "@/components/brand";
 import { ClientQuotes } from "@/components/sections/client-quotes";
 import { Cta } from "@/components/sections/cta";
 import { resultsPage } from "@/lib/content";
@@ -27,16 +28,16 @@ export default function ResultsPage() {
           aria-hidden="true"
         />
 
-        <div className="shell relative max-w-4xl">
-          <Reveal>
-            <p className="eyebrow text-royal">{resultsPage.eyebrow}</p>
-            <h1 className="display mt-5 text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
+        <div className="shell relative">
+          <Reveal className="max-w-4xl">
+            <Eyebrow className="mb-5 md:mb-6">{resultsPage.eyebrow}</Eyebrow>
+            <h1 className="display text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
               {resultsPage.headline}
               <br />
               <span className="text-royal">{resultsPage.headlineAccent}</span>
             </h1>
           </Reveal>
-          <Reveal delay={90}>
+          <Reveal delay={90} className="max-w-4xl">
             <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-ink/70">
               {resultsPage.body}
             </p>
@@ -65,10 +66,7 @@ export default function ResultsPage() {
       <section className="bg-bone py-20 text-ink md:py-24" aria-label="Case study">
         <div className="shell">
           <Reveal className="max-w-3xl">
-            <p className="eyebrow text-ink/55">
-              {resultsPage.caseStudy.eyebrow}
-            </p>
-            <p className="mt-3 text-sm font-bold uppercase tracking-[0.14em] text-ink/40">
+            <p className="text-sm font-bold uppercase tracking-[0.14em] text-ink/40">
               {resultsPage.caseStudy.company}
             </p>
             <h2 className="display mt-4 text-[clamp(1.9rem,4.2vw,3.1rem)] text-ink/45">
@@ -84,7 +82,7 @@ export default function ResultsPage() {
             ].map((panel, i) => (
               <Reveal key={panel.label} delay={i * 90}>
                 <div className="h-full rounded-[var(--radius-card)] border border-dashed border-ink/25 bg-white/70 p-7">
-                  <p className="eyebrow text-ink/55">{panel.label}</p>
+                  <p className="text-sm font-bold text-ink/70">{panel.label}</p>
                   <p className="mt-4 text-base font-semibold leading-relaxed text-ink/45">
                     {panel.copy}
                   </p>

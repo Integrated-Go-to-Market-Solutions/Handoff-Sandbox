@@ -84,8 +84,7 @@ export function Problem() {
         </Reveal>
 
         <Reveal className="mt-14">
-          <p className="eyebrow text-ink/55">{problem.eyebrow}</p>
-          <p className="mt-2 text-lg font-semibold text-ink md:text-xl">
+          <p className="text-lg font-semibold text-ink md:text-xl">
             {problem.cardsLead}{" "}
             {/* "Flip" is a desktop word. On a phone the gesture is a tap. */}
             <span className="md:hidden">{problem.cardsActionMobile}</span>

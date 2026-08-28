@@ -95,6 +95,37 @@ export function Button({
   );
 }
 
+/**
+ * The label above a page's H1. Deliberately NOT a pill: a filled bubble reads
+ * as a button and competes with the actual CTAs. Plain type, brand colour,
+ * open tracking.
+ *
+ * Page-top only. The standing rule is no section eyebrows, so this never
+ * opens a section in the middle of a page.
+ */
+export function Eyebrow({
+  children,
+  tone = "royal",
+  className = "",
+}: {
+  children: React.ReactNode;
+  tone?: "royal" | "muted" | "onDark";
+  className?: string;
+}) {
+  const tones = {
+    royal: "text-royal",
+    muted: "text-ink/55",
+    onDark: "text-cyan",
+  };
+  return (
+    <p
+      className={`eyebrow text-[0.8125rem] tracking-[0.22em] md:text-sm ${tones[tone]} ${className}`}
+    >
+      {children}
+    </p>
+  );
+}
+
 export function Pill({
   children,
   tone = "cyan",

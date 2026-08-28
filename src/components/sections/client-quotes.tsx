@@ -18,8 +18,7 @@ export function ClientQuotes() {
     >
       <div className="shell relative">
         <Reveal className="max-w-3xl">
-          <p className="eyebrow text-ink/55">{clientQuotes.eyebrow}</p>
-          <h2 className="display mt-3 text-[clamp(2rem,4.6vw,3.4rem)] text-ink">
+          <h2 className="display text-[clamp(2rem,4.6vw,3.4rem)] text-ink">
             {clientQuotes.headline}
           </h2>
         </Reveal>
