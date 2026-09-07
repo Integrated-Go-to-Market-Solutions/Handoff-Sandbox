@@ -22,12 +22,6 @@ export default function ResultsPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-ink section-py-tight">
-        <div
-          className="drift pointer-events-none absolute -right-48 -top-52 h-[600px] w-[600px] rounded-full opacity-20 blur-[130px]"
-          style={{ background: "var(--color-cyan)" }}
-          aria-hidden="true"
-        />
-
         <div className="shell relative">
           <Reveal className="max-w-4xl">
             <Eyebrow className="mb-5 md:mb-6">{resultsPage.eyebrow}</Eyebrow>

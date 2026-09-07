@@ -1,42 +1,21 @@
-import Image from "next/image";
 import { Button, Eyebrow } from "../brand";
 import { Counter } from "../counter";
 import { hero, team } from "@/lib/content";
 
 /**
- * Third hero option: keeps the bright page, gets its distinctiveness from
- * composition instead of a dark scrim.
+ * `subhead` is the one line an industry page swaps. The label, the headline
+ * and the CTAs all stay identical, so the industry pages read as the same
+ * site rather than as landing pages.
  *
- * Type sits on white where it is unarguably legible. The team runs beneath it
- * as a staggered strip that bleeds off both edges, so the page reads as a
- * fragment of something larger rather than a centred container. Editorial
- * rather than template.
- */
-const STRIP = [
-  { slug: "jazmin-esparza", name: "Jazmin Esparza", role: "Chief of Staff", offset: "sm:mt-16" },
-  { slug: "catalina-saldarriaga", name: "Catalina Saldarriaga", role: "Operations Manager", offset: "sm:mt-0" },
-  { slug: "karla-patron", name: "Karla Patrón", role: "Marketing Specialist", offset: "sm:mt-24" },
-  { slug: "jake-castro", name: "Jake Castro", role: "VP of Automation", offset: "sm:mt-6" },
-  { slug: "leidy-quintero", name: "Leidy Quintero", role: "Project Manager", offset: "sm:mt-28" },
-  { slug: "simon-quintero", name: "Simon Quintero", role: "Executive Assistant", offset: "sm:mt-10" },
-  { slug: "shaori-velueta", name: "Shaori Velueta", role: "Digital Marketer", offset: "sm:mt-20" },
-] as const;
-
-/**
- * `subhead` is the one line an industry page swaps. The label, the headline,
- * the CTAs and the team strip all stay identical, so the industry pages read
- * as the same site rather than as landing pages.
+ * Per the 9/4 client call, the hero no longer leads with Handoff's own team
+ * photos — that reads as "the team at the top" instead of the talent a buyer
+ * could actually hire. The team still appears, just on /about, not here.
+ * The decorative blurred colour wash was also dropped: called out on the
+ * same call as an "unjustified gradient shape" that reads generic/AI-made.
  */
 export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
-    <section className="relative overflow-hidden bg-ink pt-14 md:pt-20">
-      {/* Colour wash against the dark base. */}
-      <div
-        className="drift pointer-events-none absolute -right-40 -top-48 h-[620px] w-[620px] rounded-full opacity-20 blur-[130px]"
-        style={{ background: "var(--color-cyan)" }}
-        aria-hidden="true"
-      />
-
+    <section className="relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
       <div className="shell relative">
         <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>
         <h1 className="display max-w-[15ch] text-[clamp(3rem,9vw,7.5rem)] text-bone">
@@ -99,37 +78,6 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
             </div>
           </dl>
         </div>
-      </div>
-
-      {/* Staggered strip, held inside the shell so no face is clipped. The
-          editorial feel comes from the offsets, not from running off the edge. */}
-      <div className="shell relative mt-12 flex gap-4 overflow-x-auto pb-12 sm:mt-8 sm:grid sm:grid-cols-7 sm:gap-3 sm:overflow-visible sm:pb-16 lg:gap-4">
-        {STRIP.map((cell, i) => (
-          <figure
-            key={cell.slug}
-            className={`group relative w-[200px] shrink-0 sm:w-auto ${cell.offset}`}
-          >
-            <div className="relative aspect-[3/4] overflow-hidden rounded-[var(--radius-brand)] bg-ink-100">
-                <Image
-                  src={`/images/team/${cell.slug}.webp`}
-                  alt={`${cell.name}, ${cell.role} at Handoff`}
-                  fill
-                  priority={i < 4}
-                  sizes="(max-width: 640px) 200px, 14vw"
-                  className="object-cover transition-all duration-700 group-hover:scale-[1.04] group-hover:grayscale"
-                />
-            </div>
-
-            <figcaption className="mt-3">
-              <p className="text-[0.8rem] font-semibold leading-tight text-bone">
-                {cell.name}
-              </p>
-              <p className="text-[0.75rem] leading-tight text-cyan">
-                {cell.role}
-              </p>
-            </figcaption>
-          </figure>
-        ))}
       </div>
     </section>
   );

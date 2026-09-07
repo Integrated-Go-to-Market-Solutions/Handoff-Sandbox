@@ -14,12 +14,6 @@ export default function ContactPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-ink section-py-tight">
-        <div
-          className="pointer-events-none absolute -left-52 -top-56 h-[620px] w-[620px] rounded-full opacity-20 blur-[130px]"
-          style={{ background: "var(--color-cyan)" }}
-          aria-hidden="true"
-        />
-
         <div className="shell relative grid gap-14 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
             <Reveal delay={80}>

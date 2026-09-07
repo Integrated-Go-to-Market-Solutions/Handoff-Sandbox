@@ -78,8 +78,8 @@ function ProblemCard({
 export function Problem() {
   return (
     <section className="relative overflow-hidden bg-ink section-py text-bone">
-      <div className="shell relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
-        <Reveal>
+      <div className="shell relative">
+        <Reveal className="max-w-3xl">
           <h2 className="display mt-2 text-[clamp(2rem,5vw,3.9rem)]">
             {problem.headline}
           </h2>
@@ -90,17 +90,6 @@ export function Problem() {
             {problem.bodyDepartment}
           </p>
         </Reveal>
-
-        {/* Fills the right side next to the intro copy, which otherwise read
-            empty against the wider dark section. */}
-        <Reveal delay={120} className="hidden justify-self-center lg:block">
-          <span className="inline-flex h-40 w-40 items-center justify-center rounded-full border border-cyan/20 bg-cyan/[0.06] text-cyan">
-            <Icon name="target" className="h-20 w-20" />
-          </span>
-        </Reveal>
-      </div>
-
-      <div className="shell relative">
         <Reveal className="mt-14">
           <p className="text-lg font-semibold text-bone md:text-xl">
             {problem.cardsLead}{" "}

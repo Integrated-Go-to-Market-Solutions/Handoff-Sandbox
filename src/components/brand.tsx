@@ -55,10 +55,12 @@ type ButtonProps = {
   href: string;
   children: React.ReactNode;
   /**
-   * `acid` is the CTA color, reserved for buttons only per the brand
-   * guidelines. `ghost` sits on light surfaces, `ghostDark` on ink ones.
+   * `cyan` is the CTA color. Per the 9/4 call: carbon and teal are the two
+   * main colors the site should move between, blue only sometimes, and no
+   * yellow at all — that was wrongly invented from a stale brand PDF
+   * footnote. `ghost` sits on light surfaces, `ghostDark` on ink ones.
    */
-  variant?: "acid" | "ink" | "ghost" | "ghostDark";
+  variant?: "cyan" | "ink" | "ghost" | "ghostDark";
   /** `sm` is the header button, `lg` the block button in the pricing cards. */
   size?: "sm" | "default" | "lg";
   className?: string;
@@ -67,7 +69,7 @@ type ButtonProps = {
 export function Button({
   href,
   children,
-  variant = "acid",
+  variant = "cyan",
   size = "default",
   className = "",
 }: ButtonProps) {
@@ -79,7 +81,7 @@ export function Button({
     lg: "px-9 py-5 text-[1rem]",
   };
   const variants = {
-    acid: "bg-acid text-ink hover:bg-cyan hover:text-ink",
+    cyan: "bg-cyan text-ink hover:bg-ink hover:text-cyan",
     ink: "bg-ink text-bone hover:bg-royal hover:text-white",
     ghost: "border-2 border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-bone",
     ghostDark:
