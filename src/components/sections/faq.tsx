@@ -1,5 +1,50 @@
+"use client";
+
+import { useState } from "react";
 import { Reveal } from "../reveal";
 import { faqs } from "@/lib/content";
+
+/**
+ * Native `<details>` opened with no transition at all — Nico's feedback on
+ * the follow-up call: "you click it and it instantly goes into the text. It
+ * doesn't have like a motion on it... those little micro interactions is,
+ * in my experience, what makes a site look great." Grid-rows 0fr/1fr gives
+ * a smooth open/close without measuring heights in JS.
+ */
+function FaqItem({ q, a, delay }: { q: string; a: string; delay: number }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Reveal delay={delay}>
+      <div className="border-b border-white/12 py-6">
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          className="flex w-full cursor-pointer items-center justify-between gap-6 text-left text-lg font-semibold text-bone transition-colors hover:text-cyan"
+        >
+          <span className={open ? "text-cyan" : undefined}>{q}</span>
+          <span className="relative h-4 w-4 shrink-0">
+            <span className="absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 bg-current" />
+            <span
+              className={`absolute left-1/2 top-0 h-4 w-0.5 -translate-x-1/2 bg-current transition-transform duration-300 ${
+                open ? "rotate-90 opacity-0" : ""
+              }`}
+            />
+          </span>
+        </button>
+        <div
+          className="grid transition-[grid-template-rows] duration-300 ease-out"
+          style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+        >
+          <div className="overflow-hidden">
+            <p className="mt-4 max-w-[68ch] leading-relaxed text-bone/80">{a}</p>
+          </div>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
 
 export function Faq() {
   return (
@@ -19,20 +64,7 @@ export function Faq() {
 
         <div>
           {faqs.map((faq, i) => (
-            <Reveal key={faq.q} delay={i * 60}>
-              <details className="group border-b border-white/12 py-6">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-semibold text-bone transition-colors group-open:text-cyan hover:text-cyan">
-                  {faq.q}
-                  <span className="relative h-4 w-4 shrink-0">
-                    <span className="absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 bg-current" />
-                    <span className="absolute left-1/2 top-0 h-4 w-0.5 -translate-x-1/2 bg-current transition-transform duration-300 group-open:rotate-90 group-open:opacity-0" />
-                  </span>
-                </summary>
-                <p className="mt-4 max-w-[68ch] leading-relaxed text-bone/80">
-                  {faq.a}
-                </p>
-              </details>
-            </Reveal>
+            <FaqItem key={faq.q} q={faq.q} a={faq.a} delay={i * 60} />
           ))}
         </div>
       </div>

@@ -1,52 +1,32 @@
 import Link from "next/link";
 
 /**
- * The Handoff mark: a cyan diamond with the white check crossing its
- * lower-left, per the Logo Usage page of the brand guidelines.
+ * The real lockup from "Handoff Logo 2025" (Nico flagged the old hand-drawn
+ * placeholder mark as "a little off" on the 9/4 call). `surface` is the
+ * background it sits on: `dark` (the site default) uses the white-on-cyan
+ * file, `light` uses the navy-on-cyan one. A plain `img` rather than
+ * next/image: it's a small static vector, and Next's image optimizer
+ * refuses local SVGs without extra config for no benefit here.
  */
-export function LogoMark({
-  className = "h-9 w-9",
-  tone = "light",
+export function LogoLock({
+  className = "",
+  surface = "dark",
 }: {
   className?: string;
-  /** `light` = sitting on a light surface, so the check is ink. */
-  tone?: "light" | "dark";
+  surface?: "dark" | "light";
 }) {
-  return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
-      <path d="M28 4 L45 21 L28 38 L11 21 Z" fill="var(--color-cyan)" />
-      <path
-        d="M3 24 L14 35 L36 13"
-        fill="none"
-        stroke={tone === "light" ? "var(--color-ink)" : "#ffffff"}
-        strokeWidth="10"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-      />
-    </svg>
-  );
-}
-
-export function Wordmark({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`font-bold uppercase leading-[0.86] tracking-tight ${className}`}
-    >
-      <span className="block">Hand</span>
-      <span className="block">Off</span>
-    </span>
-  );
-}
-
-export function LogoLock({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/"
-      className={`inline-flex items-center gap-2.5 ${className}`}
+      className={`inline-flex items-center ${className}`}
       aria-label="Handoff home"
     >
-      <LogoMark />
-      <Wordmark className="text-[0.95rem]" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={surface === "dark" ? "/brand/logo-light.svg" : "/brand/logo-dark.svg"}
+        alt="Handoff"
+        className="h-8 w-auto"
+      />
     </Link>
   );
 }

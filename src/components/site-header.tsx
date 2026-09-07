@@ -81,7 +81,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="shell flex items-center justify-between py-4">
-        <LogoLock className="text-bone" />
+        <LogoLock />
 
         <nav className="hidden items-center gap-6 md:flex lg:gap-9">
           {nav.map((item) =>

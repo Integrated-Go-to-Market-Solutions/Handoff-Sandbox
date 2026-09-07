@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/reveal";
 import { HeroBright } from "@/components/sections/hero-bright";
+import { Stats } from "@/components/sections/stats";
 import { Models } from "@/components/sections/models";
 import { ClientQuotes } from "@/components/sections/client-quotes";
 import { Cta } from "@/components/sections/cta";
@@ -48,6 +49,7 @@ export default async function IndustryPage({
   return (
     <>
       <HeroBright subhead={industry.subhead} />
+      <Stats />
 
       <section className="relative overflow-hidden bg-ink section-py text-bone">
         <div className="shell relative">

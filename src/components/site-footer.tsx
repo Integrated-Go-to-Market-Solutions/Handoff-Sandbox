@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LogoMark, Wordmark } from "./brand";
+import { LogoLock } from "./brand";
 import { site, industries } from "@/lib/content";
 
 const columns = [
@@ -38,10 +38,7 @@ export function SiteFooter() {
       <div className="shell relative py-16">
         <div className="grid gap-12 md:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-2.5" aria-label="Handoff home">
-              <LogoMark className="h-10 w-10" tone="dark" />
-              <Wordmark className="text-base" />
-            </Link>
+            <LogoLock />
           </div>
 
           {columns.map((col) => (

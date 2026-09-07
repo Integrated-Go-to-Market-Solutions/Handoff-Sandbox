@@ -21,40 +21,47 @@ export function Models() {
         <div className="mt-14 grid gap-5 lg:grid-cols-3">
           {models.map((model, i) => (
             <Reveal key={model.name} delay={i * 110}>
+              {/*
+                Nico, follow-up call: "this only color is not indicating me
+                enough that we should choose this... maybe I will make the
+                whole card blue... give the user more guide on where he
+                should be looking." The featured card is now solid cyan
+                instead of a white card with a thin border, so it actually
+                reads as the recommended choice at a glance.
+              */}
               <article
                 className={`flex h-full flex-col rounded-[var(--radius-card)] p-8 transition-transform duration-500 hover:-translate-y-1.5 ${
                   model.featured
-                    ? "border-2 border-cyan bg-white text-ink shadow-lg"
-                    : "border border-ink/12 bg-white"
+                    ? "bg-cyan text-ink shadow-xl"
+                    : "border border-ink/12 bg-white text-ink"
                 }`}
               >
-                <Pill tone={model.featured ? "cyan" : "outline"}>
+                <Pill
+                  tone="outline"
+                  className={model.featured ? "!border-ink/30 !text-ink" : ""}
+                >
                   {model.tag}
                 </Pill>
 
-                <h3
-                  className="display mt-5 min-h-[5.5rem] text-2xl text-ink"
-                >
+                <h3 className="display mt-5 min-h-[5.5rem] text-2xl">
                   {model.name.replace("-", "‑")}
                 </h3>
-                <p
-                  className="mt-2 min-h-[2.5rem] text-sm font-medium text-ink/75"
-                >
+                <p className="mt-2 min-h-[2.5rem] text-sm font-medium opacity-75">
                   {model.forWho}
                 </p>
 
-                <div className="mt-6 min-h-[6.5rem] border-y border-ink/10 py-5">
-                  <p
-                    className="display text-2xl text-royal"
-                  >
+                <div
+                  className={`mt-6 min-h-[6.5rem] border-y py-5 ${model.featured ? "border-ink/15" : "border-ink/10"}`}
+                >
+                  <p className={`display text-2xl ${model.featured ? "text-ink" : "text-royal"}`}>
                     {model.price}
                   </p>
-                  <p className="mt-1 text-xs font-medium text-ink/70">
+                  <p className="mt-1 text-xs font-medium opacity-70">
                     {model.terms}
                   </p>
                 </div>
 
-                <p className="mt-6 min-h-[7.5rem] text-[0.97rem] leading-relaxed text-ink/80">
+                <p className="mt-6 min-h-[7.5rem] text-[0.97rem] leading-relaxed opacity-80">
                   {model.copy}
                 </p>
 
@@ -62,7 +69,7 @@ export function Models() {
                   {model.points.map((point) => (
                     <li
                       key={point}
-                      className="flex gap-3 text-[0.93rem] leading-snug text-ink/80"
+                      className="flex gap-3 text-[0.93rem] leading-snug opacity-80"
                     >
                       <svg
                         viewBox="0 0 20 20"
@@ -72,7 +79,7 @@ export function Models() {
                         <path
                           d="M4 10.5l4 4 8-9"
                           fill="none"
-                          stroke="var(--color-royal)"
+                          stroke="currentColor"
                           strokeWidth="2.4"
                           strokeLinecap="round"
                           strokeLinejoin="round"
