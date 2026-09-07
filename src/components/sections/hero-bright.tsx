@@ -17,7 +17,7 @@ import { hero } from "@/lib/content";
  */
 export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
-    <section className="tex-waves tex-waves-on-dark relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
+    <section className="tex-waves relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
       <div className="shell relative">
         <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>
         <h1 className="display max-w-[15ch] text-[clamp(3rem,9vw,7.5rem)] text-bone">
