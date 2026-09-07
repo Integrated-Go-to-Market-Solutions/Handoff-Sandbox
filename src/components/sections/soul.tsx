@@ -1,9 +1,16 @@
 import { Reveal } from "../reveal";
+import { PhotoBackdrop } from "../photo-backdrop";
 import { soul } from "@/lib/content";
 
+/**
+ * "I love a grayscale image as a subtle background with information" — the
+ * real team photo, desaturated and faint, behind the culture argument this
+ * section is making about the team.
+ */
 export function Soul() {
   return (
     <section className="relative overflow-hidden bg-ink section-py text-bone">
+      <PhotoBackdrop src="/images/team-group.webp" tone="dark" />
       <div className="shell relative grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
         <Reveal>
           <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-bone">

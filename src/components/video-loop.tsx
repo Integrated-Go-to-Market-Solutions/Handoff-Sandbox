@@ -98,7 +98,7 @@ export function VideoLoop({
       className={
         bare
           ? "absolute inset-0 bg-ink"
-          : "group relative overflow-hidden rounded-[var(--radius-brand)] bg-ink"
+          : "group relative overflow-hidden rounded-[var(--radius-brand)] border-2 border-cyan/50 bg-ink"
       }
     >
       <video

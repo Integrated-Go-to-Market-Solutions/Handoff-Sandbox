@@ -6,8 +6,8 @@ import { process } from "@/lib/content";
 const stepAccents = [
   "bg-cyan text-ink",
   "bg-royal text-bone",
-  "bg-bone text-ink",
-  "bg-ink-300 text-bone border border-cyan/30",
+  "bg-white text-ink border border-ink/10 shadow-sm",
+  "bg-ink text-bone border-2 border-cyan",
 ] as const;
 
 const stepIcons: IconName[] = ["target", "search", "chat", "rocket"];
@@ -18,20 +18,23 @@ const stepIcons: IconName[] = ["target", "search", "chat", "rocket"];
  * eyebrow and the step numbers both exist in content.ts but were never
  * rendered before, which undercut the hierarchy this section is supposed to
  * carry.
+ *
+ * Light gray, not carbon — the alternating rhythm both calls asked for, and
+ * an informational section like this reads cleanest on the light tier.
  */
 export function Process() {
   return (
     <section
       id="process"
-      className="relative overflow-hidden bg-ink section-py-hero text-bone"
+      className="tex-waves relative overflow-hidden bg-bone section-py-hero text-ink"
     >
       <div className="shell relative">
         <Reveal className="max-w-4xl">
-          <Eyebrow className="mb-5">{process.eyebrow}</Eyebrow>
-          <h2 className="display max-w-[18ch] text-[clamp(2.4rem,5.6vw,4.4rem)] text-bone">
+          <Eyebrow tone="royal" className="mb-5">{process.eyebrow}</Eyebrow>
+          <h2 className="display max-w-[18ch] text-[clamp(2.4rem,5.6vw,4.4rem)] text-ink">
             {process.headline}
           </h2>
-          <p className="mt-5 max-w-[54ch] text-base font-medium leading-relaxed text-bone/80 md:text-lg">
+          <p className="mt-5 max-w-[54ch] text-base font-medium leading-relaxed text-ink/75 md:text-lg">
             {process.body}
           </p>
         </Reveal>

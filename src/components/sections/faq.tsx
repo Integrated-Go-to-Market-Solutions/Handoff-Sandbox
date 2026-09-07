@@ -16,14 +16,14 @@ function FaqItem({ q, a, delay }: { q: string; a: string; delay: number }) {
 
   return (
     <Reveal delay={delay}>
-      <div className="border-b border-white/12 py-6">
+      <div className="border-b border-ink/12 py-6">
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
-          className="flex w-full cursor-pointer items-center justify-between gap-6 text-left text-lg font-semibold text-bone transition-colors hover:text-cyan"
+          className="flex w-full cursor-pointer items-center justify-between gap-6 text-left text-lg font-semibold text-ink transition-colors hover:text-royal"
         >
-          <span className={open ? "text-cyan" : undefined}>{q}</span>
+          <span className={open ? "text-royal" : undefined}>{q}</span>
           <span className="relative h-4 w-4 shrink-0">
             <span className="absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 bg-current" />
             <span
@@ -38,7 +38,7 @@ function FaqItem({ q, a, delay }: { q: string; a: string; delay: number }) {
           style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
         >
           <div className="overflow-hidden">
-            <p className="mt-4 max-w-[68ch] leading-relaxed text-bone/80">{a}</p>
+            <p className="mt-4 max-w-[68ch] leading-relaxed text-ink/70">{a}</p>
           </div>
         </div>
       </div>
@@ -48,15 +48,15 @@ function FaqItem({ q, a, delay }: { q: string; a: string; delay: number }) {
 
 export function Faq() {
   return (
-    <section className="relative overflow-hidden bg-ink section-py-hero text-bone">
+    <section className="relative overflow-hidden bg-bone section-py-hero text-ink">
       <div className="shell relative grid gap-14 lg:grid-cols-[0.85fr_1.15fr]">
         <Reveal>
-          <h2 className="display mt-5 text-[clamp(2.1rem,4.5vw,3.4rem)] text-bone">
+          <h2 className="display mt-5 text-[clamp(2.1rem,4.5vw,3.4rem)] text-ink">
             The questions
             <br />
-            <span className="text-cyan">we actually get</span>
+            <span className="text-royal">we actually get</span>
           </h2>
-          <p className="mt-6 max-w-[42ch] leading-relaxed text-bone/80">
+          <p className="mt-6 max-w-[42ch] leading-relaxed text-ink/70">
             If the honest answer is that we are not your fit, that is the answer
             you will get on the call.
           </p>
