@@ -1,7 +1,7 @@
 import { Eyebrow } from "../brand";
 import { Reveal } from "../reveal";
 import { Icon, type IconName } from "../icon";
-import { process } from "@/lib/content";
+import { process, hiringHighwayVideo } from "@/lib/content";
 
 const stepAccents = [
   "bg-cyan text-ink",
@@ -10,17 +10,20 @@ const stepAccents = [
   "bg-ink text-bone border-2 border-cyan",
 ] as const;
 
-const stepIcons: IconName[] = ["target", "search", "chat", "rocket"];
+const stepIcons: IconName[] = [
+  "target",
+  "search",
+  "clipboard",
+  "chat",
+  "envelope",
+  "rocket",
+];
 
 /**
- * "How it works" is the process the whole site's claims rest on, so it gets
- * more visual weight than a neighboring section, not less: the section's own
- * eyebrow and the step numbers both exist in content.ts but were never
- * rendered before, which undercut the hierarchy this section is supposed to
- * carry.
- *
- * Light gray, not carbon — the alternating rhythm both calls asked for, and
- * an informational section like this reads cleanest on the light tier.
+ * "The Hiring Highway" is the proprietary six-step system the whole site's
+ * claims rest on, so it gets more visual weight than a neighboring section,
+ * not less. Light gray, not carbon — the alternating rhythm both calls
+ * asked for, and an informational section like this reads cleanest there.
  */
 export function Process() {
   return (
@@ -39,14 +42,17 @@ export function Process() {
           </p>
         </Reveal>
 
-        <ol className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {process.steps.map((step, i) => (
-            <Reveal key={step.n} delay={i * 90} as="li">
+            <Reveal key={step.n} delay={i * 80} as="li">
               <div
-                className={`group flex h-full flex-col rounded-[var(--radius-card)] p-7 transition-transform duration-500 hover:-translate-y-1 hover:shadow-xl ${stepAccents[i]}`}
+                className={`group flex h-full flex-col rounded-[var(--radius-card)] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl ${stepAccents[i % stepAccents.length]}`}
               >
                 <div className="flex items-center justify-between">
-                  <Icon name={stepIcons[i]} className="h-7 w-7" />
+                  <Icon
+                    name={stepIcons[i]}
+                    className="h-7 w-7 transition-transform duration-500 group-hover:scale-110"
+                  />
                   <span className="display text-3xl leading-none opacity-40">
                     {step.n}
                   </span>
@@ -61,6 +67,19 @@ export function Process() {
             </Reveal>
           ))}
         </ol>
+
+        <Reveal delay={process.steps.length * 80} className="mt-6">
+          <div className="flex aspect-[21/9] items-center justify-center rounded-[var(--radius-brand)] border-2 border-dashed border-ink/20 bg-ink/[0.03]">
+            <div className="text-center">
+              <span className="display text-lg text-ink/50 md:text-xl">
+                {hiringHighwayVideo.label}
+              </span>
+              <p className="mt-2 text-sm text-ink/40">
+                {hiringHighwayVideo.caption}
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

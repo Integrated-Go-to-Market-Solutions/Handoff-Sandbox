@@ -1,5 +1,12 @@
 import { Button, Eyebrow } from "../brand";
-import { hero } from "@/lib/content";
+import { hero, sampleTalent } from "@/lib/content";
+
+const cardAccents = [
+  "bg-cyan text-ink",
+  "bg-royal text-bone",
+  "bg-bone text-ink",
+  "bg-ink-300 text-bone border border-cyan/30",
+] as const;
 
 /**
  * `subhead` is the one line an industry page swaps. The label, the headline
@@ -47,6 +54,33 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
             {hero.secondary.label}
           </Button>
         </div>
+
+        {/* A sample of the talent you could hire, not the Handoff team. No
+            real candidate photos exist yet, so these are plainly labeled
+            placeholders rather than stock photos standing in for people. */}
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:gap-4">
+          {sampleTalent.map((person, i) => (
+            <div
+              key={person.name}
+              className={`flex min-w-[9.5rem] flex-1 items-center gap-3 rounded-[var(--radius-card)] p-4 ${cardAccents[i % cardAccents.length]}`}
+            >
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-black/10 text-sm font-bold">
+                {person.name[0]}
+              </span>
+              <span className="min-w-0">
+                <span className="block text-sm font-bold leading-tight">
+                  {person.name}
+                </span>
+                <span className="block text-xs font-medium leading-snug opacity-70">
+                  {person.role}
+                </span>
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-3 text-xs font-medium uppercase tracking-[0.1em] text-bone/35">
+          Sample roles, not real candidates
+        </p>
       </div>
     </section>
   );

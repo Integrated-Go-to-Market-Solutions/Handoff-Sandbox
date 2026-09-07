@@ -57,6 +57,22 @@ export const hero = {
   teamStatLabel: "of our own team, hired through this exact process",
 };
 
+/**
+ * Sample talent for the hero, not the Handoff team. Anthony, verbatim:
+ * "instead of the team on the top, how you have it now, we would want...
+ * a sampling that would focus on talent, like Miguel, AI developer... not
+ * from our team." No real candidate photos exist yet, so these ship as
+ * clearly-labeled placeholder cards, not stock photos standing in for real
+ * people. AI and engineering roles lead, per Anthony's push to feature
+ * those first.
+ */
+export const sampleTalent = [
+  { name: "Miguel", role: "AI Developer" },
+  { name: "Camila", role: "Full-Stack Engineer" },
+  { name: "Sofia", role: "Operations Manager" },
+  { name: "Andres", role: "Marketing Specialist" },
+] as const;
+
 /** The founder's situation, in his own terms. From the workshopped ICP. */
 export const problem = {
   eyebrow: "Sound familiar",
@@ -152,7 +168,7 @@ export const models = [
  * carries the same one-time placement fee on top of its own figure above.
  */
 export const modelsFootnote =
-  "All models include a one-time placement fee of 25% of the candidate's first-year salary. The final amount varies by role, seniority and scope — typically $4,500 to $6,500.";
+  "All models include a one-time placement fee of 25% of the candidate's first-year salary. The final amount varies by role, seniority and scope, typically $4,500 to $6,500.";
 
 /**
  * Real Handoff team members, not stock and not placed talent. This is the
@@ -194,10 +210,17 @@ export const logos = [
   { slug: "utility-basics", name: "Utility Basics" },
 ];
 
+/**
+ * "Hiring Highway": the proprietary six-step system, per the client's own
+ * direction. The four real, already-vetted steps from the original process
+ * got split into six at finer grain rather than padded out with invented
+ * ones — step 3 splits into skills/English and AI fluency, step 4 splits
+ * into meeting the shortlist and the actual employment/onboarding.
+ */
 export const process = {
-  eyebrow: "How it works",
-  headline: "We find the person. You keep moving.",
-  body: "We do the hunting and the hard assessment. You make the call on fit. That is how the right person lands in the right seat and stays there.",
+  eyebrow: "The Hiring Highway",
+  headline: "Six steps. One person who sticks.",
+  body: "Every hire goes through the same six steps, no shortcuts. That is how the right person lands in the right seat and stays there.",
   steps: [
     {
       n: "01",
@@ -211,14 +234,53 @@ export const process = {
     },
     {
       n: "03",
-      title: "Skills, English, AI and fit",
-      copy: "Video skills assessments and multiple interview rounds. We screen for communication, judgement, and how well someone works with AI tools, not just the technical checklist.",
+      title: "Skills and English",
+      copy: "Video skills assessments that mirror the actual job, plus a real conversation, not a canned language test.",
     },
     {
       n: "04",
-      title: "You choose, we employ",
-      copy: "You meet a short list and decide. We handle contracts, compliant employment, payroll and the onboarding that gets them productive fast.",
+      title: "AI fluency and judgment",
+      copy: "We screen for how well someone works with AI tools and how they think under pressure, not just the technical checklist.",
     },
+    {
+      n: "05",
+      title: "You meet the shortlist",
+      copy: "You meet two or three finalists and make the call on fit. We do not send a stack of resumes and disappear.",
+    },
+    {
+      n: "06",
+      title: "We employ and onboard",
+      copy: "Contracts, compliant employment, payroll and the onboarding that gets them productive fast.",
+    },
+  ],
+};
+
+/**
+ * Anthony, on the call: footage of meeting a client at a conference,
+ * jumping on the first call, interviewing the talent, showing the whole
+ * journey. No footage exists yet, so this ships as a placeholder slot
+ * rather than invented claims.
+ */
+export const hiringHighwayVideo = {
+  label: "Watch the Hiring Highway",
+  caption: "The real journey, filmed start to finish. Coming soon.",
+};
+
+/**
+ * "A day in the life": separate from meet-the-team. Anthony, verbatim:
+ * "what's a day in the life of a chief of staff at Handoff... short videos
+ * that just literally show a calendar, and then it's like showing them and
+ * they talk real quick and it just rolls through." No footage exists yet.
+ */
+export const dayInLife = {
+  eyebrow: "A day in the life",
+  headline: "Meet the role, not just the resume.",
+  body: "Real people doing the actual job, filmed where they work. This is what a day looks like for the roles you would actually hire.",
+  slots: [
+    { id: "dil-1", role: "Chief of Staff" },
+    { id: "dil-2", role: "Head of Marketing" },
+    { id: "dil-3", role: "UI/UX Designer" },
+    { id: "dil-4", role: "Sales Development Rep" },
   ],
 };
 
@@ -425,50 +487,130 @@ export const contactPage = {
 };
 
 /**
- * Industry pages sit underneath a deliberately general homepage, so nobody
- * leaves because they do not see their own industry, and each page still
- * speaks to one room at a time.
- *
- * Rule for adding to this list: only build a page for an industry where a
- * client will go on the record. Until then the industry is a dropdown line
- * that points at the homepage.
+ * Rebuilt 2026-09-07 around the actual ICP doc (Handoff_ICP.pdf) and
+ * Anthony's own list on the call: "hospitality, startups, agencies,
+ * e-commerce... and there might just be like corporate relocation."
+ * These five are also the homepage ICP grid, not just a dropdown.
  */
 export const industries = [
   {
-    slug: "corporate-housing",
-    navLabel: "Corporate housing",
-    name: "Corporate housing and furnished rentals",
+    slug: "hospitality",
+    navLabel: "Hospitality",
+    icon: "building",
+    name: "Hospitality and short-term rentals",
     subhead:
-      "We help corporate housing and furnished rental operators hire Latin America's top 1% talent.",
-    problemHeadline: "Your season does not wait for a hire",
+      "We help hospitality and short-term rental operators hire Latin America's top 1% talent.",
+    problemHeadline: "Occupancy does not wait for a hire",
     problemBody:
-      "Occupancy climbs, the reservations inbox fills, and the person holding it together is doing three jobs. Hiring for it in the US does not pencil out at these margins, and the last remote assistant you tried needed a script for every guest message.",
+      "Guest volume climbs, the reservations inbox fills, and the person holding it together is doing three jobs. The last remote assistant you tried needed a script for every guest message.",
     triggers: [
       "Peak season arrives and your reservations team is underwater.",
       "Your operations manager gives notice and takes the vendor relationships with them.",
-      "You are turning down units because nobody can handle the coordination.",
-      "You tried a VA for guest messaging and got someone who could not make a judgement call.",
+      "You are turning down bookings because nobody can handle the coordination.",
+      "You tried a VA for guest messaging and got someone who could not make a judgment call.",
     ],
-    rolesHeadline: "The roles we fill most in corporate housing",
+    rolesHeadline: "The roles we fill most in hospitality",
     roles: [
       "Reservations Manager",
       "Operations Manager",
-      "Quality Assurance Specialist",
       "Guest Services Coordinator",
+      "Quality Assurance Specialist",
       "Bookkeeper",
     ],
     rolesCloser:
-      "These are the roles Anthony hired for himself over ten years in this industry, which is why our recruiting is deepest here.",
+      "These are the roles our own founder hired for himself over ten years in this industry, which is why our recruiting is deepest here.",
+  },
+  {
+    slug: "startups",
+    navLabel: "Startups",
+    icon: "rocket",
+    name: "Startups",
+    subhead:
+      "We help startups hire Latin America's top 1% talent without the overhead of a full US team.",
+    problemHeadline: "You need a right hand, not a headcount line",
+    problemBody:
+      "Every hour spent on operations is an hour not spent on the product. A US generalist is expensive and slow to hire, and a cheap freelancer needs more management than the work it saves.",
+    triggers: [
+      "You are the bottleneck for everything that is not building the product.",
+      "Your first ops hire needs to wear five hats, not one.",
+      "You raised a round and need to move fast without bloating headcount.",
+      "You tried a freelancer platform and got someone who disappeared mid-project.",
+    ],
+    rolesHeadline: "The roles we fill most for startups",
+    roles: [
+      "Executive Assistant",
+      "Operations Generalist",
+      "Customer Success Manager",
+      "Marketing Specialist",
+      "Bookkeeper",
+    ],
+    rolesCloser:
+      "Founders do not have time to manage a hire. We vet for people who can run with ambiguity from day one.",
+  },
+  {
+    slug: "agencies",
+    navLabel: "Agencies",
+    icon: "megaphone",
+    name: "Marketing and creative agencies",
+    subhead:
+      "We help marketing, creative and digital agencies hire Latin America's top 1% talent.",
+    problemHeadline: "Billable hours should not depend on who quits next",
+    problemBody:
+      "Client work does not pause for a hiring search. Every open seat is a project at risk, and the wrong hire shows up in the client relationship, not just the payroll.",
+    triggers: [
+      "A client account grows faster than your bench can cover.",
+      "Your best account manager leaves mid-retainer.",
+      "You are turning down new business because you cannot staff it.",
+      "You tried offshore production help and the client could tell.",
+    ],
+    rolesHeadline: "The roles we fill most for agencies",
+    roles: [
+      "Account Manager",
+      "Media Buyer",
+      "Social Media Manager",
+      "UI/UX Designer",
+      "Project Manager",
+    ],
+    rolesCloser:
+      "Client-ready English, and people who understand that a missed deadline is somebody else's client call.",
+  },
+  {
+    slug: "ecommerce",
+    navLabel: "E-commerce",
+    icon: "cart",
+    name: "E-commerce and B2B SaaS",
+    subhead:
+      "We help e-commerce and B2B SaaS companies hire Latin America's top 1% talent.",
+    problemHeadline: "Growth exposes every gap in the back office",
+    problemBody:
+      "Orders, support tickets and ad spend all scale faster than a small team can keep up with by hand. Hiring locally for these roles rarely makes sense at these margins.",
+    triggers: [
+      "Support tickets pile up faster than your team can answer them.",
+      "You are running paid media without anyone dedicated to optimizing it.",
+      "Your marketplace listings need constant upkeep nobody has time for.",
+      "You tried a cheap VA for customer support and your reviews showed it.",
+    ],
+    rolesHeadline: "The roles we fill most in e-commerce",
+    roles: [
+      "Marketplace Manager",
+      "Customer Success Manager",
+      "Media Buyer",
+      "Social Media Manager",
+      "Bookkeeper",
+    ],
+    rolesCloser:
+      "People who treat a support ticket like a customer, not a queue to clear.",
   },
   {
     slug: "corporate-relocation",
     navLabel: "Corporate relocation",
+    icon: "globe",
     name: "Corporate relocation",
     subhead:
       "We help relocation management companies, movers, and immigration and tax providers hire Latin America's top 1% talent.",
     problemHeadline: "Assignment volume moves faster than hiring does",
     problemBody:
-      "A client wins a contract and suddenly you are coordinating twice the assignments with the same team. Adding a US coordinator takes three months and costs more than the account can carry. The work lands on people who are already at capacity, and clients notice before you do.",
+      "A client wins a contract and suddenly you are coordinating twice the assignments with the same team. The work lands on people who are already at capacity, and clients notice before you do.",
     triggers: [
       "Assignment volume spikes and coordination falls behind.",
       "Your client services lead leaves in the middle of assignment season.",
@@ -503,7 +645,7 @@ export const nav: NavItem[] = [
   { label: "How it works", href: "/#process" },
   {
     label: "Industries",
-    href: "/industries/corporate-housing",
+    href: `/industries/${industries[0].slug}`,
     children: industries.map((industry) => ({
       label: industry.navLabel,
       href: `/industries/${industry.slug}`,
