@@ -54,8 +54,11 @@ export function LogoLock({ className = "" }: { className?: string }) {
 type ButtonProps = {
   href: string;
   children: React.ReactNode;
-  /** `ghost` sits on light surfaces, `ghostDark` on ink ones. */
-  variant?: "cyan" | "ink" | "ghost" | "ghostDark";
+  /**
+   * `acid` is the CTA color, reserved for buttons only per the brand
+   * guidelines. `ghost` sits on light surfaces, `ghostDark` on ink ones.
+   */
+  variant?: "acid" | "ink" | "ghost" | "ghostDark";
   /** `sm` is the header button, `lg` the block button in the pricing cards. */
   size?: "sm" | "default" | "lg";
   className?: string;
@@ -64,7 +67,7 @@ type ButtonProps = {
 export function Button({
   href,
   children,
-  variant = "cyan",
+  variant = "acid",
   size = "default",
   className = "",
 }: ButtonProps) {
@@ -76,7 +79,7 @@ export function Button({
     lg: "px-9 py-5 text-[1rem]",
   };
   const variants = {
-    cyan: "bg-cyan text-ink hover:bg-ink hover:text-cyan",
+    acid: "bg-acid text-ink hover:bg-cyan hover:text-ink",
     ink: "bg-ink text-bone hover:bg-royal hover:text-white",
     ghost: "border-2 border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-bone",
     ghostDark:
@@ -105,7 +108,7 @@ export function Button({
  */
 export function Eyebrow({
   children,
-  tone = "royal",
+  tone = "onDark",
   className = "",
 }: {
   children: React.ReactNode;
@@ -114,7 +117,7 @@ export function Eyebrow({
 }) {
   const tones = {
     royal: "text-royal",
-    muted: "text-ink/55",
+    muted: "text-bone/55",
     onDark: "text-cyan",
   };
   return (
@@ -132,12 +135,11 @@ export function Pill({
   className = "",
 }: {
   children: React.ReactNode;
-  tone?: "cyan" | "outline" | "acid";
+  tone?: "cyan" | "outline";
   className?: string;
 }) {
   const tones = {
     cyan: "bg-cyan text-ink",
-    acid: "bg-acid text-ink",
     outline: "border border-ink-300 text-smoke",
   };
   return (

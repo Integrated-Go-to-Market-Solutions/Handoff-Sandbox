@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 export default function ResultsPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-white pb-16 pt-14 md:pb-20 md:pt-20">
+      <section className="relative overflow-hidden bg-ink section-py-tight">
         <div
-          className="drift pointer-events-none absolute -right-48 -top-52 h-[600px] w-[600px] rounded-full opacity-25 blur-[130px]"
+          className="drift pointer-events-none absolute -right-48 -top-52 h-[600px] w-[600px] rounded-full opacity-20 blur-[130px]"
           style={{ background: "var(--color-cyan)" }}
           aria-hidden="true"
         />
@@ -31,14 +31,14 @@ export default function ResultsPage() {
         <div className="shell relative">
           <Reveal className="max-w-4xl">
             <Eyebrow className="mb-5 md:mb-6">{resultsPage.eyebrow}</Eyebrow>
-            <h1 className="display text-[clamp(2.5rem,6vw,4.6rem)] text-ink">
+            <h1 className="display text-[clamp(2.5rem,6vw,4.6rem)] text-bone">
               {resultsPage.headline}
               <br />
-              <span className="text-royal">{resultsPage.headlineAccent}</span>
+              <span className="text-cyan">{resultsPage.headlineAccent}</span>
             </h1>
           </Reveal>
           <Reveal delay={90} className="max-w-4xl">
-            <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-ink/70">
+            <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-bone/70">
               {resultsPage.body}
             </p>
           </Reveal>
@@ -46,15 +46,15 @@ export default function ResultsPage() {
       </section>
 
       <section
-        className="bg-white pb-20 md:pb-24"
+        className="bg-ink pb-16 md:pb-20"
         aria-label="Results by the numbers"
       >
         <div className="shell grid gap-4 md:grid-cols-3">
           {resultsPage.numbers.map((figure, i) => (
             <Reveal key={figure.label + i} delay={i * 90}>
-              <div className="h-full rounded-[var(--radius-card)] border border-dashed border-ink/25 bg-bone/60 p-8">
-                <p className="display text-4xl text-ink/40">{figure.value}</p>
-                <p className="mt-3 text-sm font-semibold leading-relaxed text-ink/50">
+              <div className="h-full rounded-[var(--radius-card)] border border-dashed border-white/20 bg-white/[0.03] p-8">
+                <p className="display text-4xl text-bone/40">{figure.value}</p>
+                <p className="mt-3 text-sm font-semibold leading-relaxed text-bone/50">
                   {figure.label}
                 </p>
               </div>
@@ -63,13 +63,13 @@ export default function ResultsPage() {
         </div>
       </section>
 
-      <section className="bg-bone py-20 text-ink md:py-24" aria-label="Case study">
+      <section className="bg-ink section-py text-bone" aria-label="Case study">
         <div className="shell">
           <Reveal className="max-w-3xl">
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-ink/40">
+            <p className="text-sm font-bold uppercase tracking-[0.14em] text-bone/40">
               {resultsPage.caseStudy.company}
             </p>
-            <h2 className="display mt-4 text-[clamp(1.9rem,4.2vw,3.1rem)] text-ink/45">
+            <h2 className="display mt-4 text-[clamp(1.9rem,4.2vw,3.1rem)] text-bone/45">
               {resultsPage.caseStudy.headline}
             </h2>
           </Reveal>
@@ -81,9 +81,9 @@ export default function ResultsPage() {
               { label: "The outcome", copy: resultsPage.caseStudy.outcome },
             ].map((panel, i) => (
               <Reveal key={panel.label} delay={i * 90}>
-                <div className="h-full rounded-[var(--radius-card)] border border-dashed border-ink/25 bg-white/70 p-7">
-                  <p className="text-sm font-bold text-ink/70">{panel.label}</p>
-                  <p className="mt-4 text-base font-semibold leading-relaxed text-ink/45">
+                <div className="h-full rounded-[var(--radius-card)] border border-dashed border-white/20 bg-white/[0.03] p-7">
+                  <p className="text-sm font-bold text-bone/70">{panel.label}</p>
+                  <p className="mt-4 text-base font-semibold leading-relaxed text-bone/45">
                     {panel.copy}
                   </p>
                 </div>
@@ -96,7 +96,7 @@ export default function ResultsPage() {
       <ClientQuotes />
 
       <section
-        className="bg-white pb-24 text-ink md:pb-28"
+        className="bg-ink section-py-tight text-bone"
         aria-label="Video testimonials"
       >
         <div className="shell">
@@ -104,7 +104,7 @@ export default function ResultsPage() {
             <h2 className="display text-[clamp(1.9rem,4.2vw,3.1rem)]">
               {resultsPage.videos.headline}
             </h2>
-            <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-ink/70 md:text-lg">
+            <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-bone/70 md:text-lg">
               {resultsPage.videos.body}
             </p>
           </Reveal>
@@ -112,8 +112,8 @@ export default function ResultsPage() {
           <div className="mt-12 grid gap-4 md:grid-cols-3">
             {resultsPage.videos.slots.map((slot, i) => (
               <Reveal key={slot.id} delay={i * 90}>
-                <div className="flex aspect-video items-center justify-center rounded-[var(--radius-card)] border border-dashed border-ink/25 bg-bone/60 p-6 text-center">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-ink/40">
+                <div className="flex aspect-video items-center justify-center rounded-[var(--radius-card)] border border-dashed border-white/20 bg-white/[0.03] p-6 text-center">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-bone/40">
                     {slot.label}
                   </p>
                 </div>

@@ -3,19 +3,19 @@ import { soul } from "@/lib/content";
 
 export function Soul() {
   return (
-    <section className="relative overflow-hidden bg-ink py-20 text-bone md:py-24">
+    <section className="relative overflow-hidden bg-ink section-py text-bone">
       <div className="shell relative grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
         <Reveal>
           <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-bone">
             {soul.headline}
             <br />
-            <span className="text-acid">{soul.headlineAccent}</span>
+            <span className="text-cyan">{soul.headlineAccent}</span>
           </h2>
           <p className="mt-6 max-w-[50ch] text-lg leading-relaxed text-bone/85">
             {soul.body}
           </p>
 
-          <div className="mt-10 border-l-4 border-acid pl-6">
+          <div className="mt-10 border-l-4 border-cyan pl-6">
             <p className="display text-[clamp(1.4rem,2.6vw,2rem)] leading-tight text-bone">
               &ldquo;{soul.quote}&rdquo;
             </p>

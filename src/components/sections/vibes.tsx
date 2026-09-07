@@ -4,18 +4,18 @@ import { vibes } from "@/lib/content";
 
 export function Vibes() {
   return (
-    <section className="relative overflow-hidden bg-bone pb-20 pt-16 sm:pt-24 md:pb-28 lg:pt-28">
+    <section className="relative overflow-hidden bg-ink section-py text-bone">
       <div className="shell relative">
         <Reveal className="max-w-4xl">
-          <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-ink">
+          <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-bone">
             {vibes.headline}{" "}
-            <span className="text-ink/35 line-through decoration-royal decoration-[6px]">
+            <span className="text-bone/35 line-through decoration-cyan decoration-[6px]">
               {vibes.headlineStrike}
             </span>
             <br />
-            <span className="text-royal">{vibes.headlineAccent}</span>
+            <span className="text-cyan">{vibes.headlineAccent}</span>
           </h2>
-          <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-ink/70">
+          <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-bone/70">
             {vibes.body}
           </p>
         </Reveal>

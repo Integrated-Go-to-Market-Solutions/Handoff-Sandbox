@@ -79,9 +79,20 @@ export function HeroWall() {
 
       <div className="shell relative flex h-full min-h-[680px] flex-col justify-end pb-16 pt-28 lg:min-h-0">
         <h1 className="display max-w-[16ch] text-[clamp(3rem,8.5vw,7rem)] text-bone">
-          {hero.headline[0]}{" "}
-          <span className="text-cyan">{hero.headline[1]}</span>{" "}
-          {hero.headline[2]}
+          {hero.headline.map((part) => (
+            <span
+              key={part.text}
+              className={
+                part.tone === "royal"
+                  ? "text-azure"
+                  : part.tone === "cyan"
+                    ? "text-cyan"
+                    : undefined
+              }
+            >
+              {part.text}{" "}
+            </span>
+          ))}
         </h1>
 
         <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-bone/80">
@@ -117,7 +128,7 @@ export function HeroWall() {
           <div>
             <dt className="display text-2xl text-cyan">{team.length}</dt>
             <dd className="mt-1 text-[0.78rem] text-bone/60">
-              of us, all hired this way
+              {hero.teamStatLabel}
             </dd>
           </div>
         </dl>

@@ -35,11 +35,26 @@ export const socialLinks = [
 
 export const hero = {
   eyebrow: "Staffing and Recruiting",
-  headline: ["The best of", "LATAM.", "AI trained. Here to stay."],
+  /**
+   * Two accented phrases now, not one: "LATAM." in blue, "Here to stay." in
+   * teal, so the retention claim gets the same visual weight as the talent
+   * claim instead of reading as an afterthought.
+   */
+  headline: [
+    { text: "The best of" },
+    { text: "LATAM.", tone: "royal" },
+    { text: "AI trained." },
+    { text: "Here to stay.", tone: "cyan" },
+  ] as { text: string; tone?: "royal" | "cyan" }[],
   body: "We help the best US companies hire Latin America's top 1% talent.",
   primary: { label: "Get Started Today", href: site.bookCall },
   secondary: { label: "Talk to Our Team", href: site.bookCall },
   note: "Full-time, dedicated teammates. Not a marketplace.",
+  /**
+   * Rewritten per feedback that "7 of us, all hired this way" read unclear.
+   * The number stays; the caption now says what it is proof of.
+   */
+  teamStatLabel: "of our own team, hired through this exact process",
 };
 
 /** The founder's situation, in his own terms. From the workshopped ICP. */
@@ -81,28 +96,33 @@ export const problem = {
   ],
 };
 
-/** Ordered as the business wants them sold: managed first, direct hire as the door opener. */
+/**
+ * Ordered as the business wants them sold: managed first, direct hire as the
+ * door opener. Figures and structure match the current sales deck
+ * (2026-09-07): three models, each carrying the same one-time placement fee
+ * on top of its own ongoing cost — not a separate no-fee tier.
+ */
 export const models = [
   {
     tag: "Most popular",
     name: "Managed Staffing",
-    forWho: "Companies ready to scale a team",
-    price: "Flat monthly",
-    terms: "Month to month",
-    copy: "We recruit, employ, train, and performance manage. You get the outcome and one point of accountability. We answer for how they perform.",
+    forWho: "Companies building a team, office-based",
+    price: "~$3,500/month",
+    terms: "Office-based, supervised team members",
+    copy: "We recruit, employ, train, and performance manage, office-based with extra structure and accountability. You get the outcome and one point of accountability. Ideal for higher-risk functions.",
     points: [
       "Handoff owns recruiting, employment and management",
-      "Ongoing check-ins and a single point of accountability",
-      "Built for teams, not one-off seats",
+      "Office-based, supervised team members",
+      "Extra structure and accountability",
     ],
     featured: true,
   },
   {
     tag: "Direct the work yourself",
-    name: "Employer of Record",
+    name: "Remote Employee of Record (EOR)",
     forWho: "Companies that want to manage day to day",
-    price: "Monthly per employee",
-    terms: "Rolling",
+    price: "~$2,900/month",
+    terms: "Compliant employment, benefits included",
     copy: "We legally employ your team and carry payroll, benefits and in-country compliance. You direct the work exactly as you would with any employee.",
     points: [
       "Handoff is the legal employer, on our own entity",
@@ -113,19 +133,26 @@ export const models = [
   },
   {
     tag: "Fastest yes",
-    name: "Direct-Hire Recruiting",
+    name: "Recruitment & Placement",
     forWho: "Smaller teams and one-off hires",
-    price: "25% of first-year salary",
-    terms: "One-time placement fee",
+    price: "~$1,600/month",
+    terms: "Direct hire model",
     copy: "We find and vet the person, you employ them directly. Includes a 90-day guarantee. Three of our last four new clients started here.",
     points: [
-      "One-time fee, no ongoing commitment",
-      "90-day guarantee on every placement",
-      "You hold the employment relationship",
+      "Direct hire model",
+      "Lowest ongoing cost of the three models",
+      "Full ownership of the relationship",
     ],
     featured: false,
   },
 ];
+
+/**
+ * Shown once beneath the three cards, not repeated per-card: every model
+ * carries the same one-time placement fee on top of its own figure above.
+ */
+export const modelsFootnote =
+  "All models include a one-time placement fee of 25% of the candidate's first-year salary. The final amount varies by role, seniority and scope — typically $4,500 to $6,500.";
 
 /**
  * Real Handoff team members, not stock and not placed talent. This is the
@@ -149,16 +176,20 @@ export const proof = {
   body: "These are not stock photos and they are not client avatars. This is the Handoff team. Every one of them was hired through the same process we run for you, which is the only reason we are willing to put our own faces on it.",
 };
 
-/** Pending confirmation from Nicole that these are all live clients. */
+/**
+ * Confirmed against the real 36-company client roster (2026-09-07). The
+ * four names that were not on the roster (Best Western, Jacob Street,
+ * Elevate, and "Fragomen" alone) have been dropped rather than guessed at;
+ * "Fragomen" is real as the joint "Fragomen WorkRight" account (same client
+ * as the Robert Horsley / WorkRight testimonial in clientQuotes below).
+ * More logos are pending real image assets from Anthony.
+ */
 export const logos = [
-  { slug: "best-western", name: "Best Western" },
   { slug: "dwellworks", name: "Dwellworks" },
-  { slug: "fragomen", name: "Fragomen" },
+  { slug: "fragomen", name: "Fragomen WorkRight" },
   { slug: "quest-relocation", name: "Quest Relocation Group" },
   { slug: "united-corporate-housing", name: "United Corporate Housing" },
-  { slug: "jacob-street", name: "Jacob Street" },
   { slug: "nyc-navigator", name: "NYC Navigator" },
-  { slug: "elevate", name: "Elevate" },
   { slug: "good-carma", name: "Good Carma Consulting" },
   { slug: "utility-basics", name: "Utility Basics" },
 ];
@@ -207,7 +238,7 @@ export const faqs = [
   },
   {
     q: "What does it cost?",
-    a: "Direct-hire placement is a one-time fee of 25% of first-year salary and includes a 90-day guarantee. Employer of Record is billed monthly per employee. Managed Staffing is a flat monthly fee, month to month. We quote the exact number on the first call once we know the role.",
+    a: "Recruitment & Placement starts around $1,600/month, Remote Employer of Record around $2,900/month, and Managed Staffing around $3,500/month. Every model also carries a one-time placement fee of 25% of first-year salary, typically $4,500 to $6,500. We quote the exact number on the first call once we know the role.",
   },
   {
     q: "We are not ready to hire someone full time.",
@@ -494,7 +525,15 @@ export const clientQuotes = {
   eyebrow: "In their words",
   headline: "What clients say when we are not on the call",
   slots: [
-    { id: "quote-1", quote: "[CLIENT QUOTE PENDING APPROVAL]", name: "[NAME PENDING]", title: "[TITLE PENDING]", company: "[COMPANY PENDING]", linkedin: "" },
+    {
+      id: "quote-1",
+      quote:
+        "Handoff has brought us A-players across sales, ops, and marketing — talent with real smarts and grit. They own outcomes, not just check boxes.",
+      name: "Robert Horsley",
+      title: "CPO",
+      company: "WorkRight",
+      linkedin: "",
+    },
     { id: "quote-2", quote: "[CLIENT QUOTE PENDING APPROVAL]", name: "[NAME PENDING]", title: "[TITLE PENDING]", company: "[COMPANY PENDING]", linkedin: "" },
     { id: "quote-3", quote: "[CLIENT QUOTE PENDING APPROVAL]", name: "[NAME PENDING]", title: "[TITLE PENDING]", company: "[COMPANY PENDING]", linkedin: "" },
   ],

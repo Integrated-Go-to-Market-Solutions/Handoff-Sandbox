@@ -55,9 +55,20 @@ export function Hero() {
         <div className="max-w-[38rem]">
           <Reveal>
             <h1 className="display text-[clamp(2.9rem,7vw,5.4rem)] text-ink">
-              {hero.headline[0]}{" "}
-              <span className="text-royal">{hero.headline[1]}</span>{" "}
-              {hero.headline[2]}
+              {hero.headline.map((part) => (
+                <span
+                  key={part.text}
+                  className={
+                    part.tone === "royal"
+                      ? "text-azure"
+                      : part.tone === "cyan"
+                        ? "text-cyan"
+                        : undefined
+                  }
+                >
+                  {part.text}{" "}
+                </span>
+              ))}
             </h1>
           </Reveal>
 

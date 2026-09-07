@@ -32,7 +32,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={rubik.variable}>
-      <body className="min-h-screen bg-white text-ink antialiased">
+      <body className="min-h-screen bg-ink text-bone antialiased">
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />

@@ -1,21 +1,20 @@
 import { Button, Pill } from "../brand";
 import { Reveal } from "../reveal";
-import { models, site } from "@/lib/content";
+import { models, modelsFootnote, site } from "@/lib/content";
 
 export function Models() {
   return (
-    <section id="models" className="relative overflow-hidden bg-bone pb-20 pt-28 text-ink md:pb-24 md:pt-36">
-
+    <section id="models" className="relative overflow-hidden bg-ink section-py-hero text-bone">
       <div className="shell relative">
         <Reveal className="max-w-3xl">
           <h2 className="display mt-5 text-[clamp(2.1rem,4.8vw,3.7rem)]">
             Three ways to work together
           </h2>
-          <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-ink/70">
+          <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-bone/70">
             Start with the level of ownership that fits your team. Managed
-            Staffing is the full-service path, Employer of Record keeps the
-            day to day with you, and Direct-Hire Recruiting is the simplest
-            way to make one great hire.
+            Staffing is the full-service path, Remote Employee of Record
+            keeps the day to day with you, and Recruitment & Placement is
+            the simplest way to make one great hire.
           </p>
         </Reveal>
 
@@ -34,7 +33,7 @@ export function Models() {
                 </Pill>
 
                 <h3
-                  className="display mt-5 min-h-[4.5rem] text-3xl text-ink"
+                  className="display mt-5 min-h-[5.5rem] text-2xl text-ink"
                 >
                   {model.name.replace("-", "‑")}
                 </h3>
@@ -96,6 +95,12 @@ export function Models() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={models.length * 110} className="mt-8">
+          <p className="max-w-[58ch] text-sm leading-relaxed text-bone/55">
+            {modelsFootnote}
+          </p>
+        </Reveal>
       </div>
     </section>
   );

@@ -49,13 +49,13 @@ export default async function IndustryPage({
     <>
       <HeroBright subhead={industry.subhead} />
 
-      <section className="relative overflow-hidden bg-bone py-20 text-ink md:py-24">
+      <section className="relative overflow-hidden bg-ink section-py text-bone">
         <div className="shell relative">
           <Reveal className="max-w-3xl">
             <h2 className="display text-[clamp(2rem,4.8vw,3.6rem)]">
               {industry.problemHeadline}
             </h2>
-            <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-ink/70 md:text-lg">
+            <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
               {industry.problemBody}
             </p>
           </Reveal>
@@ -63,14 +63,14 @@ export default async function IndustryPage({
           <ul className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {industry.triggers.map((trigger, i) => (
               <Reveal key={trigger} delay={i * 90} as="li" className="h-full">
-                <div className="flex h-full flex-col justify-between rounded-[var(--radius-card)] border border-ink/12 bg-white p-6">
+                <div className="flex h-full flex-col justify-between rounded-[var(--radius-card)] border border-white/10 bg-white/[0.04] p-6">
                   <span
-                    className="display text-2xl text-cyan-dim"
+                    className="display text-2xl text-cyan"
                     aria-hidden="true"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="mt-8 text-base font-semibold leading-snug text-ink">
+                  <p className="mt-8 text-base font-semibold leading-snug text-bone">
                     {trigger}
                   </p>
                 </div>
@@ -80,13 +80,13 @@ export default async function IndustryPage({
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-white py-20 text-ink md:py-24">
+      <section className="relative overflow-hidden bg-ink section-py text-bone">
         <div className="shell relative grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <Reveal>
             <h2 className="display max-w-[16ch] text-[clamp(1.9rem,4.2vw,3.1rem)]">
               {industry.rolesHeadline}
             </h2>
-            <p className="mt-6 max-w-[46ch] border-l-4 border-acid pl-5 text-base leading-relaxed text-ink/80 md:text-lg">
+            <p className="mt-6 max-w-[46ch] border-l-4 border-cyan pl-5 text-base leading-relaxed text-bone/80 md:text-lg">
               {industry.rolesCloser}
             </p>
           </Reveal>
@@ -96,7 +96,7 @@ export default async function IndustryPage({
               {industry.roles.map((role) => (
                 <li
                   key={role}
-                  className="rounded-[var(--radius-card)] border border-ink/12 bg-bone px-6 py-5 text-base font-bold text-ink"
+                  className="rounded-[var(--radius-card)] border border-white/10 bg-white/[0.04] px-6 py-5 text-base font-bold text-bone"
                 >
                   {role}
                 </li>

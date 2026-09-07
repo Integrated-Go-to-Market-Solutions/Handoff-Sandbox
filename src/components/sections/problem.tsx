@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { Reveal } from "../reveal";
+import { Icon, type IconName } from "../icon";
 import { problem } from "@/lib/content";
 
 const accents = [
-  { front: "bg-cyan", back: "bg-ink text-bone" },
-  { front: "bg-royal text-bone", back: "bg-acid text-ink" },
-  { front: "bg-acid text-ink", back: "bg-cyan text-ink" },
-  { front: "bg-ink text-bone", back: "bg-royal text-bone" },
+  { front: "bg-cyan text-ink", back: "bg-ink-300 text-bone border border-cyan/30" },
+  { front: "bg-royal text-bone", back: "bg-bone text-ink" },
+  { front: "bg-bone text-ink", back: "bg-royal text-bone" },
+  { front: "bg-ink-300 text-bone border border-cyan/30", back: "bg-cyan text-ink" },
 ] as const;
+
+/** One icon per card, matched to what each one is about. */
+const cardIcons: IconName[] = ["bell", "trendingUp", "compass", "globe"];
 
 function ProblemCard({
   title,
@@ -22,6 +26,7 @@ function ProblemCard({
 }) {
   const [flipped, setFlipped] = useState(false);
   const accent = accents[index % accents.length];
+  const icon = cardIcons[index % cardIcons.length];
 
   return (
     <button
@@ -40,13 +45,16 @@ function ProblemCard({
             up to the section intro. Four cards each carrying both read as
             four identical labels rather than as four problems. */}
         <span
-          className={`absolute inset-0 flex h-full flex-col justify-end rounded-[var(--radius-card)] p-7 shadow-sm transition-shadow duration-500 group-hover:shadow-xl [backface-visibility:hidden] ${accent.front}`}
+          className={`absolute inset-0 flex h-full flex-col justify-between rounded-[var(--radius-card)] p-7 shadow-sm transition-shadow duration-500 group-hover:shadow-xl [backface-visibility:hidden] ${accent.front}`}
         >
-          <span className="block text-[clamp(1.05rem,1.6vw,1.3rem)] font-bold leading-tight tracking-tight">
-            {title}
-          </span>
-          <span className="mt-3 block text-base font-medium leading-relaxed opacity-85">
-            {copy}
+          <Icon name={icon} className="h-8 w-8" />
+          <span>
+            <span className="block text-[clamp(1.05rem,1.6vw,1.3rem)] font-bold leading-tight tracking-tight">
+              {title}
+            </span>
+            <span className="mt-3 block text-base font-medium leading-relaxed opacity-85">
+              {copy}
+            </span>
           </span>
         </span>
 
@@ -69,22 +77,32 @@ function ProblemCard({
 
 export function Problem() {
   return (
-    <section className="relative overflow-hidden bg-bone py-16 text-ink md:py-24">
-      <div className="shell relative">
-        <Reveal className="max-w-3xl">
-          <h2 className="display mt-2 text-[clamp(2rem,5vw,3.9rem)] md:whitespace-nowrap">
+    <section className="relative overflow-hidden bg-ink section-py text-bone">
+      <div className="shell relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+        <Reveal>
+          <h2 className="display mt-2 text-[clamp(2rem,5vw,3.9rem)]">
             {problem.headline}
           </h2>
-          <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-ink/70 md:text-lg">
+          <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
             {problem.body}
           </p>
-          <p className="mt-4 max-w-[58ch] text-base leading-relaxed text-ink/70 md:text-lg">
+          <p className="mt-4 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
             {problem.bodyDepartment}
           </p>
         </Reveal>
 
+        {/* Fills the right side next to the intro copy, which otherwise read
+            empty against the wider dark section. */}
+        <Reveal delay={120} className="hidden justify-self-center lg:block">
+          <span className="inline-flex h-40 w-40 items-center justify-center rounded-full border border-cyan/20 bg-cyan/[0.06] text-cyan">
+            <Icon name="target" className="h-20 w-20" />
+          </span>
+        </Reveal>
+      </div>
+
+      <div className="shell relative">
         <Reveal className="mt-14">
-          <p className="text-lg font-semibold text-ink md:text-xl">
+          <p className="text-lg font-semibold text-bone md:text-xl">
             {problem.cardsLead}{" "}
             {/* "Flip" is a desktop word. On a phone the gesture is a tap. */}
             <span className="md:hidden">{problem.cardsActionMobile}</span>

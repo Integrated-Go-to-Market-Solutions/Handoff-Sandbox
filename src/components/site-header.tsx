@@ -16,7 +16,7 @@ function NavGroup({ item }: { item: NavItem }) {
     <div className="group relative">
       <Link
         href={item.href}
-        className="flex items-center gap-1 text-[0.93rem] font-medium text-ink/65 transition-colors hover:text-ink group-focus-within:text-ink"
+        className="flex items-center gap-1 text-[0.93rem] font-medium text-bone/70 transition-colors hover:text-bone group-focus-within:text-bone"
       >
         {item.label}
         <svg
@@ -36,12 +36,12 @@ function NavGroup({ item }: { item: NavItem }) {
       </Link>
 
       <div className="invisible absolute left-0 top-full z-50 pt-4 opacity-0 transition-opacity duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-        <ul className="min-w-[15rem] rounded-[var(--radius-card)] border border-ink/10 bg-white p-2 shadow-xl">
+        <ul className="min-w-[15rem] rounded-[var(--radius-card)] border border-white/10 bg-ink-100 p-2 shadow-xl">
           {item.children?.map((child) => (
             <li key={child.href}>
               <Link
                 href={child.href}
-                className="block rounded-xl px-4 py-3 text-[0.93rem] font-medium text-ink/75 transition-colors hover:bg-bone hover:text-ink"
+                className="block rounded-xl px-4 py-3 text-[0.93rem] font-medium text-bone/75 transition-colors hover:bg-white/5 hover:text-cyan"
               >
                 {child.label}
               </Link>
@@ -76,12 +76,12 @@ export function SiteHeader() {
     <header
       className={`sticky top-0 z-50 transition-colors duration-300 ${
         scrolled
-          ? "border-b border-ink/10 bg-white/85 backdrop-blur-lg"
-          : "border-b border-transparent bg-white"
+          ? "border-b border-white/10 bg-ink/90 backdrop-blur-lg"
+          : "border-b border-transparent bg-ink"
       }`}
     >
       <div className="shell flex items-center justify-between py-4">
-        <LogoLock className="text-ink" />
+        <LogoLock className="text-bone" />
 
         <nav className="hidden items-center gap-6 md:flex lg:gap-9">
           {nav.map((item) =>
@@ -91,7 +91,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-[0.93rem] font-medium text-ink/65 transition-colors hover:text-ink"
+                className="text-[0.93rem] font-medium text-bone/70 transition-colors hover:text-bone"
               >
                 {item.label}
               </Link>
@@ -110,17 +110,17 @@ export function SiteHeader() {
           className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
         >
           <span
-            className={`h-0.5 w-6 bg-ink transition-transform duration-300 ${
+            className={`h-0.5 w-6 bg-bone transition-transform duration-300 ${
               open ? "translate-y-[7px] rotate-45" : ""
             }`}
           />
           <span
-            className={`h-0.5 w-6 bg-ink transition-opacity duration-200 ${
+            className={`h-0.5 w-6 bg-bone transition-opacity duration-200 ${
               open ? "opacity-0" : ""
             }`}
           />
           <span
-            className={`h-0.5 w-6 bg-ink transition-transform duration-300 ${
+            className={`h-0.5 w-6 bg-bone transition-transform duration-300 ${
               open ? "-translate-y-[7px] -rotate-45" : ""
             }`}
           />
@@ -128,14 +128,14 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="fixed inset-0 top-[72px] z-40 overflow-y-auto bg-white px-6 pb-16 pt-8 md:hidden">
+        <div className="fixed inset-0 top-[72px] z-40 overflow-y-auto bg-ink px-6 pb-16 pt-8 md:hidden">
           <nav className="flex flex-col gap-1">
             {nav.map((item) => (
-              <div key={item.href} className="border-b border-ink/10">
+              <div key={item.href} className="border-b border-white/10">
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="display block py-5 text-3xl text-ink"
+                  className="display block py-5 text-3xl text-bone"
                 >
                   {item.label}
                 </Link>
@@ -146,7 +146,7 @@ export function SiteHeader() {
                         <Link
                           href={child.href}
                           onClick={() => setOpen(false)}
-                          className="block text-base font-medium text-ink/60"
+                          className="block text-base font-medium text-bone/60"
                         >
                           {child.label}
                         </Link>

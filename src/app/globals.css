@@ -24,6 +24,15 @@
   --color-smoke: #a1a1a6;
   --color-cyan-dim: #2bb8a1;
 
+  /*
+   * Brand royal blue (#2d42b9) is ~2:1 contrast directly on ink — fine as a
+   * button/card fill, unreadable as headline text on the dark base the site
+   * now runs on. This is the same hue, lightened, for that one case only.
+   * Royal itself is untouched everywhere it already sits on a light or cyan
+   * surface (buttons, card stats, links).
+   */
+  --color-azure: #5b7cff;
+
   --font-sans: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
 
   /* Corner rounding: 33, per the Shapes page */
@@ -41,16 +50,16 @@
   border-color: var(--color-ink-200);
 }
 
-/* The site runs light. Ink is reserved for a couple of contrast sections and
-   the footer, so the dark moments actually land. */
+/* The site runs dark. Carbon (ink) is the base surface everywhere; light
+   panels are the exception now, used only as inset cards for contrast. */
 html {
   scroll-behavior: smooth;
-  background: #ffffff;
+  background: var(--color-ink);
 }
 
 body {
-  background: #ffffff;
-  color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-bone);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -65,6 +74,30 @@ body {
 .shell {
   width: var(--shell);
   margin-inline: auto;
+}
+
+/* Three vertical-rhythm tiers, used instead of one-off py- values per
+   section. Keeps the grid consistent site-wide instead of every section
+   inventing its own spacing. */
+.section-py {
+  padding-block: 5rem;
+}
+.section-py-tight {
+  padding-block: 4rem;
+}
+.section-py-hero {
+  padding-block: 6rem;
+}
+@media (min-width: 768px) {
+  .section-py {
+    padding-block: 7rem;
+  }
+  .section-py-tight {
+    padding-block: 5rem;
+  }
+  .section-py-hero {
+    padding-block: 8rem;
+  }
 }
 
 /* ---------- Type ---------- */
