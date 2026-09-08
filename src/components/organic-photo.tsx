@@ -14,6 +14,8 @@ export function OrganicPhoto({
   className = "",
   flip = false,
   focus = "center",
+  grayscale = false,
+  outlined = false,
 }: {
   src: string;
   alt: string;
@@ -24,10 +26,14 @@ export function OrganicPhoto({
    * a centered crop cuts into the face; leave at "center" unless a specific
    * photo needs it. */
   focus?: string;
+  /** Brand treatment: real photo, colour removed. */
+  grayscale?: boolean;
+  /** Brand treatment: cyan outline around the blob ("images outlined in cyan"). */
+  outlined?: boolean;
 }) {
   return (
     <div
-      className={`relative overflow-hidden ${className}`}
+      className={`relative overflow-hidden ${outlined ? "border-2 border-cyan" : ""} ${className}`}
       style={{
         borderRadius: flip
           ? "58% 42% 48% 52% / 44% 40% 60% 56%"
@@ -39,7 +45,7 @@ export function OrganicPhoto({
         alt={alt}
         fill
         sizes="400px"
-        className="object-cover"
+        className={`object-cover ${grayscale ? "grayscale" : ""}`}
         style={{ objectPosition: focus }}
       />
     </div>
