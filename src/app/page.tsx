@@ -28,10 +28,10 @@ export default function Home() {
   return (
     <>
       <HeroBright />
+      <WhyLatam />
       <Stats />
       <LogoMarquee />
       <IndustriesTeaser />
-      <WhyLatam />
       <Problem />
       <Process />
       <DayInLife />

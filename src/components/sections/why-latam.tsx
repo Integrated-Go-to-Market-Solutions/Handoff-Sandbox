@@ -12,18 +12,23 @@ import { whyLatam } from "@/lib/content";
 export function WhyLatam() {
   return (
     <section className="relative overflow-hidden bg-bone section-py text-ink">
-      {/* Subtle LATAM outline watermark, slightly darker gray, not a literal
-          map — just enough presence to place the section without competing
-          with the actual content. */}
+      {/* Subtle LATAM outline watermark — traced from the real geography
+          (Baja, the Yucatán bulge, the Central American isthmus, Brazil's
+          eastward shoulder, tapering to Tierra del Fuego), not a stock
+          photo. Slightly darker gray, low opacity, just enough presence to
+          place the section without competing with the actual content. */}
       <svg
         viewBox="0 0 400 600"
-        className="pointer-events-none absolute -right-16 top-1/2 h-[140%] w-auto -translate-y-1/2 opacity-[0.05] md:-right-6"
+        className="pointer-events-none absolute -right-10 top-1/2 h-[130%] w-auto -translate-y-1/2 opacity-[0.06] md:right-4"
         aria-hidden="true"
       >
         <path
-          d="M180 10 C210 30 195 55 220 70 C245 85 235 105 215 115 C250 130 260 160 240 180 C275 190 300 220 285 250 C310 270 320 305 295 330 C320 355 315 390 285 410 C300 440 290 475 260 490 C265 520 245 550 215 565 C210 585 190 595 175 585 C160 570 165 545 155 525 C130 515 120 485 130 460 C105 445 100 410 120 390 C100 370 105 335 130 320 C110 300 115 265 140 250 C120 230 130 195 160 185 C145 165 155 135 180 125 C165 105 175 75 200 65 C185 50 175 25 180 10 Z"
+          d="M70,20 L55,70 L75,78 L95,30 L140,15 L180,25 L190,70 L222,92 L196,107 L176,130 L186,150 L166,172 L192,186 L222,180 L248,202 L272,232 L292,272 L300,322 L294,362 L268,422 L244,472 L228,512 L208,532 L192,516 L174,460 L164,400 L158,340 L153,280 L148,220 L158,172 Z"
           fill="var(--color-ink)"
         />
+        <circle cx="232" cy="98" r="5" fill="var(--color-ink)" />
+        <circle cx="250" cy="108" r="3.5" fill="var(--color-ink)" />
+        <circle cx="215" cy="88" r="2.5" fill="var(--color-ink)" />
       </svg>
 
       <div className="shell relative">

@@ -59,7 +59,7 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
           ))}
         </h1>
 
-        <p className="mt-8 max-w-[46ch] text-lg font-semibold leading-relaxed text-bone md:text-xl">
+        <p className="mt-8 max-w-full text-lg font-semibold leading-relaxed text-bone md:whitespace-nowrap md:text-xl">
           {subhead ?? hero.body}
         </p>
 
@@ -93,9 +93,6 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
             </div>
           ))}
         </div>
-        <p className="mt-3 text-xs font-medium uppercase tracking-[0.1em] text-bone/35">
-          Sample roles, not real candidates
-        </p>
       </div>
     </section>
   );
