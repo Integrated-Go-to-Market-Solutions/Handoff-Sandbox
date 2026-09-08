@@ -8,21 +8,26 @@ import { cta } from "@/lib/content";
  * the drawing. Drifts very slowly so the section feels alive without
  * pulling attention off the buttons.
  */
-function Bottle({ className = "" }: { className?: string }) {
+function Bottle({ id, className = "" }: { id: string; className?: string }) {
+  const fillId = `bottle-fill-${id}`;
   return (
     <svg viewBox="0 0 200 600" className={className} aria-hidden="true" fill="none">
+      <defs>
+        {/* Cyan into royal, top to bottom: the brand's two colours meeting
+            inside the glass. Fades out toward the neck so the outline reads. */}
+        <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#3dd6bd" stopOpacity="0.05" />
+          <stop offset="30%" stopColor="#3dd6bd" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#2d42b9" stopOpacity="1" />
+        </linearGradient>
+      </defs>
       <rect x="76" y="8" width="48" height="26" rx="7" stroke="currentColor" strokeWidth="3" />
       <path
-        d="M86 34 V120 C86 152 44 172 44 218 V548 a20 20 0 0 0 20 20 H136 a20 20 0 0 0 20 -20 V218 C156 172 114 152 114 120 V34"
+        d="M86 34 V120 C86 152 44 172 44 218 V548 a20 20 0 0 0 20 20 H136 a20 20 0 0 0 20 -20 V218 C156 172 114 152 114 120 V34 Z"
+        fill={`url(#${fillId})`}
         stroke="currentColor"
         strokeWidth="3"
         strokeLinejoin="round"
-      />
-      {/* Fill level: what's stuck behind the neck. */}
-      <path
-        d="M52 300 C80 288 120 312 148 300 V548 a12 12 0 0 1 -12 12 H64 a12 12 0 0 1 -12 -12 Z"
-        fill="currentColor"
-        opacity="0.12"
       />
     </svg>
   );
@@ -40,9 +45,9 @@ export function Cta() {
           to position: relative, which would collapse the bottle wrapper. */}
       <div className="tex-waves absolute inset-0" aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <Bottle className="drift absolute -right-6 top-1/2 h-[150%] w-auto -translate-y-1/2 rotate-[14deg] text-cyan opacity-30 md:right-[6%] lg:right-[10%]" />
-        <Bottle className="drift-slow absolute -left-16 top-1/2 hidden h-[120%] w-auto -translate-y-1/2 -rotate-[18deg] text-cyan opacity-15 lg:block" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-ink/60" />
+        <Bottle id="right" className="drift absolute -right-6 top-1/2 h-[150%] w-auto -translate-y-1/2 rotate-[14deg] text-cyan opacity-40 md:right-[6%] lg:right-[10%]" />
+        <Bottle id="left" className="drift-slow absolute -left-16 top-1/2 hidden h-[120%] w-auto -translate-y-1/2 -rotate-[18deg] text-cyan opacity-20 lg:block" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/60 via-transparent to-ink/30" />
       </div>
 
       <div className="shell relative z-10 py-20 text-center md:py-28">
