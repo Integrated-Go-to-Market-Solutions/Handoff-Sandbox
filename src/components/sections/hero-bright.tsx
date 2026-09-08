@@ -39,7 +39,6 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/35 to-transparent" />
       </div>
       <div className="shell relative z-10">
         <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>

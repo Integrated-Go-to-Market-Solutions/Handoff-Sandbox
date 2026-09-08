@@ -58,6 +58,51 @@ export const hero = {
 };
 
 /**
+ * Straight from the sales deck's "Why LATAM" slide (page 7) — same three
+ * reasons, same order, real bullets, not invented. The slide numbers them
+ * 1/2/3 next to a hand-drawn LATAM outline; per direct instruction this
+ * version drops the numbers and the outline becomes a subtle background
+ * watermark instead of a literal map graphic.
+ */
+export const whyLatam = {
+  headline: "Why LATAM",
+  categories: [
+    {
+      title: "Talent quality",
+      tagline: "What makes LATAM great for hiring",
+      icon: "star",
+      bullets: [
+        "Deep pool of educated, professional talent",
+        "Strong English proficiency across key markets",
+        "Experience working with U.S. companies, tools, and processes",
+        "High accountability and work ethic",
+      ],
+    },
+    {
+      title: "Time zone alignment",
+      tagline: "Talent easy to reach",
+      icon: "clock",
+      bullets: [
+        "Minimal time difference with the U.S.",
+        "Talent works standard U.S. business hours",
+        "Real-time collaboration, not overnight handoffs",
+        "Faster feedback loops and fewer delays",
+      ],
+    },
+    {
+      title: "Cultural fit",
+      tagline: "A world of talent close to your culture",
+      icon: "handshake",
+      bullets: [
+        "Strong alignment with U.S. business culture",
+        "Clear communication, proactive problem-solving",
+        "Familiarity with U.S. expectations around ownership, deadlines, and quality",
+      ],
+    },
+  ],
+} as const;
+
+/**
  * Real figures from Overview2026.pdf / the sales deck, per direct reference
  * to that exact stat-tile design (tilted photo cards, light gray background,
  * clickable through to the results proof). Photos are real team members,

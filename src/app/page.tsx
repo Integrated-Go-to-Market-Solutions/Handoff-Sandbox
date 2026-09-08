@@ -2,6 +2,7 @@ import { HeroBright } from "@/components/sections/hero-bright";
 import { Stats } from "@/components/sections/stats";
 import { LogoMarquee } from "@/components/sections/logo-marquee";
 import { IndustriesTeaser } from "@/components/sections/industries-teaser";
+import { WhyLatam } from "@/components/sections/why-latam";
 import { Problem } from "@/components/sections/problem";
 import { Process } from "@/components/sections/process";
 import { DayInLife } from "@/components/sections/day-in-life";
@@ -30,6 +31,7 @@ export default function Home() {
       <Stats />
       <LogoMarquee />
       <IndustriesTeaser />
+      <WhyLatam />
       <Problem />
       <Process />
       <DayInLife />
