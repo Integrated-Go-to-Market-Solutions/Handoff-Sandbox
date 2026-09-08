@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Reveal } from "@/components/reveal";
-import { Eyebrow, Button } from "@/components/brand";
+import { Eyebrow, Pill } from "@/components/brand";
 import { Icon, type IconName } from "@/components/icon";
 import { ClientQuotes } from "@/components/sections/client-quotes";
 import { Cta } from "@/components/sections/cta";
@@ -12,74 +13,93 @@ export const metadata: Metadata = {
     "Case studies, retention numbers and client testimonials from companies that hired through Handoff.",
 };
 
-const posterAccents = [
-  "bg-cyan text-ink",
-  "bg-royal text-bone",
+type Study = (typeof caseStudies)[number];
+
+/* The site's one card system: each its own gradient, outlined in cyan. */
+const cardAccents = [
+  { card: "bg-gradient-to-br from-cyan to-cyan-dim text-ink", pill: "!border-ink/30 !text-ink", stat: "text-ink", meta: "text-ink/70", ring: "border-ink/40 text-ink" },
+  { card: "bg-gradient-to-br from-royal to-azure text-bone", pill: "!border-bone/40 !text-bone", stat: "text-bone", meta: "text-bone/70", ring: "border-bone/50 text-bone" },
+  { card: "bg-gradient-to-br from-ink-300 to-ink text-bone", pill: "!border-bone/30 !text-bone", stat: "text-cyan", meta: "text-bone/65", ring: "border-cyan text-cyan" },
 ] as const;
 
+const glow =
+  "border-2 border-cyan shadow-[0_0_28px_-10px_rgba(61,214,189,0.6)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_0_36px_-6px_rgba(61,214,189,0.75)]";
+
 /**
- * Layout referenced directly from hirewithnear.com/success-stories: a
- * featured story up top with a stat row and a poster card, then a grid of
- * every case study as the same poster treatment, each linking down to its
- * own detail section on this page. The "peeled corner" cutout is that
- * site's signature; recreated here in Handoff's own palette instead of
- * copying its per-client colour scheme.
+ * Story poster: gradient card, cyan outline, cyan-ringed icon, the tag as
+ * a pill, the title and the three headline numbers. Links down to the
+ * story's full section on this page.
  */
-function PosterCard({
-  study,
-  index,
-  featured = false,
-}: {
-  study: (typeof caseStudies)[number];
-  index: number;
-  featured?: boolean;
-}) {
+function StoryCard({ study, index }: { study: Study; index: number }) {
+  const accent = cardAccents[index % cardAccents.length];
   return (
-    <div
-      className={`relative flex h-full flex-col justify-between overflow-hidden rounded-[var(--radius-brand)] p-8 ${posterAccents[index % posterAccents.length]} ${featured ? "min-h-[22rem]" : "min-h-[16rem]"}`}
+    <a
+      href={`#${study.slug}`}
+      className={`group flex h-full flex-col rounded-[var(--radius-card)] p-8 md:p-10 ${glow} ${accent.card}`}
     >
-      <span
-        className="pointer-events-none absolute bottom-0 right-0 h-12 w-12 bg-ink"
-        style={{ clipPath: "polygon(100% 100%, 0 100%, 100% 0)" }}
-        aria-hidden="true"
-      />
-      <Icon name={study.icon as IconName} className={featured ? "h-12 w-12" : "h-9 w-9"} />
-      <div>
-        <p className="eyebrow mb-2 opacity-70">{study.tag}</p>
-        <h3 className={`display leading-tight ${featured ? "text-3xl md:text-4xl" : "text-xl"}`}>
-          {study.title}
-        </h3>
+      <div className="flex items-center justify-between gap-4">
+        <span className={`inline-flex h-14 w-14 items-center justify-center rounded-full border-2 ${accent.ring}`}>
+          <Icon name={study.icon as IconName} className="h-7 w-7" />
+        </span>
+        <Pill tone="outline" className={accent.pill}>
+          {study.tag}
+        </Pill>
       </div>
-    </div>
+
+      <h3 className="display mt-8 text-2xl leading-tight md:text-3xl">{study.title}</h3>
+      <p className={`mt-3 text-[0.97rem] leading-relaxed ${accent.meta}`}>{study.subhead}</p>
+
+      <div className="mt-8 grid grid-cols-3 gap-4">
+        {study.heroStats.map((stat) => (
+          <div key={stat.label}>
+            <p className={`display text-2xl md:text-3xl ${accent.stat}`}>{stat.value}</p>
+            <p className={`mt-1 text-xs font-semibold leading-snug ${accent.meta}`}>{stat.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <span className="mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-bold">
+        Read the story
+        <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+      </span>
+    </a>
   );
 }
 
-function CaseStudyDetail({ study, index }: { study: (typeof caseStudies)[number]; index: number }) {
+/**
+ * Full story. Sections alternate light gray and carbon, same rhythm as
+ * the homepage. Cards carry the cyan outline; the quote runs as a centred
+ * display statement with no border rule.
+ */
+function CaseStudyDetail({ study, index }: { study: Study; index: number }) {
+  const dark = index % 2 === 1;
+  const text = dark ? "text-bone" : "text-ink";
+  const muted = dark ? "text-bone/70" : "text-ink/70";
+  const card = dark
+    ? "border-2 border-cyan/30 bg-ink-100 text-bone"
+    : "border-2 border-cyan bg-white text-ink shadow-[0_0_28px_-12px_rgba(61,214,189,0.5)]";
+
   return (
     <section
       id={study.slug}
-      className={`section-py text-bone ${index % 2 === 0 ? "bg-ink" : "bg-ink-100"}`}
+      className={`relative overflow-hidden section-py ${dark ? "hw-dots bg-ink" : "bg-bone"} ${text}`}
     >
-      <div className="shell">
+      <div className="shell relative">
         <Reveal className="max-w-3xl">
-          <p className="eyebrow text-cyan">{study.tag} case study</p>
-          <h2 className="display mt-3 text-[clamp(1.9rem,4.2vw,3.1rem)] text-bone">
-            {study.title}
-          </h2>
-          <p className="mt-5 max-w-[62ch] text-base leading-relaxed text-bone/70 md:text-lg">
+          <Pill>{study.tag} case study</Pill>
+          <h2 className="display mt-6 text-[clamp(2rem,4.6vw,3.4rem)]">{study.title}</h2>
+          <p className={`mt-5 max-w-[62ch] text-base leading-relaxed md:text-lg ${muted}`}>
             {study.subhead}
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-2">
+        <div className="mt-14 grid gap-10 lg:grid-cols-2">
           <Reveal>
-            <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-bone/50">
-              The challenge
-            </h3>
-            <ul className="mt-4 space-y-3">
+            <h3 className={`display text-xl ${text}`}>The challenge</h3>
+            <ul className="mt-5 space-y-3.5">
               {study.challenge.map((point) => (
-                <li key={point} className="flex gap-3 text-[0.97rem] leading-relaxed text-bone/80">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
+                <li key={point} className={`flex gap-3 text-[0.97rem] leading-relaxed ${muted}`}>
+                  <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
                   {point}
                 </li>
               ))}
@@ -87,38 +107,48 @@ function CaseStudyDetail({ study, index }: { study: (typeof caseStudies)[number]
           </Reveal>
 
           <Reveal delay={90}>
-            <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-bone/50">
-              What we did
-            </h3>
-            <ul className="mt-4 space-y-4">
+            <h3 className={`display text-xl ${text}`}>What we did</h3>
+            <ul className="mt-5 space-y-4">
               {study.solution.map((item) => (
-                <li key={item.title} className="rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] p-5">
-                  <p className="text-[0.97rem] font-semibold leading-snug text-bone">
-                    {item.title}
+                <li key={item.title} className={`rounded-[var(--radius-card)] p-6 ${card}`}>
+                  <p className="text-[0.97rem] font-semibold leading-snug">{item.title}</p>
+                  <p className={`mt-2 text-sm font-semibold ${dark ? "text-cyan" : "text-cyan-dim"}`}>
+                    {item.result}
                   </p>
-                  <p className="mt-2 text-sm font-medium text-cyan">{item.result}</p>
                 </li>
               ))}
             </ul>
           </Reveal>
         </div>
 
-        <Reveal delay={140} className="mt-10">
-          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {study.results.map((r) => (
-              <div key={r.label} className="rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] p-5">
-                <p className="display text-2xl text-cyan">{r.value}</p>
-                <p className="mt-1 text-xs font-medium leading-snug text-bone/60">{r.label}</p>
-              </div>
-            ))}
+        <Reveal delay={140} className="mt-12">
+          <div
+            className={`grid gap-4 sm:grid-cols-2 md:grid-cols-3 ${
+              study.results.length >= 6 ? "lg:grid-cols-6" : "lg:grid-cols-4"
+            }`}
+          >
+            {study.results.map((r, i) => {
+              const accent = cardAccents[i % cardAccents.length];
+              return (
+                <div
+                  key={r.label}
+                  className={`rounded-[var(--radius-card)] border-2 border-cyan p-5 shadow-[0_0_24px_-10px_rgba(61,214,189,0.55)] ${accent.card}`}
+                >
+                  <p className={`display text-2xl ${accent.stat}`}>{r.value}</p>
+                  <p className={`mt-1 text-xs font-semibold leading-snug ${accent.meta}`}>{r.label}</p>
+                </div>
+              );
+            })}
           </div>
         </Reveal>
 
-        <Reveal delay={180} className="mt-10 max-w-3xl border-l-4 border-cyan pl-6">
-          <p className="display text-[clamp(1.2rem,2.2vw,1.6rem)] leading-snug text-bone">
+        <Reveal delay={180} className="mx-auto mt-16 max-w-4xl text-center md:mt-20">
+          <blockquote className={`display text-[clamp(1.4rem,2.8vw,2.2rem)] leading-tight ${text}`}>
             &ldquo;{study.quote}&rdquo;
+          </blockquote>
+          <p className={`mt-5 text-sm font-semibold ${dark ? "text-cyan" : "text-cyan-dim"}`}>
+            {study.attributionRole}
           </p>
-          <p className="mt-4 text-sm font-semibold text-cyan">{study.attributionRole}</p>
         </Reveal>
       </div>
     </section>
@@ -126,12 +156,14 @@ function CaseStudyDetail({ study, index }: { study: (typeof caseStudies)[number]
 }
 
 export default function ResultsPage() {
-  const featured = caseStudies[0];
-
   return (
     <>
-      <section className="tex-waves relative overflow-hidden bg-ink section-py-tight">
-        <div className="shell relative">
+      {/* Same page top as the homepage: black brick, halftone screen. */}
+      <section className="halftone relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
+        <div className="absolute inset-0" aria-hidden="true">
+          <Image src="/textures/brick.jpg" alt="" fill priority sizes="100vw" className="object-cover" />
+        </div>
+        <div className="shell relative z-10">
           <Reveal className="max-w-4xl">
             <Eyebrow className="mb-5 md:mb-6">{resultsPage.eyebrow}</Eyebrow>
             <h1 className="display text-[clamp(2.5rem,6vw,4.6rem)] text-bone">
@@ -141,79 +173,45 @@ export default function ResultsPage() {
             </h1>
           </Reveal>
           <Reveal delay={90} className="max-w-4xl">
-            <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-bone/70">
+            <p className="mt-6 max-w-[62ch] text-lg font-semibold leading-relaxed text-bone md:text-xl">
               {resultsPage.body}
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="bg-ink pb-16 md:pb-20" aria-label="Results by the numbers">
-        <div className="shell grid gap-4 md:grid-cols-3">
-          {resultsPage.numbers.map((figure, i) => (
-            <Reveal key={figure.label + i} delay={i * 90}>
-              <div className="h-full rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] p-8">
-                <p className="display text-4xl text-cyan">{figure.value}</p>
-                <p className="mt-3 text-sm font-semibold leading-relaxed text-bone/60">
-                  {figure.label}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured story */}
-      <section className="bg-ink section-py-tight text-bone" aria-label="Featured case study">
-        <div className="shell grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <Reveal>
-            <p className="eyebrow text-cyan">Featured case study</p>
-            <h2 className="display mt-4 text-[clamp(1.9rem,4.4vw,3.2rem)] text-bone">
-              {featured.title}
-            </h2>
-            <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-bone/70 md:text-lg">
-              {featured.subhead}
-            </p>
-            <div className="mt-8 grid grid-cols-3 gap-4 pt-6">
-              {featured.heroStats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="display text-2xl text-cyan md:text-3xl">{stat.value}</p>
-                  <p className="mt-1 text-xs font-medium leading-snug text-bone/60">
-                    {stat.label}
+      {/* The numbers, on the same tiles as the homepage stats row. */}
+      <section className="bg-bone py-16 md:py-20" aria-label="Results by the numbers">
+        <div className="shell grid gap-5 md:grid-cols-3">
+          {resultsPage.numbers.map((figure, i) => {
+            const accent = cardAccents[i % cardAccents.length];
+            return (
+              <Reveal key={figure.label} delay={i * 100}>
+                <div className={`h-full rounded-[var(--radius-card)] p-7 md:p-8 ${glow} ${accent.card}`}>
+                  <p className={`display text-4xl md:text-5xl ${accent.stat}`}>{figure.value}</p>
+                  <p className={`mt-3 text-sm font-semibold leading-relaxed ${accent.meta}`}>
+                    {figure.label}
                   </p>
                 </div>
-              ))}
-            </div>
-            <Button href={`#${featured.slug}`} className="mt-8">
-              Read the full story
-            </Button>
-          </Reveal>
-          <Reveal delay={120}>
-            <PosterCard study={featured} index={0} featured />
-          </Reveal>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
-      {/* All case studies */}
-      <section className="bg-ink-100 section-py-tight text-bone" aria-label="All case studies">
-        <div className="shell">
+      {/* The stories, as posters that link down to the full write-ups. */}
+      <section className="hw-dots relative overflow-hidden bg-ink section-py text-bone" aria-label="Case studies">
+        <div className="shell relative">
           <Reveal className="max-w-3xl">
-            <h2 className="display text-[clamp(1.9rem,4.2vw,3.1rem)] text-bone">
-              Every story
-            </h2>
+            <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)]">The stories</h2>
+            <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-bone/70">
+              Two real engagements, written up with the client&rsquo;s numbers and the client&rsquo;s words.
+            </p>
           </Reveal>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {caseStudies.map((study, i) => (
-              <Reveal key={study.slug} delay={i * 100}>
-                <a href={`#${study.slug}`} className="group block transition-transform duration-500 hover:-translate-y-1.5">
-                  <PosterCard study={study} index={i} />
-                  <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-cyan">
-                    Read the full story
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      &rarr;
-                    </span>
-                  </p>
-                </a>
+              <Reveal key={study.slug} delay={i * 110}>
+                <StoryCard study={study} index={i} />
               </Reveal>
             ))}
           </div>
@@ -225,31 +223,6 @@ export default function ResultsPage() {
       ))}
 
       <ClientQuotes />
-
-      <section className="bg-ink section-py-tight text-bone" aria-label="Video testimonials">
-        <div className="shell">
-          <Reveal className="max-w-3xl">
-            <h2 className="display text-[clamp(1.9rem,4.2vw,3.1rem)]">
-              {resultsPage.videos.headline}
-            </h2>
-            <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-bone/70 md:text-lg">
-              {resultsPage.videos.body}
-            </p>
-          </Reveal>
-
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {resultsPage.videos.slots.map((slot, i) => (
-              <Reveal key={slot.id} delay={i * 90}>
-                <div className="flex aspect-video items-center justify-center rounded-[var(--radius-card)] border border-dashed border-white/20 bg-white/[0.03] p-6 text-center">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-bone/40">
-                    {slot.label}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <Cta />
     </>
