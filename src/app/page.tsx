@@ -5,7 +5,6 @@ import { IndustriesTeaser } from "@/components/sections/industries-teaser";
 import { WhyLatam } from "@/components/sections/why-latam";
 import { Problem } from "@/components/sections/problem";
 import { HiringHighway } from "@/components/sections/hiring-highway";
-import { DayInLife } from "@/components/sections/day-in-life";
 import { Vibes } from "@/components/sections/vibes";
 import { Soul } from "@/components/sections/soul";
 import { AiTrained } from "@/components/sections/ai-trained";
@@ -20,9 +19,11 @@ import { Cta } from "@/components/sections/cta";
  * /how-it-works page. (Nico had already asked for it higher on the page on
  * the 9/4 follow-up call: "that section should be on the top.")
  *
- * Industries teaser and Day in the Life are new (2026-09-07), per the ICP
- * industries the client named for the homepage and the separate role-video
- * series Anthony described.
+ * Industries teaser is new (2026-09-07), per the ICP industries the client
+ * named for the homepage. The Day in the Life row was removed 2026-09-08
+ * per direct instruction; it was four empty "coming soon" placeholders
+ * with no footage behind them. The component and its content stay in the
+ * repo for when the role videos exist.
  */
 export default function Home() {
   return (
@@ -34,7 +35,6 @@ export default function Home() {
       <LogoMarquee />
       <IndustriesTeaser />
       <Problem />
-      <DayInLife />
       <Vibes />
       <Soul />
       <ClientQuotes />
