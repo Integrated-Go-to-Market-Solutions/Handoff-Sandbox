@@ -52,7 +52,7 @@ export function Soul() {
             </p>
             <p className="mt-6 leading-relaxed text-ink/85">{soul.closer}</p>
 
-            <div className="mt-9 border-t border-ink/20 pt-7">
+            <div className="mt-9 pt-7">
               <p className="display text-2xl text-royal">{soul.culture.stat}</p>
               <p className="mt-2 max-w-[38ch] text-[0.95rem] leading-relaxed text-ink/80">
                 {soul.culture.label}

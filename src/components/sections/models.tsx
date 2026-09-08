@@ -50,9 +50,7 @@ export function Models() {
                   {model.forWho}
                 </p>
 
-                <div
-                  className={`mt-6 min-h-[6.5rem] border-y py-5 ${model.featured ? "border-ink/15" : "border-ink/10"}`}
-                >
+                <div className="mt-6 min-h-[6.5rem] py-5">
                   <p className={`display text-2xl ${model.featured ? "text-ink" : "text-royal"}`}>
                     {model.price}
                   </p>

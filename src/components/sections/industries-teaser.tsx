@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Reveal } from "../reveal";
+import { VideoLoop } from "../video-loop";
 import { Icon, type IconName } from "../icon";
 import { industries } from "@/lib/content";
 
@@ -7,25 +8,38 @@ const cardAccents = [
   "bg-cyan text-ink",
   "bg-royal text-bone",
   "bg-white text-ink border border-ink/10 shadow-sm",
+  "bg-ink text-bone",
   "bg-ink-300 text-bone border-2 border-cyan",
-  "bg-bone text-ink border border-ink/10",
 ] as const;
 
 /**
- * The homepage stays general enough that nobody bounces, but the five
- * industries the ICP actually names — hospitality, startups, agencies,
- * e-commerce, corporate relocation — get their own row so a visitor sees
- * their room within one scroll instead of digging into a nav dropdown.
+ * Light gray, with a real video (grayscale) behind it instead of a flat
+ * fill, per direct reference. The homepage stays general enough that
+ * nobody bounces, but the five industries the ICP actually names —
+ * hospitality, startups, agencies, e-commerce, corporate relocation — get
+ * their own row so a visitor sees their room within one scroll instead of
+ * digging into a nav dropdown.
  */
 export function IndustriesTeaser() {
   return (
-    <section className="relative overflow-hidden bg-ink section-py text-bone">
-      <div className="shell relative">
+    <section className="relative overflow-hidden bg-bone section-py text-ink">
+      <div className="absolute inset-0 grayscale" aria-hidden="true">
+        <VideoLoop
+          src="/video/culture.mp4"
+          poster="/video/culture.jpg"
+          name=""
+          caption=""
+          bare
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-bone via-bone/90 to-bone" />
+        <div className="absolute inset-0 bg-bone/55" />
+      </div>
+      <div className="shell relative z-10">
         <Reveal className="max-w-3xl">
-          <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-bone">
+          <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-ink">
             Built for your industry
           </h2>
-          <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-bone/70">
+          <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-ink/70">
             The roles and the pitch change by room. Find yours.
           </p>
         </Reveal>

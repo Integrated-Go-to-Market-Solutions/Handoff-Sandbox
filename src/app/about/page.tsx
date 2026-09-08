@@ -130,7 +130,7 @@ export default function AboutPage() {
                 Spanish for soul
               </p>
               <p className="mt-6 leading-relaxed text-bone/75">{soul.closer}</p>
-              <div className="mt-8 border-t border-white/10 pt-6">
+              <div className="mt-8 pt-6">
                 <p className="display text-xl text-cyan">{soul.culture.stat}</p>
                 <p className="mt-2 max-w-[38ch] text-[0.95rem] leading-relaxed text-bone/65">
                   {soul.culture.label}

@@ -40,7 +40,7 @@ export function ClientQuotes() {
                     {pending ? slot.quote : `“${slot.quote}”`}
                   </blockquote>
 
-                  <figcaption className="mt-8 border-t border-ink/10 pt-5">
+                  <figcaption className="mt-8 pt-5">
                     <p className="text-sm font-bold text-ink">{slot.name}</p>
                     <p className="mt-1 text-sm text-ink/65">
                       {slot.title}

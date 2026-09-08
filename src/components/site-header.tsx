@@ -81,21 +81,22 @@ export function SiteHeader() {
 
   return (
     <header className="relative z-50 bg-ink">
-      <div className="border-b border-white/10">
-        <div className="shell py-5 text-center md:py-7">
+      <div>
+        <div className="shell py-8 text-center md:py-10">
           <Link href="/" aria-label="Handoff home" className="inline-block">
-            <span className="display inline-block text-[clamp(2.8rem,11vw,7.5rem)] leading-[0.85] text-bone">
-              HANDOFF
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/logo-dark.svg"
+              alt="Handoff"
+              className="h-16 w-auto md:h-24"
+            />
           </Link>
         </div>
       </div>
 
       <div
-        className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
-          scrolled
-            ? "border-white/10 bg-ink/90 backdrop-blur-lg"
-            : "border-white/10 bg-ink"
+        className={`sticky top-0 z-50 transition-colors duration-300 ${
+          scrolled ? "bg-ink/90 backdrop-blur-lg" : "bg-ink"
         }`}
       >
         <div className="shell flex items-center justify-between py-3">
@@ -149,7 +150,7 @@ export function SiteHeader() {
         <div className="fixed inset-0 top-[52px] z-40 overflow-y-auto bg-ink px-6 pb-16 pt-8 md:hidden">
           <nav className="flex flex-col gap-1">
             {nav.map((item) => (
-              <div key={item.href} className="border-b border-white/10">
+              <div key={item.href}>
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}

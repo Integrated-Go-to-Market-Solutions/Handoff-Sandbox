@@ -174,7 +174,7 @@ export default function ResultsPage() {
             <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-bone/70 md:text-lg">
               {featured.subhead}
             </p>
-            <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/10 pt-6">
+            <div className="mt-8 grid grid-cols-3 gap-4 pt-6">
               {featured.heroStats.map((stat) => (
                 <div key={stat.label}>
                   <p className="display text-2xl text-cyan md:text-3xl">{stat.value}</p>

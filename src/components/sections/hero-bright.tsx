@@ -23,25 +23,23 @@ const cardAccents = [
  * subhead no longer carries a left border/padding that offset it from the
  * headline's edge — flagged as the sections not sharing the same margin.
  *
- * Background is a real photo (the same team-culture frame used behind
- * Soul), not a drawn pattern — the brand guide's actual "Screen effect"
- * swatch is a halftone dot screen laid over real photography, not an
- * abstract texture, so `.halftone` runs over the image itself here.
+ * Background is a real black-brick photo (per direct reference), with the
+ * brand guide's actual "Screen effect" halftone dot screen laid over it —
+ * a drawn CSS brick pattern read as fake; this is the real thing.
  */
 export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
     <section className="halftone relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
       <div className="absolute inset-0" aria-hidden="true">
         <Image
-          src="/video/culture.jpg"
+          src="/textures/brick.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/85 to-ink/55" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/20 to-ink/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/35 to-transparent" />
       </div>
       <div className="shell relative z-10">
         <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>

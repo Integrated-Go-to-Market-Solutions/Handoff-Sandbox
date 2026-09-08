@@ -60,7 +60,7 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-ink-200 pt-6">
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-4">
           <span className="text-sm font-medium text-bone/70">
             &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
           </span>

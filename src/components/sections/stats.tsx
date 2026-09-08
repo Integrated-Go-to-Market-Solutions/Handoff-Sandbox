@@ -21,7 +21,7 @@ const rotations = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2"] as const;
  */
 export function Stats() {
   return (
-    <section className="border-y border-ink/10 bg-bone py-16 md:py-20">
+    <section className="bg-bone py-16 md:py-20">
       <div className="shell">
         <Reveal>
           <div className="grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">

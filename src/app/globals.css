@@ -35,9 +35,10 @@
 
   --font-sans: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
 
-  /* Corner rounding: 33, per the Shapes page */
+  /* Corner rounding: 33, per the Shapes page — one value for every card,
+     not two. Buttons and tags are full pills (rounded-full), separately. */
   --radius-brand: 33px;
-  --radius-card: 20px;
+  --radius-card: 33px;
 
   --ease-out-brand: cubic-bezier(0.16, 1, 0.3, 1);
 }

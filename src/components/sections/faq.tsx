@@ -16,7 +16,7 @@ function FaqItem({ q, a, delay }: { q: string; a: string; delay: number }) {
 
   return (
     <Reveal delay={delay}>
-      <div className="border-b border-ink/12 py-6">
+      <div className="py-6">
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}

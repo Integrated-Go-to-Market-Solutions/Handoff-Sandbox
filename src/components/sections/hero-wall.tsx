@@ -108,7 +108,7 @@ export function HeroWall() {
           </Button>
         </div>
 
-        <dl className="mt-12 flex flex-wrap gap-x-12 gap-y-5 border-t border-white/15 pt-6">
+        <dl className="mt-12 flex flex-wrap gap-x-12 gap-y-5">
           <div>
             <dt className="display text-2xl text-cyan">
               <Counter to={300} prefix="~" />
