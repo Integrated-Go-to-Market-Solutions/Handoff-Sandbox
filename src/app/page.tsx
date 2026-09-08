@@ -14,10 +14,11 @@ import { Faq } from "@/components/sections/faq";
 import { Cta } from "@/components/sections/cta";
 
 /**
- * The Hiring Highway is section 3, per direct instruction: a compact version
- * of the vertical road right after Why LATAM, clickable through to the full
- * /how-it-works page. (Nico had already asked for it higher on the page on
- * the 9/4 follow-up call: "that section should be on the top.")
+ * Order per direct instruction (2026-09-08): industries as section 2, the
+ * compact Hiring Highway as section 3 (clickable through to the full
+ * /how-it-works page), Why LATAM as section 4 right under the highway.
+ * (Nico had already asked for the highway higher on the page on the 9/4
+ * follow-up call: "that section should be on the top.")
  *
  * Industries teaser is new (2026-09-07), per the ICP industries the client
  * named for the homepage. The Day in the Life row was removed 2026-09-08
@@ -29,11 +30,11 @@ export default function Home() {
   return (
     <>
       <HeroBright />
-      <WhyLatam />
+      <IndustriesTeaser />
       <HiringHighway compact />
+      <WhyLatam />
       <Stats />
       <LogoMarquee />
-      <IndustriesTeaser />
       <Problem />
       <Vibes />
       <Soul />

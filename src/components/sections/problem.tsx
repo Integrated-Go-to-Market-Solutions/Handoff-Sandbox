@@ -6,12 +6,39 @@ import { Reveal } from "../reveal";
 import { Icon, type IconName } from "../icon";
 import { problem } from "@/lib/content";
 
+/* The site's one card system: each face its own gradient, outlined in
+   cyan. Front and back swap between the light and dark ends of the palette
+   so the flip reads as a real change. Text always sits on the high-contrast
+   end of its gradient (ink on cyan and light, bone on royal and carbon). */
 const accents = [
-  { front: "bg-cyan text-ink", back: "bg-ink-300 text-bone border border-cyan/30" },
-  { front: "bg-royal text-bone", back: "bg-bone text-ink" },
-  { front: "bg-bone text-ink", back: "bg-royal text-bone" },
-  { front: "bg-ink-300 text-bone border border-cyan/30", back: "bg-cyan text-ink" },
+  {
+    front: "bg-gradient-to-br from-cyan to-cyan-dim text-ink",
+    back: "bg-gradient-to-br from-ink-300 to-ink text-bone",
+    ring: "border-ink/40 text-ink",
+    body: "text-ink/80",
+  },
+  {
+    front: "bg-gradient-to-br from-royal to-azure text-bone",
+    back: "bg-gradient-to-br from-white to-bone text-ink",
+    ring: "border-bone/60 text-bone",
+    body: "text-bone/85",
+  },
+  {
+    front: "bg-gradient-to-br from-white to-bone text-ink",
+    back: "bg-gradient-to-br from-royal to-azure text-bone",
+    ring: "border-cyan text-cyan-dim",
+    body: "text-ink/75",
+  },
+  {
+    front: "bg-gradient-to-br from-ink-300 to-ink text-bone",
+    back: "bg-gradient-to-br from-cyan to-cyan-dim text-ink",
+    ring: "border-cyan text-cyan",
+    body: "text-bone/80",
+  },
 ] as const;
+
+const glow =
+  "border-2 border-cyan shadow-[0_0_28px_-10px_rgba(61,214,189,0.6)] group-hover:shadow-[0_0_36px_-6px_rgba(61,214,189,0.75)]";
 
 /** One icon per card, matched to what each one is about. */
 const cardIcons: IconName[] = ["bell", "trendingUp", "compass", "globe"];
@@ -35,10 +62,10 @@ function ProblemCard({
       aria-pressed={flipped}
       aria-label={`${title}. ${flipped ? "Show the problem" : "Show the fix"}`}
       onClick={() => setFlipped((value) => !value)}
-      className="group block h-[20rem] w-full text-left [perspective:1200px]"
+      className="group block h-[22rem] w-full text-left [perspective:1200px]"
     >
       <span
-        className={`relative block h-full w-full transition-transform duration-700 [transform-style:preserve-3d] ${
+        className={`relative block h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:-translate-y-1.5 ${
           flipped ? "[transform:rotateY(180deg)]" : ""
         }`}
       >
@@ -46,26 +73,30 @@ function ProblemCard({
             up to the section intro. Four cards each carrying both read as
             four identical labels rather than as four problems. */}
         <span
-          className={`absolute inset-0 flex h-full flex-col justify-between rounded-[var(--radius-card)] p-7 shadow-sm transition-shadow duration-500 group-hover:shadow-xl [backface-visibility:hidden] ${accent.front}`}
+          className={`absolute inset-0 flex h-full flex-col rounded-[var(--radius-card)] p-7 transition-shadow duration-500 [backface-visibility:hidden] ${glow} ${accent.front}`}
         >
-          <Icon name={icon} className="h-8 w-8" />
-          <span>
-            <span className="block text-[clamp(1.05rem,1.6vw,1.3rem)] font-bold leading-tight tracking-tight">
-              {title}
-            </span>
-            <span className="mt-3 block text-base font-medium leading-relaxed opacity-85">
-              {copy}
-            </span>
+          <span
+            className={`inline-flex h-12 w-12 items-center justify-center rounded-full border-2 ${accent.ring}`}
+          >
+            <Icon name={icon} className="h-6 w-6" />
+          </span>
+          {/* Title pinned to a fixed slot so all four bodies start on the
+              same line whether the title wraps or not. */}
+          <span className="display mt-6 block min-h-[3.4rem] text-[1.15rem] leading-tight md:text-[1.25rem]">
+            {title}
+          </span>
+          <span className={`mt-3 block text-[0.95rem] font-medium leading-relaxed ${accent.body}`}>
+            {copy}
           </span>
         </span>
 
         <span
-          className={`absolute inset-0 flex h-full flex-col justify-between rounded-[var(--radius-card)] p-7 shadow-xl [backface-visibility:hidden] [transform:rotateY(180deg)] ${accent.back}`}
+          className={`absolute inset-0 flex h-full flex-col justify-between rounded-[var(--radius-card)] p-7 [backface-visibility:hidden] [transform:rotateY(180deg)] ${glow} ${accent.back}`}
         >
-          <span className="display text-6xl leading-none">STOP</span>
+          <span className="display text-6xl leading-none">Stop.</span>
           <span>
-            <span className="block text-lg font-semibold">Hand it off.</span>
-            <span className="mt-2 block max-w-[30ch] text-base font-medium leading-relaxed opacity-85">
+            <span className="display block text-xl">Hand it off.</span>
+            <span className="mt-2 block max-w-[30ch] text-[0.95rem] font-medium leading-relaxed opacity-85">
               A capable teammate can own this work without becoming another task
               for you to manage.
             </span>
