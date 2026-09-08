@@ -47,10 +47,11 @@ export function IndustriesTeaser() {
                 href={`/industries/${industry.slug}`}
                 className="group flex h-full flex-col"
               >
-                <span className="inline-flex h-20 w-20 items-center justify-center rounded-full border-2 border-cyan text-cyan-dim shadow-[0_0_24px_-8px_rgba(61,214,189,0.55)] transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-cyan group-hover:text-ink group-hover:shadow-[0_0_32px_-6px_rgba(61,214,189,0.8)]">
+                <span className="inline-flex h-20 w-20 items-center justify-center rounded-full border-[3px] border-cyan text-cyan-dim shadow-[0_0_28px_-6px_rgba(61,214,189,0.7)] transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-cyan group-hover:text-ink group-hover:shadow-[0_0_36px_-4px_rgba(61,214,189,0.9)]">
                   <Icon
                     name={industry.icon as IconName}
-                    className="h-9 w-9 transition-transform duration-500 group-hover:scale-110"
+                    strokeWidth={2.4}
+                    className="h-10 w-10 transition-transform duration-500 group-hover:scale-110"
                   />
                 </span>
 

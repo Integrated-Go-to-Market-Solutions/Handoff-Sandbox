@@ -133,16 +133,19 @@ export type IconName = keyof typeof paths;
 export function Icon({
   name,
   className = "h-6 w-6",
+  strokeWidth = 1.6,
 }: {
   name: IconName;
   className?: string;
+  /** Heavier strokes for the large, standalone icon elements. */
+  strokeWidth?: number;
 }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.6}
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
