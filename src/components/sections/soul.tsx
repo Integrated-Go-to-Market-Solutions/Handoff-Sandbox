@@ -28,8 +28,12 @@ export function Soul() {
             <span className="text-cyan">{soul.closerParts.accent}</span>
             {soul.closerParts.after}
           </h2>
-          <p className="mx-auto mt-8 max-w-[44ch] font-gotham text-[clamp(1.15rem,2vw,1.6rem)] font-medium leading-snug text-bone/90">
-            {soul.closerParts.sub}
+          <p className="mx-auto mt-8 font-gotham text-[clamp(1.15rem,2vw,1.6rem)] font-medium leading-snug text-bone/90">
+            {soul.closerParts.sub.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
           </p>
         </Reveal>
       </div>
