@@ -474,6 +474,13 @@ export const soul = {
     "Client Manager at Handoff, on the agency they applied to before.",
   closer:
     "We named our platform Alma. It means soul. A person who is treated like a teammate stays. A person who is treated like a line item leaves.",
+  /** Same statement, split so "Alma" can carry the cyan accent. */
+  closerParts: {
+    before: "We named our platform",
+    accent: "Alma.",
+    after:
+      " It means soul. A person who is treated like a teammate stays. A person who is treated like a line item leaves.",
+  },
   culture: {
     stat: "Several times a year",
     label:

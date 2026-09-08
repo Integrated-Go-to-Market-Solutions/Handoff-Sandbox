@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { Reveal } from "../reveal";
 import { Icon, type IconName } from "../icon";
@@ -78,19 +79,39 @@ function ProblemCard({
 export function Problem() {
   return (
     <section className="relative overflow-hidden bg-ink section-py text-bone">
+      {/* Editorial photo, per direct reference: a real photo in grayscale,
+          bleeding off the right edge of the viewport and dissolving into
+          the carbon on its left and bottom edges instead of sitting in a
+          frame. Only spans the intro block so it never runs behind the
+          cards. On phones it sits above the copy and fades out downward. */}
       <div className="shell relative">
-        <Reveal className="max-w-3xl">
-          <h2 className="display mt-2 text-[clamp(2rem,5vw,3.9rem)]">
-            {problem.headline}
-          </h2>
-          <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
-            {problem.body}
-          </p>
-          <p className="mt-4 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
-            {problem.bodyDepartment}
-          </p>
-        </Reveal>
-        <Reveal className="mt-14">
+        <div className="relative lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-10">
+          <div
+            className="problem-photo relative -mx-6 mb-8 h-72 sm:h-80 lg:absolute lg:-inset-y-10 lg:right-0 lg:mx-0 lg:mb-0 lg:h-auto lg:w-[58%] lg:-mr-[max(0px,calc((100vw-var(--shell))/2))]"
+            aria-hidden="true"
+          >
+            <Image
+              src="/images/bottleneck.jpg"
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 60vw, 100vw"
+              className="object-cover object-top grayscale opacity-90"
+            />
+          </div>
+
+          <Reveal className="relative max-w-3xl lg:py-10">
+            <h2 className="display mt-2 text-[clamp(2rem,5vw,3.9rem)]">
+              {problem.headline}
+            </h2>
+            <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
+              {problem.body}
+            </p>
+            <p className="mt-4 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
+              {problem.bodyDepartment}
+            </p>
+          </Reveal>
+        </div>
+        <Reveal className="relative mt-14">
           <p className="text-lg font-semibold text-bone md:text-xl">
             {problem.cardsLead}{" "}
             {/* "Flip" is a desktop word. On a phone the gesture is a tap. */}
