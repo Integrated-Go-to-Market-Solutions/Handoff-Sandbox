@@ -4,21 +4,15 @@ import { VideoLoop } from "../video-loop";
 import { Icon, type IconName } from "../icon";
 import { industries } from "@/lib/content";
 
-const cardAccents = [
-  "bg-cyan text-ink",
-  "bg-royal text-bone",
-  "bg-white text-ink border border-ink/10 shadow-sm",
-  "bg-ink text-bone",
-  "bg-ink-300 text-bone border-2 border-cyan",
-] as const;
-
 /**
- * Light gray, with a real video (grayscale) behind it instead of a flat
- * fill, per direct reference. The homepage stays general enough that
- * nobody bounces, but the five industries the ICP actually names —
- * hospitality, startups, agencies, e-commerce, corporate relocation — get
- * their own row so a visitor sees their room within one scroll instead of
- * digging into a nav dropdown.
+ * Light gray, with the team's own footage in grayscale behind it. The five
+ * industries the ICP names get a row so a visitor finds their room within
+ * one scroll.
+ *
+ * No boxes, per direct feedback ("get rid of the boxes"). Each industry is
+ * an element in the brand guide's own treatment: a cyan-outlined icon,
+ * the name, one line on the problem it answers, and the link. Same icon
+ * language as Why LATAM two sections up, so the light sections rhyme.
  */
 export function IndustriesTeaser() {
   return (
@@ -44,28 +38,32 @@ export function IndustriesTeaser() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-5">
           {industries.map((industry, i) => (
             <Reveal key={industry.slug} delay={i * 90}>
               <Link
                 href={`/industries/${industry.slug}`}
-                className={`group flex h-full min-h-[13rem] flex-col justify-between rounded-[var(--radius-card)] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl ${cardAccents[i % cardAccents.length]}`}
+                className="group flex h-full flex-col"
               >
-                <Icon
-                  name={industry.icon as IconName}
-                  className="h-8 w-8 transition-transform duration-500 group-hover:scale-110"
-                />
-                <div>
-                  <span className="block text-lg font-bold leading-tight">
-                    {industry.navLabel}
+                <span className="inline-flex h-20 w-20 items-center justify-center rounded-full border-2 border-cyan text-cyan-dim shadow-[0_0_24px_-8px_rgba(61,214,189,0.55)] transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-cyan group-hover:text-ink group-hover:shadow-[0_0_32px_-6px_rgba(61,214,189,0.8)]">
+                  <Icon
+                    name={industry.icon as IconName}
+                    className="h-9 w-9 transition-transform duration-500 group-hover:scale-110"
+                  />
+                </span>
+
+                <span className="display mt-6 block min-h-[2.75rem] text-xl leading-tight text-ink">
+                  {industry.navLabel}
+                </span>
+                <span className="mt-2 block min-h-[2.75rem] text-[0.95rem] leading-snug text-ink/65">
+                  {industry.problemHeadline}
+                </span>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-ink">
+                  See the roles
+                  <span className="text-cyan-dim transition-transform duration-300 group-hover:translate-x-1">
+                    &rarr;
                   </span>
-                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold opacity-80">
-                    See the roles
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      &rarr;
-                    </span>
-                  </span>
-                </div>
+                </span>
               </Link>
             </Reveal>
           ))}

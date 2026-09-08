@@ -47,8 +47,12 @@
   --shell: min(1240px, calc(100% - 2.5rem));
 }
 
-* {
-  border-color: var(--color-ink-200);
+/* Default border colour lives in the base layer so any border-* utility
+   beats it. Unlayered, it silently overrode every border-cyan on the site. */
+@layer base {
+  * {
+    border-color: var(--color-ink-200);
+  }
 }
 
 /* The site runs dark. Carbon (ink) is the base surface everywhere; light
