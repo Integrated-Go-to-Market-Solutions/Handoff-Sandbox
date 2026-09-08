@@ -25,8 +25,10 @@ export function IndustriesTeaser() {
           caption=""
           bare
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-bone via-bone/90 to-bone" />
-        <div className="absolute inset-0 bg-bone/55" />
+        {/* Lighter scrim than before so more of the footage shows through,
+            reading slightly darker overall, per direct instruction. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-bone via-bone/70 to-bone" />
+        <div className="absolute inset-0 bg-bone/35" />
       </div>
       <div className="shell relative z-10">
         <Reveal className="max-w-3xl">

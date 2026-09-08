@@ -478,8 +478,9 @@ export const soul = {
   closerParts: {
     before: "We named our platform",
     accent: "Alma.",
-    after:
-      " It means soul. A person who is treated like a teammate stays. A person who is treated like a line item leaves.",
+    after: " It means soul.",
+    /** The second half runs smaller, in Gotham, under the display line. */
+    sub: "A person who is treated like a teammate stays. A person who is treated like a line item leaves.",
   },
   culture: {
     stat: "Several times a year",

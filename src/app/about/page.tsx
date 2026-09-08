@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { TalentCard } from "@/components/talent-card";
 import { Cta } from "@/components/sections/cta";
-import { proof, socialLinks, team, soul } from "@/lib/content";
+import { Soul } from "@/components/sections/soul";
+import { proof, socialLinks, team } from "@/lib/content";
 
 function SocialMark({ platform }: { platform: "youtube" | "linkedin" | "instagram" }) {
   if (platform === "linkedin") {
@@ -103,43 +104,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The culture argument, which is really a retention argument. */}
-      <section className="relative overflow-hidden bg-ink section-py text-bone">
-        <div className="shell relative grid gap-12 lg:grid-cols-2 lg:items-center">
-          <Reveal>
-            <h2 className="display text-[clamp(2rem,4.4vw,3.4rem)] text-bone">
-              Everyone else sends you
-              <br />
-              <span className="text-cyan">a talent pool.</span>
-            </h2>
-            <div className="mt-8 border-l-4 border-cyan pl-6">
-              <p className="display text-[clamp(1.3rem,2.4vw,1.85rem)] leading-tight text-bone">
-                &ldquo;{soul.quote}&rdquo;
-              </p>
-              <p className="mt-4 text-sm font-semibold text-cyan">
-                {soul.attribution}
-              </p>
-              <p className="text-sm text-bone/50">{soul.attributionRole}</p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={120}>
-            <div className="rounded-[var(--radius-brand)] bg-white/[0.06] p-9 backdrop-blur-sm">
-              <p className="display text-5xl leading-none text-cyan">Alma</p>
-              <p className="mt-3 text-sm uppercase tracking-[0.18em] text-bone/45">
-                Spanish for soul
-              </p>
-              <p className="mt-6 leading-relaxed text-bone/75">{soul.closer}</p>
-              <div className="mt-8 pt-6">
-                <p className="display text-xl text-cyan">{soul.culture.stat}</p>
-                <p className="mt-2 max-w-[38ch] text-[0.95rem] leading-relaxed text-bone/65">
-                  {soul.culture.label}
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* Same Alma-over-the-footage section as the homepage, per direct
+          instruction, in place of the old quote-and-panel layout. */}
+      <Soul />
 
       <Cta />
     </>
