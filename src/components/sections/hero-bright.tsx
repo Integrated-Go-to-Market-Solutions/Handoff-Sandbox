@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button, Eyebrow } from "../brand";
 import { hero, sampleTalent } from "@/lib/content";
 
@@ -21,11 +22,28 @@ const cardAccents = [
  * numbers their own section... there's a lot to look at [here]"); and the
  * subhead no longer carries a left border/padding that offset it from the
  * headline's edge — flagged as the sections not sharing the same margin.
+ *
+ * Background is a real photo (the same team-culture frame used behind
+ * Soul), not a drawn pattern — the brand guide's actual "Screen effect"
+ * swatch is a halftone dot screen laid over real photography, not an
+ * abstract texture, so `.halftone` runs over the image itself here.
  */
 export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
-    <section className="tex-brick relative overflow-hidden pb-16 pt-14 md:pb-20 md:pt-20">
-      <div className="shell relative">
+    <section className="halftone relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
+      <div className="absolute inset-0" aria-hidden="true">
+        <Image
+          src="/video/culture.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/85 to-ink/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/20 to-ink/70" />
+      </div>
+      <div className="shell relative z-10">
         <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>
         <h1 className="display max-w-[15ch] text-[clamp(3rem,9vw,7.5rem)] text-bone">
           {hero.headline.map((part) => (

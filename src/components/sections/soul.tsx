@@ -11,7 +11,7 @@ import { soul } from "@/lib/content";
 export function Soul() {
   return (
     <section className="relative overflow-hidden bg-ink section-py text-bone">
-      <div className="absolute inset-0" aria-hidden="true">
+      <div className="absolute inset-0 grayscale" aria-hidden="true">
         <VideoLoop
           src="/video/culture.mp4"
           poster="/video/culture.jpg"
@@ -19,8 +19,8 @@ export function Soul() {
           caption=""
           bare
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/50" />
-        <div className="absolute inset-0 bg-ink/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/92 to-ink/75" />
+        <div className="absolute inset-0 bg-ink/60" />
       </div>
       <div className="shell relative grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
         <Reveal>

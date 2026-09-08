@@ -58,6 +58,20 @@ export const hero = {
 };
 
 /**
+ * Real figures from Overview2026.pdf / the sales deck, per direct reference
+ * to that exact stat-tile design (tilted photo cards, light gray background,
+ * clickable through to the results proof). Photos are real team members,
+ * not stand-ins for the stat itself, cropped into the organic-blob frame
+ * from the "this vibe for images" reference.
+ */
+export const proofStats = [
+  { value: "$50K+", label: "Saved per hire", photo: "jake-castro" },
+  { value: "40+", label: "Clients", photo: "jazmin-esparza" },
+  { value: "200+", label: "Placements", photo: "shaori-velueta" },
+  { value: "96%+", label: "Client retention", photo: "catalina-saldarriaga" },
+] as const;
+
+/**
  * Sample talent for the hero, not the Handoff team. Anthony, verbatim:
  * "instead of the team on the top, how you have it now, we would want...
  * a sampling that would focus on talent, like Miguel, AI developer... not
@@ -198,17 +212,27 @@ export const proof = {
  * Elevate, and "Fragomen" alone) have been dropped rather than guessed at;
  * "Fragomen" is real as the joint "Fragomen WorkRight" account (same client
  * as the Robert Horsley / WorkRight testimonial in clientQuotes below).
- * More logos are pending real image assets from Anthony.
+ * Extended 2026-09-08 against the real logo wall from the sales deck,
+ * pasted directly — but a pasted image can't be extracted into individual
+ * files, so entries without a real `slug` image render as a clean text
+ * wordmark instead (`hasImage: false`) until the actual logo files land.
  */
 export const logos = [
-  { slug: "dwellworks", name: "Dwellworks" },
-  { slug: "fragomen", name: "Fragomen WorkRight" },
-  { slug: "quest-relocation", name: "Quest Relocation Group" },
-  { slug: "united-corporate-housing", name: "United Corporate Housing" },
-  { slug: "nyc-navigator", name: "NYC Navigator" },
-  { slug: "good-carma", name: "Good Carma Consulting" },
-  { slug: "utility-basics", name: "Utility Basics" },
-];
+  { slug: "dwellworks", name: "Dwellworks", hasImage: true },
+  { slug: "fragomen", name: "Fragomen WorkRight", hasImage: true },
+  { slug: "quest-relocation", name: "Quest Relocation Group", hasImage: true },
+  { slug: "united-corporate-housing", name: "United Corporate Housing", hasImage: true },
+  { slug: "nyc-navigator", name: "NYC Navigator", hasImage: true },
+  { slug: "good-carma", name: "Good Carma Consulting", hasImage: true },
+  { slug: "utility-basics", name: "Utility Basics", hasImage: true },
+  { slug: "3sixty", name: "3Sixty", hasImage: false },
+  { slug: "guru", name: "We Are GURU", hasImage: false },
+  { slug: "altovita", name: "AltoVita", hasImage: false },
+  { slug: "pivt", name: "PIVT", hasImage: false },
+  { slug: "gfda", name: "GFDA", hasImage: false },
+  { slug: "all-that-housing", name: "All That Housing", hasImage: false },
+  { slug: "maha", name: "MAHA", hasImage: false },
+] as const;
 
 /**
  * "Hiring Highway": the proprietary six-step system, per the client's own
@@ -225,32 +249,38 @@ export const process = {
     {
       n: "01",
       title: "We scope the role",
-      copy: "One call to define the work, the outcome and the model that fits. If we are not the right partner we will tell you on that call.",
+      subtitle: "Align before we search",
+      bullets: ["Define the work and the outcome", "Pick the model that fits", "An honest no if we're not the right fit"],
     },
     {
       n: "02",
       title: "We hunt, not post",
-      copy: "Our recruiters go after people who are not looking for a job. Roughly 300 candidates come under review for a single role.",
+      subtitle: "Human-led, system-supported",
+      bullets: ["We go after people not looking for a job", "~300 candidates reviewed per role", "No job-board posting"],
     },
     {
       n: "03",
       title: "Skills and English",
-      copy: "Video skills assessments that mirror the actual job, plus a real conversation, not a canned language test.",
+      subtitle: "Assessed, not assumed",
+      bullets: ["Video skills assessment", "Mirrors the actual job", "A real conversation, not a canned test"],
     },
     {
       n: "04",
       title: "AI fluency and judgment",
-      copy: "We screen for how well someone works with AI tools and how they think under pressure, not just the technical checklist.",
+      subtitle: "Beyond the technical checklist",
+      bullets: ["AI tool fluency", "Judgment under pressure", "Not just the technical checklist"],
     },
     {
       n: "05",
       title: "You meet the shortlist",
-      copy: "You meet two or three finalists and make the call on fit. We do not send a stack of resumes and disappear.",
+      subtitle: "Only the best, not a pile of resumes",
+      bullets: ["Meet 2 to 3 finalists", "You make the call on fit", "No resume stack, no disappearing act"],
     },
     {
       n: "06",
       title: "We employ and onboard",
-      copy: "Contracts, compliant employment, payroll and the onboarding that gets them productive fast.",
+      subtitle: "Confident hire, smooth transition",
+      bullets: ["Contracts and compliant employment", "Payroll handled", "Onboarding that gets them productive fast"],
     },
   ],
 };

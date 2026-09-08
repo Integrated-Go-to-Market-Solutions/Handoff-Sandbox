@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "../reveal";
 import { VideoLoop } from "../video-loop";
@@ -117,10 +118,29 @@ function AnimatedHeadline({ line1, line2 }: { line1: string; line2: string }) {
   );
 }
 
+/**
+ * Real photo, not a flat fill — a true duotone (grayscale image, teal tint
+ * via `mix-blend-mode: color` so the hue rides on the photo's own contrast
+ * instead of just sitting on top of it), per Karla's own words on the call:
+ * "if we were to use a picture, maybe we use it with grayscale... it's with
+ * opacity or an effect of duotone... it doesn't steal the show, but it
+ * gives texture on the background."
+ */
 export function Vibes() {
   return (
     <section className="relative overflow-hidden bg-ink section-py text-bone">
-      <div className="shell relative">
+      <div className="absolute inset-0" aria-hidden="true">
+        <Image
+          src="/images/team-group.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover grayscale"
+        />
+        <div className="absolute inset-0 bg-cyan-dim mix-blend-color" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/80 to-ink" />
+      </div>
+      <div className="shell relative z-10">
         <Reveal className="max-w-4xl">
           <AnimatedHeadline
             line1={`${vibes.headline} ${vibes.headlineStrike}`}
