@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { LogoLock, Button } from "./brand";
+import { Button } from "./brand";
 import { nav, site } from "@/lib/content";
 import type { NavItem } from "@/lib/content";
 
@@ -53,6 +53,13 @@ function NavGroup({ item }: { item: NavItem }) {
   );
 }
 
+/**
+ * Masthead layout, per direct reference (hermessi.com): the wordmark runs
+ * full width across its own band, with the actual navigation tucked into a
+ * slim row underneath instead of squeezed beside a small logo. Only the nav
+ * row is sticky — the masthead itself scrolls away, so it doesn't eat
+ * viewport height on every scroll.
+ */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -73,62 +80,73 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
-        scrolled
-          ? "border-b border-white/10 bg-ink/90 backdrop-blur-lg"
-          : "border-b border-transparent bg-ink"
-      }`}
-    >
-      <div className="shell flex items-center justify-between py-4">
-        <LogoLock />
+    <header className="relative z-50 bg-ink">
+      <div className="border-b border-white/10">
+        <div className="shell py-5 text-center md:py-7">
+          <Link href="/" aria-label="Handoff home" className="inline-block">
+            <span className="display inline-block text-[clamp(2.8rem,11vw,7.5rem)] leading-[0.85] text-bone">
+              HANDOFF
+            </span>
+          </Link>
+        </div>
+      </div>
 
-        <nav className="hidden items-center gap-6 md:flex lg:gap-9">
-          {nav.map((item) =>
-            item.children ? (
-              <NavGroup key={item.href} item={item} />
-            ) : (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-[0.93rem] font-medium text-bone/70 transition-colors hover:text-bone"
-              >
-                {item.label}
-              </Link>
-            ),
-          )}
-          <Button href={site.bookCall} size="sm">
+      <div
+        className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
+          scrolled
+            ? "border-white/10 bg-ink/90 backdrop-blur-lg"
+            : "border-white/10 bg-ink"
+        }`}
+      >
+        <div className="shell flex items-center justify-between py-3">
+          <nav className="hidden items-center gap-6 md:flex lg:gap-9">
+            {nav.map((item) =>
+              item.children ? (
+                <NavGroup key={item.href} item={item} />
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-[0.93rem] font-medium text-bone/70 transition-colors hover:text-bone"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
+          </nav>
+
+          <Button href={site.bookCall} size="sm" className="hidden md:inline-flex">
             Talk to Our Team
           </Button>
-        </nav>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label="Toggle menu"
-          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
-        >
-          <span
-            className={`h-0.5 w-6 bg-bone transition-transform duration-300 ${
-              open ? "translate-y-[7px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`h-0.5 w-6 bg-bone transition-opacity duration-200 ${
-              open ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`h-0.5 w-6 bg-bone transition-transform duration-300 ${
-              open ? "-translate-y-[7px] -rotate-45" : ""
-            }`}
-          />
-        </button>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label="Toggle menu"
+            className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
+          >
+            <span
+              className={`h-0.5 w-6 bg-bone transition-transform duration-300 ${
+                open ? "translate-y-[7px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`h-0.5 w-6 bg-bone transition-opacity duration-200 ${
+                open ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`h-0.5 w-6 bg-bone transition-transform duration-300 ${
+                open ? "-translate-y-[7px] -rotate-45" : ""
+              }`}
+            />
+          </button>
+        </div>
       </div>
 
       {open && (
-        <div className="fixed inset-0 top-[72px] z-40 overflow-y-auto bg-ink px-6 pb-16 pt-8 md:hidden">
+        <div className="fixed inset-0 top-[52px] z-40 overflow-y-auto bg-ink px-6 pb-16 pt-8 md:hidden">
           <nav className="flex flex-col gap-1">
             {nav.map((item) => (
               <div key={item.href} className="border-b border-white/10">

@@ -2,19 +2,13 @@ import Link from "next/link";
 
 /**
  * The real lockup from "Handoff Logo 2025" (Nico flagged the old hand-drawn
- * placeholder mark as "a little off" on the 9/4 call). `surface` is the
- * background it sits on: `dark` (the site default) uses the white-on-cyan
- * file, `light` uses the navy-on-cyan one. A plain `img` rather than
- * next/image: it's a small static vector, and Next's image optimizer
- * refuses local SVGs without extra config for no benefit here.
+ * placeholder mark as "a little off" on the 9/4 call). Always the navy-on-
+ * cyan version, per direct instruction, regardless of surface. A plain
+ * `img` rather than next/image: it's a small static vector, and Next's
+ * image optimizer refuses local SVGs without extra config for no benefit
+ * here.
  */
-export function LogoLock({
-  className = "",
-  surface = "dark",
-}: {
-  className?: string;
-  surface?: "dark" | "light";
-}) {
+export function LogoLock({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/"
@@ -22,11 +16,7 @@ export function LogoLock({
       aria-label="Handoff home"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={surface === "dark" ? "/brand/logo-light.svg" : "/brand/logo-dark.svg"}
-        alt="Handoff"
-        className="h-8 w-auto"
-      />
+      <img src="/brand/logo-dark.svg" alt="Handoff" className="h-8 w-auto" />
     </Link>
   );
 }
