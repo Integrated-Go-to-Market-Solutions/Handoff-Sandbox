@@ -2,6 +2,31 @@ import { Button, Pill } from "../brand";
 import { Reveal } from "../reveal";
 import { models, modelsFootnote, site } from "@/lib/content";
 
+/* Each card is its own gradient with a cyan outline, per direct feedback —
+   the same treatment as the Hiring Highway cards, not plain boxes. The
+   featured card keeps the brightest (cyan) gradient so it still reads as
+   the recommended choice at a glance. */
+const cardAccents = [
+  {
+    card: "bg-gradient-to-br from-cyan to-cyan-dim text-ink",
+    pill: "!border-ink/30 !text-ink",
+    price: "text-ink",
+    button: "ink" as const,
+  },
+  {
+    card: "bg-gradient-to-br from-royal to-azure text-bone",
+    pill: "!border-bone/40 !text-bone",
+    price: "text-bone",
+    button: "cyan" as const,
+  },
+  {
+    card: "bg-gradient-to-br from-ink-300 to-ink text-bone",
+    pill: "!border-bone/30 !text-bone",
+    price: "text-cyan",
+    button: "cyan" as const,
+  },
+] as const;
+
 export function Models() {
   return (
     <section id="models" className="relative overflow-hidden bg-ink section-py-hero text-bone">
@@ -19,27 +44,14 @@ export function Models() {
         </Reveal>
 
         <div className="mt-14 grid gap-5 lg:grid-cols-3">
-          {models.map((model, i) => (
+          {models.map((model, i) => {
+            const accent = cardAccents[i % cardAccents.length];
+            return (
             <Reveal key={model.name} delay={i * 110}>
-              {/*
-                Nico, follow-up call: "this only color is not indicating me
-                enough that we should choose this... maybe I will make the
-                whole card blue... give the user more guide on where he
-                should be looking." The featured card is now solid cyan
-                instead of a white card with a thin border, so it actually
-                reads as the recommended choice at a glance.
-              */}
               <article
-                className={`flex h-full flex-col rounded-[var(--radius-card)] p-8 transition-transform duration-500 hover:-translate-y-1.5 ${
-                  model.featured
-                    ? "bg-cyan text-ink shadow-xl"
-                    : "border border-ink/12 bg-white text-ink"
-                }`}
+                className={`flex h-full flex-col rounded-[var(--radius-card)] border-2 border-cyan p-8 shadow-[0_0_28px_-10px_rgba(61,214,189,0.6)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_0_36px_-6px_rgba(61,214,189,0.75)] ${accent.card}`}
               >
-                <Pill
-                  tone="outline"
-                  className={model.featured ? "!border-ink/30 !text-ink" : ""}
-                >
+                <Pill tone="outline" className={accent.pill}>
                   {model.tag}
                 </Pill>
 
@@ -51,7 +63,7 @@ export function Models() {
                 </p>
 
                 <div className="mt-6 min-h-[6.5rem] py-5">
-                  <p className={`display text-2xl ${model.featured ? "text-ink" : "text-royal"}`}>
+                  <p className={`display text-2xl ${accent.price}`}>
                     {model.price}
                   </p>
                   <p className="mt-1 text-xs font-medium opacity-70">
@@ -90,7 +102,7 @@ export function Models() {
 
                 <Button
                   href={site.bookCall}
-                  variant="ink"
+                  variant={accent.button}
                   size="lg"
                   className="mt-auto w-full"
                 >
@@ -98,7 +110,8 @@ export function Models() {
                 </Button>
               </article>
             </Reveal>
-          ))}
+            );
+          })}
         </div>
 
         <Reveal delay={models.length * 110} className="mt-8">
