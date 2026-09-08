@@ -1,16 +1,27 @@
 import { Reveal } from "../reveal";
-import { PhotoBackdrop } from "../photo-backdrop";
+import { VideoLoop } from "../video-loop";
 import { soul } from "@/lib/content";
 
 /**
- * "I love a grayscale image as a subtle background with information" — the
- * real team photo, desaturated and faint, behind the culture argument this
- * section is making about the team.
+ * Real footage, not a flat photo trick: the team's own end-of-year meetup,
+ * looping muted behind the culture argument this section makes. Backs up
+ * "several times a year the whole team flies to Medellín" with something
+ * that actually shows it instead of just saying it.
  */
 export function Soul() {
   return (
     <section className="relative overflow-hidden bg-ink section-py text-bone">
-      <PhotoBackdrop src="/images/team-group.webp" tone="dark" />
+      <div className="absolute inset-0" aria-hidden="true">
+        <VideoLoop
+          src="/video/culture.mp4"
+          poster="/video/culture.jpg"
+          name=""
+          caption=""
+          bare
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/50" />
+        <div className="absolute inset-0 bg-ink/40" />
+      </div>
       <div className="shell relative grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
         <Reveal>
           <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-bone">

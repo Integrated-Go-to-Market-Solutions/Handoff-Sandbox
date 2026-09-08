@@ -42,7 +42,28 @@ export function Process() {
           </p>
         </Reveal>
 
-        <ol className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {/* The literal highway: a car drives past six mile markers, one per
+            step, looping continuously. */}
+        <Reveal delay={80} className="mt-10">
+          <div className="relative h-14 overflow-hidden rounded-full bg-ink md:h-16">
+            <div className="highway-dashes absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 opacity-70" />
+            <div className="absolute inset-0 flex items-center justify-between px-3 md:px-5">
+              {process.steps.map((step) => (
+                <span
+                  key={step.n}
+                  className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-cyan text-[0.7rem] font-bold text-ink ring-4 ring-ink md:h-8 md:w-8 md:text-xs"
+                >
+                  {step.n}
+                </span>
+              ))}
+            </div>
+            <div className="highway-car pointer-events-none absolute top-1/2 -translate-y-1/2">
+              <Icon name="car" className="h-8 w-8 text-cyan md:h-9 md:w-9" />
+            </div>
+          </div>
+        </Reveal>
+
+        <ol className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {process.steps.map((step, i) => (
             <Reveal key={step.n} delay={i * 80} as="li">
               <div

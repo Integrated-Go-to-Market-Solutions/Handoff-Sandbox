@@ -97,6 +97,14 @@ const paths = {
       <path d="M18 8.8a2.6 2.6 0 0 1 0 4.4" />
     </>
   ),
+  car: (
+    <>
+      <path d="M3.3 15.2 4.7 11a2 2 0 0 1 1.9-1.4h10.8a2 2 0 0 1 1.9 1.4l1.4 4.2" />
+      <path d="M2.8 15.2h18.4a.8.8 0 0 1 .8.8v2.2a1 1 0 0 1-1 1h-1.3a1 1 0 0 1-1-1v-.7H5.3v.7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V16a.8.8 0 0 1 .8-.8Z" />
+      <circle cx="7" cy="19.2" r="1.4" />
+      <circle cx="17" cy="19.2" r="1.4" />
+    </>
+  ),
 } as const;
 
 export type IconName = keyof typeof paths;
