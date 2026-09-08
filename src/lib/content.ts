@@ -682,28 +682,91 @@ export const clientQuotes = {
 };
 
 /**
- * /results. Built empty on purpose: the case study, the retention figure and
- * the video testimonials are all real but still anonymised, so the structure
- * ships now and the copy drops in when the clients clear it.
+ * Two real, client-cleared case studies (from the "Case Study" PDFs in the
+ * shared Drive folder), anonymized by role rather than company name, same
+ * as the source documents ship them. Numbers and quotes are verbatim except
+ * for punctuation normalized to the site's no-em-dash rule.
  */
+export const caseStudies = [
+  {
+    slug: "fractional-cmo",
+    tag: "Marketing",
+    icon: "megaphone",
+    title: "How a Fractional CMO scaled to 8 clients",
+    subhead:
+      "A seasoned Fractional CMO went from managing 3 overwhelmed clients to running marketing strategy for 8 high-growth companies.",
+    heroStats: [
+      { value: "8", label: "Active clients, up from 3" },
+      { value: "+250%", label: "Revenue increase" },
+      { value: "20hrs", label: "Saved per week" },
+    ],
+    challenge: [
+      "Constantly switching between client communication channels, project tools and marketing platforms, losing strategic thinking time to every context switch.",
+      "60% of his time went to status updates and progress reports instead of the high-impact strategy clients were paying for.",
+      "Every client had different internal teams and approval processes, so he became the bottleneck manually coordinating his own vision with client execution teams.",
+      "Already at capacity with 3 clients, with no way to take on the higher-value work he was positioned to win.",
+    ],
+    solution: [
+      { title: "One command center for every client", result: "80% reduction in context-switching time" },
+      { title: "Standardized handoff templates for every campaign", result: "70% faster campaign execution" },
+      { title: "Automated dashboards instead of manual reporting", result: "90% improvement in strategic decision speed" },
+    ],
+    results: [
+      { value: "8", label: "Active clients" },
+      { value: "+250%", label: "Annual revenue increase" },
+      { value: "20hrs", label: "Saved per week on admin" },
+      { value: "95%", label: "Client retention" },
+      { value: "40%", label: "Pipeline growth across clients" },
+      { value: "$2.3M", label: "Additional revenue in 12 months" },
+    ],
+    quote:
+      "Handoff didn't just solve my operational challenges. It transformed my entire business model. I went from being a stressed consultant juggling 3 clients to a strategic advisor confidently serving 8 high-growth companies. The ROI was immediate and continues to compound as I scale.",
+    attributionRole: "Fractional CMO and Marketing Strategist",
+  },
+  {
+    slug: "global-relocation",
+    tag: "Relocation",
+    icon: "globe",
+    title: "Scaling global relocation operations with nearshore talent",
+    subhead:
+      "One of the world's leading relocation and mobility services companies needed top-tier operational and finance talent, fast, without US and European hiring costs.",
+    heroStats: [
+      { value: "$327,600", label: "In annual savings" },
+      { value: "96%", label: "Retention across all roles" },
+      { value: "50%", label: "Decrease in time-to-hire" },
+    ],
+    challenge: [
+      "Struggled to fill Accounts Payable, Accounts Receivable, Staff Accountant and Global Accounting Manager roles despite competitive salaries.",
+      "Could not maintain adequate coverage in guest services and intercultural support.",
+      "Needed to scale internal teams without exceeding operational budgets.",
+      "Traditional hiring was too costly and too slow for roles requiring strong English fluency, cross-cultural understanding and financial precision.",
+    ],
+    solution: [
+      { title: "A blended nearshore team: accounting and finance specialists, an intercultural training coordinator, guest services and admin support", result: "Onboarded in under three weeks" },
+      { title: "Every hire vetted for technical skill, cultural alignment and communication ability", result: "Full adoption of the client's own tools and workflows" },
+    ],
+    results: [
+      { value: "+$327,600", label: "In annual savings" },
+      { value: "96%", label: "Retention rate across all roles" },
+      { value: "50%", label: "Decrease in time-to-hire" },
+      { value: "3 weeks", label: "Typical time to fill a role" },
+    ],
+    quote:
+      "Partnering with Handoff has completely transformed how we scale our operational teams. When local hiring dried up, their team delivered high caliber talent fast, and at a fraction of the cost.",
+    attributionRole: "VP of Global Operations",
+  },
+] as const;
+
 export const resultsPage = {
   eyebrow: "Results",
   headline: "What happens after the hire",
   headlineAccent: "is the whole point.",
   body: "Placing someone is the easy half. These are the numbers and the stories from companies that made the hire and kept the person.",
   numbers: [
-    { value: "[PENDING]", label: "[RETENTION FIGURE PENDING CLIENT APPROVAL]" },
-    { value: "[PENDING]", label: "[METRIC PENDING CLIENT APPROVAL]" },
-    { value: "[PENDING]", label: "[METRIC PENDING CLIENT APPROVAL]" },
+    { value: "96%", label: "Retention rate, relocation case study" },
+    { value: "$2.3M", label: "Additional revenue, CMO case study" },
+    { value: "50%", label: "Faster time-to-hire, relocation case study" },
   ],
-  caseStudy: {
-    eyebrow: "Case study",
-    company: "[COMPANY PENDING APPROVAL]",
-    headline: "[CASE STUDY HEADLINE PENDING APPROVAL]",
-    situation: "[SITUATION PENDING APPROVAL]",
-    work: "[WHAT WE DID PENDING APPROVAL]",
-    outcome: "[OUTCOME PENDING APPROVAL]",
-  },
   videos: {
     headline: "Video testimonials",
     body: "Filmed with clients, on their own terms. Dropping in as each one clears.",
