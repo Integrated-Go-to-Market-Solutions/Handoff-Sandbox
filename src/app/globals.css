@@ -313,10 +313,121 @@ body {
   100% { opacity: 0; }
 }
 
+/* The Hiring Highway as a vertical road. A gray spine with a dashed centre
+   line, and a cyan fill that follows the reader down the page; each stop
+   lights up as the fill reaches it. The compact homepage version and the
+   full /how-it-works page share every rule here. */
+.hw-dots {
+  background-image: radial-gradient(#333 1.4px, transparent 1.4px);
+  background-size: 18px 18px;
+}
+.hw-swipe {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+.hw-swipe::after {
+  content: "";
+  position: absolute;
+  left: -0.05em;
+  right: -0.05em;
+  bottom: 0.04em;
+  height: 0.28em;
+  border-radius: 999px;
+  background: var(--color-cyan);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease-out-brand) 0.35s;
+}
+.is-in .hw-swipe::after { transform: scaleX(1); }
+
+.hw-road {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 18px;
+  border-radius: 999px;
+  background: #2b2b2b;
+  overflow: hidden;
+}
+.hw-road-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: var(--color-cyan);
+  transition: height 0.12s linear;
+}
+.hw-road-dash {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(31, 31, 31, 0.9) 0 14px,
+    transparent 14px 28px
+  );
+}
+.hw-node {
+  border-radius: 999px;
+  background: var(--color-ink);
+  border: 3px solid #3a3a3a;
+  transition:
+    border-color 0.4s var(--ease-out-brand),
+    box-shadow 0.4s var(--ease-out-brand),
+    transform 0.4s var(--ease-out-brand),
+    background-color 0.4s var(--ease-out-brand);
+}
+.hw-stop.in .hw-node {
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 0 6px rgba(61, 214, 189, 0.18);
+  transform: scale(1.08);
+}
+.hw-stop.in .hw-node-end {
+  background: var(--color-cyan);
+  border-color: var(--color-bone);
+}
+.hw-day {
+  color: var(--color-bone);
+  opacity: 0.45;
+  transition: opacity 0.4s, color 0.4s;
+}
+.hw-stop.in .hw-day {
+  color: var(--color-cyan);
+  opacity: 1;
+}
+.hw-card {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.65s var(--ease-out-brand),
+    transform 0.65s var(--ease-out-brand),
+    border-color 0.4s var(--ease-out-brand),
+    box-shadow 0.4s var(--ease-out-brand);
+}
+@media (min-width: 768px) {
+  .hw-stop-left .hw-card { transform: translateX(-26px); }
+  .hw-stop-right .hw-card { transform: translateX(26px); }
+}
+.hw-stop.in .hw-card {
+  opacity: 1;
+  transform: none;
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 28px -10px rgba(61, 214, 189, 0.55);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
   .marquee-track, .drift { animation: none; }
+  .hw-road-fill { height: 100% !important; }
+  .hw-card, .hw-stop-left .hw-card, .hw-stop-right .hw-card { opacity: 1; transform: none; }
+  .hw-swipe::after { transform: scaleX(1); }
   *,
   *::before,
   *::after {

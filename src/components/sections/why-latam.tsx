@@ -12,24 +12,24 @@ import { whyLatam } from "@/lib/content";
 export function WhyLatam() {
   return (
     <section className="relative overflow-hidden bg-bone section-py text-ink">
-      {/* Subtle LATAM outline watermark — traced from the real geography
-          (Baja, the Yucatán bulge, the Central American isthmus, Brazil's
-          eastward shoulder, tapering to Tierra del Fuego), not a stock
-          photo. Slightly darker gray, low opacity, just enough presence to
-          place the section without competing with the actual content. */}
-      <svg
-        viewBox="0 0 400 600"
-        className="pointer-events-none absolute -right-10 top-1/2 h-[130%] w-auto -translate-y-1/2 opacity-[0.06] md:right-4"
+      {/* The LATAM outline, traced from the reference map in
+          "background ideas" (the watermarked stock file itself is never
+          embedded). A line sketch in slightly darker gray at low opacity:
+          enough to place the section, not enough to compete with it. */}
+      <div
+        className="pointer-events-none absolute -right-6 top-1/2 h-[135%] aspect-[1014/1293] -translate-y-1/2 bg-ink opacity-[0.14] md:right-2 lg:right-8"
+        style={{
+          maskImage: "url(/brand/latam-outline.svg)",
+          maskSize: "contain",
+          maskRepeat: "no-repeat",
+          maskPosition: "center",
+          WebkitMaskImage: "url(/brand/latam-outline.svg)",
+          WebkitMaskSize: "contain",
+          WebkitMaskRepeat: "no-repeat",
+          WebkitMaskPosition: "center",
+        }}
         aria-hidden="true"
-      >
-        <path
-          d="M70,20 L55,70 L75,78 L95,30 L140,15 L180,25 L190,70 L222,92 L196,107 L176,130 L186,150 L166,172 L192,186 L222,180 L248,202 L272,232 L292,272 L300,322 L294,362 L268,422 L244,472 L228,512 L208,532 L192,516 L174,460 L164,400 L158,340 L153,280 L148,220 L158,172 Z"
-          fill="var(--color-ink)"
-        />
-        <circle cx="232" cy="98" r="5" fill="var(--color-ink)" />
-        <circle cx="250" cy="108" r="3.5" fill="var(--color-ink)" />
-        <circle cx="215" cy="88" r="2.5" fill="var(--color-ink)" />
-      </svg>
+      />
 
       <div className="shell relative">
         <Reveal className="max-w-3xl">

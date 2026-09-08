@@ -289,45 +289,60 @@ export const logos = [
 export const process = {
   eyebrow: "The Hiring Highway",
   headline: "Six steps. One person who sticks.",
+  /** Same headline, split so the last word can carry the cyan swipe. */
+  headlineParts: { before: "Six steps. One person who", swipe: "sticks", after: "." },
   body: "Every hire goes through the same six steps, no shortcuts. That is how the right person lands in the right seat and stays there.",
+  lede: "Nobody skips a step, not even when you needed someone yesterday. About 21 days start to finish, and you'll know exactly where things stand the whole way.",
   steps: [
     {
       n: "01",
+      day: "Day 1",
       title: "We scope the role",
       subtitle: "Align before we search",
       bullets: ["Define the work and the outcome", "Pick the model that fits", "An honest no if we're not the right fit"],
     },
     {
       n: "02",
+      day: "Days 2 to 5",
       title: "We hunt, not post",
       subtitle: "Human-led, system-supported",
-      bullets: ["We go after people not looking for a job", "~300 candidates reviewed per role", "No job-board posting"],
+      bullets: ["We go after people who aren't looking", "Around 300 candidates reviewed per role", "Nothing goes on a job board"],
     },
     {
       n: "03",
+      day: "Days 5 to 10",
       title: "Skills and English",
       subtitle: "Assessed, not assumed",
-      bullets: ["Video skills assessment", "Mirrors the actual job", "A real conversation, not a canned test"],
+      bullets: ["Video skills assessment", "Built to mirror the actual job", "A real conversation, not a canned test"],
     },
     {
       n: "04",
+      day: "Days 10 to 14",
       title: "AI fluency and judgment",
       subtitle: "Beyond the technical checklist",
-      bullets: ["AI tool fluency", "Judgment under pressure", "Not just the technical checklist"],
+      bullets: ["How they actually use AI in the work", "What they do when the answer isn't obvious", "Operators who run things, not just execute"],
     },
     {
       n: "05",
+      day: "Days 14 to 18",
       title: "You meet the shortlist",
       subtitle: "Only the best, not a pile of resumes",
-      bullets: ["Meet 2 to 3 finalists", "You make the call on fit", "No resume stack, no disappearing act"],
+      bullets: ["Two finalists, both genuinely hireable", "Notes, rates and availability up front", "The goal is that picking one is hard"],
     },
     {
       n: "06",
-      title: "We employ and onboard",
-      subtitle: "Confident hire, smooth transition",
-      bullets: ["Contracts and compliant employment", "Payroll handled", "Onboarding that gets them productive fast"],
+      day: "Day 21 and every day after",
+      title: "We employ, onboard, and stay on",
+      subtitle: "This is the part nobody else does",
+      bullets: ["Payroll and benefits", "Equipment", "Compliance", "Weekly check ins", "Ongoing coaching", "90 day guarantee"],
     },
   ],
+  closer: {
+    line: "You don't pay a thing until you hire.",
+    cta: "Start at step one",
+  },
+  /** Homepage teaser copy: the compact road links through to the full page. */
+  teaserCta: "See every step",
 };
 
 /**
@@ -717,7 +732,7 @@ export type NavItem = {
 };
 
 export const nav: NavItem[] = [
-  { label: "How it works", href: "/#process" },
+  { label: "How it works", href: "/how-it-works" },
   {
     label: "Industries",
     href: `/industries/${industries[0].slug}`,
