@@ -3,14 +3,14 @@ import { VideoLoop } from "../video-loop";
 import { soul } from "@/lib/content";
 
 /**
- * Real footage, not a flat photo trick: the team's own end-of-year meetup,
- * looping muted behind the culture argument this section makes. Backs up
- * "several times a year the whole team flies to Medellín" with something
- * that actually shows it instead of just saying it.
+ * Stripped back per direct feedback ("way too busy... simple, minimal"):
+ * one headline, one quote, one line on Alma, all centred over the team's
+ * own meetup footage in grayscale. The Alma panel, the culture stat and the
+ * quote's border rule are gone; the video already shows the culture.
  */
 export function Soul() {
   return (
-    <section className="relative overflow-hidden bg-ink section-py text-bone">
+    <section className="relative overflow-hidden bg-ink section-py-hero text-bone">
       <div className="absolute inset-0 grayscale" aria-hidden="true">
         <VideoLoop
           src="/video/culture.mp4"
@@ -19,46 +19,31 @@ export function Soul() {
           caption=""
           bare
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/92 to-ink/75" />
-        <div className="absolute inset-0 bg-ink/60" />
+        <div className="absolute inset-0 bg-ink/75" />
       </div>
-      <div className="shell relative grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-        <Reveal>
+      <div className="shell relative">
+        <Reveal className="mx-auto max-w-4xl text-center">
           <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-bone">
-            {soul.headline}
-            <br />
+            {soul.headline}{" "}
             <span className="text-cyan">{soul.headlineAccent}</span>
           </h2>
-          <p className="mt-6 max-w-[50ch] text-lg leading-relaxed text-bone/85">
+          <p className="mx-auto mt-6 max-w-[50ch] text-lg leading-relaxed text-bone/75">
             {soul.body}
           </p>
-
-          <div className="mt-10 border-l-4 border-cyan pl-6">
-            <p className="display text-[clamp(1.4rem,2.6vw,2rem)] leading-tight text-bone">
-              &ldquo;{soul.quote}&rdquo;
-            </p>
-            <p className="mt-4 text-sm font-semibold text-cyan">
-              {soul.attribution}
-            </p>
-            <p className="text-sm text-bone/70">{soul.attributionRole}</p>
-          </div>
         </Reveal>
 
-        <Reveal delay={140}>
-          <div className="rounded-[var(--radius-brand)] bg-cyan p-9 text-ink shadow-xl">
-            <p className="display text-6xl leading-none text-ink">Alma</p>
-            <p className="mt-3 text-sm uppercase tracking-[0.18em] text-ink/65">
-              Spanish for soul
-            </p>
-            <p className="mt-6 leading-relaxed text-ink/85">{soul.closer}</p>
+        <Reveal delay={120} className="mx-auto mt-14 max-w-4xl text-center md:mt-16">
+          <blockquote className="display text-[clamp(1.6rem,3.6vw,2.8rem)] leading-tight text-bone">
+            &ldquo;{soul.quote}&rdquo;
+          </blockquote>
+          <p className="mt-6 text-sm font-semibold text-cyan">{soul.attribution}</p>
+          <p className="mt-1 text-sm text-bone/65">{soul.attributionRole}</p>
+        </Reveal>
 
-            <div className="mt-9 pt-7">
-              <p className="display text-2xl text-royal">{soul.culture.stat}</p>
-              <p className="mt-2 max-w-[38ch] text-[0.95rem] leading-relaxed text-ink/80">
-                {soul.culture.label}
-              </p>
-            </div>
-          </div>
+        <Reveal delay={220} className="mx-auto mt-16 max-w-4xl text-center md:mt-20">
+          <p className="text-[clamp(1.35rem,2.6vw,2.1rem)] font-semibold leading-snug text-bone">
+            {soul.closer}
+          </p>
         </Reveal>
       </div>
     </section>

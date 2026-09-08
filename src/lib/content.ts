@@ -432,9 +432,9 @@ export const roleTicker = [
  * Handoff's own footage, transcoded by scripts/prep-video.mjs.
  */
 export const vibes = {
-  headline: "We don't talk about",
-  headlineStrike: "overseas talent.",
-  headlineAccent: "We are the overseas talent.",
+  headline: "We are the",
+  headlineAccent: "overseas talent",
+  headlineAfter: ".",
   body: "Competitors film their founders describing how good the talent is. You never actually see the talent. This is ours, in their own words, shot where they work.",
   clips: [
     {
@@ -464,16 +464,16 @@ export const vibes = {
 export const soul = {
   headline: "Everyone else sends you",
   headlineAccent: "a talent pool.",
-  body: "Our own client manager applied to our biggest competitor before he joined us. This is what that felt like from the other side.",
+  body: "Our own client manager applied to our biggest competitor before joining us. This is what that felt like from the other side.",
   quote:
     "I was just a number for them. They knew that I existed, but I was just part of the talent pool.",
   attribution: "Ever Jaimes",
   // Without the second clause this reads as a current employee describing
-  // Handoff. She is describing the competitor she applied to before.
+  // Handoff. Ever is describing the competitor they applied to before.
   attributionRole:
-    "Client Manager at Handoff, on the agency she worked with before.",
+    "Client Manager at Handoff, on the agency they applied to before.",
   closer:
-    "We named our platform Alma. It means soul. That is not branding, it is the entire argument: a person who is treated like a teammate stays, and a person who is treated like a line item leaves.",
+    "We named our platform Alma. It means soul. A person who is treated like a teammate stays. A person who is treated like a line item leaves.",
   culture: {
     stat: "Several times a year",
     label:
@@ -760,14 +760,30 @@ export const clientQuotes = {
     {
       id: "quote-1",
       quote:
-        "Handoff has brought us A-players across sales, ops, and marketing — talent with real smarts and grit. They own outcomes, not just check boxes.",
+        "Handoff has brought us A-players across sales, ops, and marketing. Talent with real smarts and grit. They own outcomes, not just check boxes.",
       name: "Robert Horsley",
       title: "CPO",
       company: "WorkRight",
       linkedin: "",
     },
-    { id: "quote-2", quote: "[CLIENT QUOTE PENDING APPROVAL]", name: "[NAME PENDING]", title: "[TITLE PENDING]", company: "[COMPANY PENDING]", linkedin: "" },
-    { id: "quote-3", quote: "[CLIENT QUOTE PENDING APPROVAL]", name: "[NAME PENDING]", title: "[TITLE PENDING]", company: "[COMPANY PENDING]", linkedin: "" },
+    {
+      id: "quote-2",
+      quote:
+        "I've done four interviews with the people you've recruited, and I liked every one of them. I rarely like the people I interview in the States.",
+      name: "Bridget Kiernan",
+      title: "",
+      company: "Oasis",
+      linkedin: "",
+    },
+    {
+      id: "quote-3",
+      quote:
+        "I took a month to work side by side with him and I must say I was extremely impressed. He is one of the best designers I have ever worked with.",
+      name: "Maxime Fernandez",
+      title: "",
+      company: "Pivt",
+      linkedin: "",
+    },
   ],
 };
 

@@ -321,12 +321,14 @@ body {
   background-image: radial-gradient(#333 1.4px, transparent 1.4px);
   background-size: 18px 18px;
 }
-.hw-swipe {
+.hw-swipe,
+.swipe {
   position: relative;
   display: inline-block;
   isolation: isolate;
 }
-.hw-swipe::after {
+.hw-swipe::after,
+.swipe::after {
   content: "";
   position: absolute;
   left: -0.05em;
@@ -340,7 +342,8 @@ body {
   transform-origin: left;
   transition: transform 0.7s var(--ease-out-brand) 0.35s;
 }
-.is-in .hw-swipe::after { transform: scaleX(1); }
+.is-in .hw-swipe::after,
+.is-in .swipe::after { transform: scaleX(1); }
 
 .hw-road {
   position: absolute;
@@ -427,7 +430,7 @@ body {
   .marquee-track, .drift { animation: none; }
   .hw-road-fill { height: 100% !important; }
   .hw-card, .hw-stop-left .hw-card, .hw-stop-right .hw-card { opacity: 1; transform: none; }
-  .hw-swipe::after { transform: scaleX(1); }
+  .hw-swipe::after, .swipe::after { transform: scaleX(1); }
   *,
   *::before,
   *::after {

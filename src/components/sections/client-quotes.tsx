@@ -2,15 +2,21 @@ import { Reveal } from "../reveal";
 import { clientQuotes } from "@/lib/content";
 
 /**
- * Client quote module. Three slots, each carrying a real name, title, company
- * and a link to that person's own LinkedIn profile, because an unattributed
- * testimonial is worth nothing on a site whose whole argument is that the
- * people are real.
+ * Client quote module. Three real quotes from the verified call transcripts
+ * (Robert Horsley at WorkRight, Bridget Kiernan at Oasis, Maxime Fernandez
+ * at Pivt), each attributed by name and company. Titles and LinkedIn links
+ * are shown only when we actually have them; nothing is guessed.
  *
- * Ships with obvious placeholder copy so nothing accidentally goes live as a
- * real quote before the client has cleared it. Light gray section — part of
- * the alternating carbon/light-gray rhythm; testimonials read well on light.
+ * Cards follow the same treatment as the pricing and Hiring Highway cards:
+ * each its own gradient, outlined in cyan. Light gray section, part of the
+ * alternating carbon/light-gray rhythm.
  */
+const cardAccents = [
+  { card: "bg-gradient-to-br from-cyan to-cyan-dim text-ink", mark: "text-ink/25", meta: "text-ink/70" },
+  { card: "bg-gradient-to-br from-royal to-azure text-bone", mark: "text-bone/30", meta: "text-bone/70" },
+  { card: "bg-gradient-to-br from-ink-300 to-ink text-bone", mark: "text-cyan/50", meta: "text-bone/65" },
+] as const;
+
 export function ClientQuotes() {
   return (
     <section
@@ -26,39 +32,39 @@ export function ClientQuotes() {
 
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {clientQuotes.slots.map((slot, i) => {
-            const pending = slot.name.startsWith("[");
+            const accent = cardAccents[i % cardAccents.length];
+            const byline = [slot.title, slot.company].filter(Boolean).join(", ");
             return (
               <Reveal key={slot.id} delay={i * 100}>
                 <figure
-                  className={`flex h-full flex-col justify-between rounded-[var(--radius-card)] border p-7 ${
-                    pending
-                      ? "border-dashed border-ink/20 bg-ink/[0.03]"
-                      : "border-ink/12 bg-white shadow-sm"
-                  }`}
+                  className={`flex h-full flex-col justify-between rounded-[var(--radius-card)] border-2 border-cyan p-8 shadow-[0_0_28px_-10px_rgba(61,214,189,0.6)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_0_36px_-6px_rgba(61,214,189,0.75)] ${accent.card}`}
                 >
-                  <blockquote className="text-lg font-semibold leading-relaxed text-ink/85">
-                    {pending ? slot.quote : `“${slot.quote}”`}
-                  </blockquote>
+                  <div>
+                    <span
+                      className={`display block text-6xl leading-none ${accent.mark}`}
+                      aria-hidden="true"
+                    >
+                      &ldquo;
+                    </span>
+                    <blockquote className="-mt-4 text-lg font-semibold leading-relaxed">
+                      {slot.quote}
+                    </blockquote>
+                  </div>
 
-                  <figcaption className="mt-8 pt-5">
-                    <p className="text-sm font-bold text-ink">{slot.name}</p>
-                    <p className="mt-1 text-sm text-ink/65">
-                      {slot.title}
-                      {slot.company ? `, ${slot.company}` : ""}
-                    </p>
-                    {slot.linkedin ? (
+                  <figcaption className="mt-8">
+                    <p className="text-sm font-bold">{slot.name}</p>
+                    {byline && (
+                      <p className={`mt-1 text-sm ${accent.meta}`}>{byline}</p>
+                    )}
+                    {slot.linkedin && (
                       <a
                         href={slot.linkedin}
                         target="_blank"
                         rel="noreferrer"
-                        className="mt-3 inline-block text-sm font-semibold text-royal underline underline-offset-4"
+                        className="mt-3 inline-block text-sm font-semibold underline underline-offset-4"
                       >
                         View on LinkedIn
                       </a>
-                    ) : (
-                      <p className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-ink/40">
-                        [LINKEDIN URL PENDING]
-                      </p>
                     )}
                   </figcaption>
                 </figure>
