@@ -3,34 +3,27 @@ import { Button, Eyebrow } from "../brand";
 import { hero } from "@/lib/content";
 
 /**
- * `subhead` is the one line an industry page swaps. The label, the headline
- * and the CTAs all stay identical, so the industry pages read as the same
- * site rather than as landing pages.
+ * Background features the LATAM outline as a subtle but intentional
+ * background graphic, reusing the existing asset from the WhyLatam section.
+ * The SVG is recolored with the brand's cyan accent at low opacity so it
+ * remains visible as a decorative element without competing with the headline
+ * or CTAs. The brick pattern has been removed entirely.
  *
  * Per the 9/4 and follow-up calls: the hero no longer leads with Handoff's
- * own team photos ("instead of the team on the top... a sampling that
- * focuses on talent... not from our team"); the decorative blurred colour
- * wash was dropped as an "unjustified gradient shape"; the stat numbers move
- * to their own section below instead of crowding the hero ("give these
- * numbers their own section... there's a lot to look at [here]"); and the
- * subhead no longer carries a left border/padding that offset it from the
- * headline's edge — flagged as the sections not sharing the same margin.
- *
- * Background is a real black-brick photo (per direct reference), with the
- * brand guide's actual "Screen effect" halftone dot screen laid over it —
- * a drawn CSS brick pattern read as fake; this is the real thing.
+ * own team photos; the map sits as a muted brand-accented background rather
+ * than a full-bleed image.
  */
 export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
     <section className="halftone relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
       <div className="absolute inset-0" aria-hidden="true">
         <Image
-          src="/textures/brick.jpg"
-          alt=""
-          fill
+          src="/brand/latam-outline.svg"
+          alt="LATAM outline map"
+          className="absolute right-0 top-1/2 -translate-y-1/2 opacity-30 md:opacity-40 w-80 md:w-96 object-contain gray-500/20"
           priority
-          sizes="100vw"
-          className="object-cover"
+          width={512}
+          height={512}
         />
       </div>
       <div className="shell relative z-10">
