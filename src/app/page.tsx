@@ -32,6 +32,7 @@ export default function Home() {
       <HeroBright />
       <LogoMarquee />
       <IndustriesTeaser />
+      <AiTrained />
       <HiringHighway compact />
       <WhyLatam />
       <Stats />
@@ -39,7 +40,6 @@ export default function Home() {
       <Vibes />
       <Soul />
       <ClientQuotes />
-      <AiTrained />
       <Models />
       <Faq />
       <Cta />
