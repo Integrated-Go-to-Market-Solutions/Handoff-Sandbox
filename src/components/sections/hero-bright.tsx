@@ -1,13 +1,6 @@
 import Image from "next/image";
 import { Button, Eyebrow } from "../brand";
-import { hero, sampleTalent } from "@/lib/content";
-
-const cardAccents = [
-  "bg-cyan text-ink",
-  "bg-royal text-bone",
-  "bg-bone text-ink",
-  "bg-ink-300 text-bone border border-cyan/30",
-] as const;
+import { hero } from "@/lib/content";
 
 /**
  * `subhead` is the one line an industry page swaps. The label, the headline
@@ -42,16 +35,14 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
       </div>
       <div className="shell relative z-10">
         <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>
-        <h1 className="display max-w-[15ch] text-[clamp(3rem,9vw,7.5rem)] text-bone">
+        <h1 className="display max-w-[15ch] text-[clamp(3rem,9vw,7.5rem)] text-bone [line-height:1.08]">
           {hero.headline.map((part) => (
             <span
               key={part.text}
               className={
-                part.tone === "royal"
-                  ? "text-azure"
-                  : part.tone === "cyan"
-                    ? "text-cyan"
-                    : undefined
+                part.tone === "cyan"
+                  ? "text-cyan"
+                  : undefined
               }
             >
               {part.text}{" "}
@@ -68,30 +59,6 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
           <Button href={hero.secondary.href} variant="ghostDark">
             {hero.secondary.label}
           </Button>
-        </div>
-
-        {/* A sample of the talent you could hire, not the Handoff team. No
-            real candidate photos exist yet, so these are plainly labeled
-            placeholders rather than stock photos standing in for people. */}
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:gap-4">
-          {sampleTalent.map((person, i) => (
-            <div
-              key={person.name}
-              className={`flex min-w-[9.5rem] flex-1 items-center gap-3 rounded-[var(--radius-card)] p-4 ${cardAccents[i % cardAccents.length]}`}
-            >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-black/10 text-sm font-bold">
-                {person.name[0]}
-              </span>
-              <span className="min-w-0">
-                <span className="block text-sm font-bold leading-tight">
-                  {person.name}
-                </span>
-                <span className="block text-xs font-medium leading-snug opacity-70">
-                  {person.role}
-                </span>
-              </span>
-            </div>
-          ))}
         </div>
       </div>
     </section>

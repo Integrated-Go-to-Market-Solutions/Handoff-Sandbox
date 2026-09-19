@@ -85,7 +85,7 @@ export function SiteHeader() {
       <div className="shell flex items-center justify-between py-4">
         <Link href="/" aria-label="Handoff home" className="inline-block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/logo-dark.svg" alt="Handoff" className="h-9 w-auto md:h-10" />
+          <img src="/brand/logo-light.svg" alt="Handoff" className="h-9 w-auto md:h-10" />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex lg:gap-9">

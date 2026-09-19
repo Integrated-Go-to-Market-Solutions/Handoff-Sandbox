@@ -16,7 +16,7 @@ export function LogoLock({ className = "" }: { className?: string }) {
       aria-label="Handoff home"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/brand/logo-dark.svg" alt="Handoff" className="h-8 w-auto" />
+      <img src="/brand/logo-light.svg" alt="Handoff" className="h-8 w-auto" />
     </Link>
   );
 }
