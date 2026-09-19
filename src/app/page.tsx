@@ -30,11 +30,11 @@ export default function Home() {
   return (
     <>
       <HeroBright />
+      <LogoMarquee />
       <IndustriesTeaser />
       <HiringHighway compact />
       <WhyLatam />
       <Stats />
-      <LogoMarquee />
       <Problem />
       <Vibes />
       <Soul />
