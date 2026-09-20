@@ -45,7 +45,7 @@ export function WhyLatam() {
               <h3 className="display mt-5 text-xl leading-tight text-ink">
                 {category.title}
               </h3>
-              <p className="mt-1 text-sm font-semibold text-ink/55">
+              <p className="mt-1 text-sm font-medium text-ink/65">
                 {category.tagline}
               </p>
               <ul className="mt-4 space-y-2.5">

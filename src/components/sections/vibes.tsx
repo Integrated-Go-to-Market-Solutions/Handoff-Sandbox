@@ -27,7 +27,7 @@ export function Vibes() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-3">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
           {vibes.clips.map((clip, i) => (
             <Reveal key={clip.slug} delay={i * 110}>
               <VideoLoop

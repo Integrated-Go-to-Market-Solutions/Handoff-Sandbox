@@ -61,7 +61,7 @@ function ProblemCard({
       aria-pressed={flipped}
       aria-label={`${title}. ${flipped ? "Show the problem" : "Show the fix"}`}
       onClick={() => setFlipped((value) => !value)}
-      className="group block h-[22rem] w-full text-left [perspective:1200px]"
+      className="group block h-[24rem] w-full cursor-pointer text-left [perspective:1200px] sm:h-[22rem]"
     >
       <span
         className={`relative block h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:-translate-y-1.5 ${

@@ -100,7 +100,7 @@ export function Stats() {
   return (
     <section className="bg-bone py-16 md:py-20">
       <div className="shell">
-        <div className="grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 min-[380px]:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {proofStats.map((stat, i) => {
             const accent = cardAccents[i % cardAccents.length];
             return (

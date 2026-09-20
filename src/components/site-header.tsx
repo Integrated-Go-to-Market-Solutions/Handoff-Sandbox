@@ -76,6 +76,16 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeMenu = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false);
+    };
+
+    desktop.addEventListener("change", closeMenu);
+    return () => desktop.removeEventListener("change", closeMenu);
+  }, []);
+
   return (
     <header
       className={`sticky top-0 z-50 transition-colors duration-300 ${
@@ -88,7 +98,7 @@ export function SiteHeader() {
           <img src="/brand/logo-light.svg" alt="Handoff" className="h-9 w-auto md:h-10" />
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex lg:gap-9">
+        <nav className="hidden items-center gap-6 lg:flex lg:gap-9">
           {nav.map((item) =>
             item.children ? (
               <NavGroup key={item.href} item={item} />
@@ -112,7 +122,7 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label="Toggle menu"
-          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
+          className="relative z-50 flex h-11 w-11 cursor-pointer flex-col items-center justify-center gap-[5px] lg:hidden"
         >
           <span
             className={`h-0.5 w-6 bg-bone transition-transform duration-300 ${
@@ -133,7 +143,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="fixed inset-0 top-[68px] z-40 overflow-y-auto bg-ink px-6 pb-16 pt-8 md:hidden">
+        <div className="fixed inset-0 top-[68px] z-40 overflow-y-auto bg-ink px-6 pb-16 pt-8 lg:hidden">
           <nav className="flex flex-col gap-1">
             {nav.map((item) => (
               <div key={item.href}>
@@ -145,13 +155,13 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
                 {item.children && (
-                  <ul className="-mt-2 space-y-3 pb-5 pl-1">
+                  <ul className="-mt-2 pb-5 pl-1">
                     {item.children.map((child) => (
                       <li key={child.href}>
                         <Link
                           href={child.href}
                           onClick={() => setOpen(false)}
-                          className="block text-base font-medium text-bone/60"
+                          className="block py-3 text-base font-medium text-bone/60 transition-colors hover:text-bone"
                         >
                           {child.label}
                         </Link>

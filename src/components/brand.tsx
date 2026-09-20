@@ -51,7 +51,7 @@ export function Button({
     lg: "px-9 py-5 text-[1rem]",
   };
   const variants = {
-    cyan: "bg-cyan text-ink hover:bg-ink hover:text-cyan",
+    cyan: "bg-cyan text-ink ring-2 ring-inset ring-cyan hover:bg-ink hover:text-cyan",
     ink: "bg-ink text-bone hover:bg-royal hover:text-white",
     ghost: "border-2 border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-bone",
     ghostDark:
