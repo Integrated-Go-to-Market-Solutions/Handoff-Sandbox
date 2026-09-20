@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Button, Eyebrow } from "../brand";
+import { LatamMap } from "../latam-map";
 import { hero } from "@/lib/content";
 
 /**
@@ -17,13 +17,10 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
     <section className="halftone relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
       <div className="absolute inset-0" aria-hidden="true">
-        <Image
-          src="/brand/latam-outline.svg"
-          alt="LATAM outline map"
-          className="absolute right-0 top-1/2 -translate-y-1/2 opacity-30 md:opacity-40 w-80 md:w-96 object-contain gray-500/20"
-          priority
-          width={512}
-          height={512}
+        <LatamMap
+          className="absolute right-0 top-1/2 h-80 w-80 -translate-y-1/2 md:h-96 md:w-96"
+          baseClassName="bg-black opacity-30 md:opacity-40"
+          glowClassName="opacity-45"
         />
       </div>
       <div className="shell relative z-10">

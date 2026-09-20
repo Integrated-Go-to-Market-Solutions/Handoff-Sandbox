@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Reveal } from "../reveal";
 import { Icon, type IconName } from "../icon";
+import { LatamMap } from "../latam-map";
 import { problem } from "@/lib/content";
 
 /* The site's one card system: each face its own gradient, outlined in
@@ -120,9 +121,11 @@ export function Problem() {
             className="problem-photo relative -mx-6 mb-8 h-72 sm:h-80 lg:absolute lg:-inset-y-10 lg:right-0 lg:mx-0 lg:mb-0 lg:h-auto lg:w-[58%] lg:-mr-[max(0px,calc((100vw-var(--shell))/2))]"
             aria-hidden="true"
           >
-            <div
-              className="absolute inset-0 bg-[url('/brand/latam-outline.svg')] bg-no-repeat bg-center-top bg-contain opacity-10 [filter:invert(1)]"
-              aria-hidden="true"
+            <LatamMap
+              className="absolute inset-0"
+              baseClassName="bg-white opacity-10"
+              glowClassName="opacity-25"
+              align="top"
             />
           </div>
 

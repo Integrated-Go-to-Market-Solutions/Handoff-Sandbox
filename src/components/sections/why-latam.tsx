@@ -1,5 +1,6 @@
 import { Reveal } from "../reveal";
 import { IconBadge, type IconName } from "../icon";
+import { LatamMap } from "../latam-map";
 import { whyLatam } from "@/lib/content";
 
 /**
@@ -16,19 +17,10 @@ export function WhyLatam() {
           "background ideas" (the watermarked stock file itself is never
           embedded). A line sketch in slightly darker gray at low opacity:
           enough to place the section, not enough to compete with it. */}
-      <div
-        className="pointer-events-none absolute -right-6 top-1/2 h-[135%] aspect-[1014/1293] -translate-y-1/2 bg-ink opacity-[0.14] md:right-2 lg:right-8"
-        style={{
-          maskImage: "url(/brand/latam-outline.svg)",
-          maskSize: "contain",
-          maskRepeat: "no-repeat",
-          maskPosition: "center",
-          WebkitMaskImage: "url(/brand/latam-outline.svg)",
-          WebkitMaskSize: "contain",
-          WebkitMaskRepeat: "no-repeat",
-          WebkitMaskPosition: "center",
-        }}
-        aria-hidden="true"
+      <LatamMap
+        className="pointer-events-none absolute -right-6 top-1/2 h-[135%] aspect-[1014/1293] -translate-y-1/2 md:right-2 lg:right-8"
+        baseClassName="bg-ink opacity-[0.14]"
+        glowClassName="opacity-[0.18]"
       />
 
       <div className="shell relative">
