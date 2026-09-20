@@ -14,12 +14,6 @@ const cardAccents = [
     button: "ink" as const,
   },
   {
-    card: "bg-gradient-to-br from-royal to-azure text-bone",
-    pill: "!border-bone/40 !text-bone",
-    price: "text-bone",
-    button: "cyan" as const,
-  },
-  {
     card: "bg-gradient-to-br from-ink-300 to-ink text-bone",
     pill: "!border-bone/30 !text-bone",
     price: "text-cyan",
@@ -27,25 +21,50 @@ const cardAccents = [
   },
 ] as const;
 
+function renderPoints(points: string[]) {
+  return points.map((point) => (
+    <li
+      key={point}
+      className="flex gap-3 text-[0.93rem] leading-snug opacity-80"
+    >
+      <svg
+        viewBox="0 0 20 20"
+        className="mt-0.5 h-4 w-4 shrink-0"
+        aria-hidden="true"
+      >
+        <path
+          d="M4 10.5l4 4 8-9"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      {point}
+    </li>
+  ));
+}
+
 export function Models() {
   return (
     <section id="models" className="relative overflow-hidden bg-ink section-py-hero text-bone">
       <div className="shell relative">
         <Reveal className="max-w-3xl">
           <h2 className="display mt-5 text-[clamp(2.1rem,4.8vw,3.7rem)]">
-            Three ways to work together
+            Two ways to work together
           </h2>
           <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-bone/70">
             Start with the level of ownership that fits your team. Managed
-            Staffing is the full-service path, Remote Employee of Record
-            keeps the day to day with you, and Recruitment & Placement is
+            Staffing is the full-service path, and Recruitment & Placement is
             the simplest way to make one great hire.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
+        <div className="mt-14 grid gap-5 lg:grid-cols-2">
           {models.map((model, i) => {
             const accent = cardAccents[i % cardAccents.length];
+            const points = renderPoints(model.points);
             return (
             <Reveal key={model.name} delay={i * 110}>
               <article
@@ -76,28 +95,7 @@ export function Models() {
                 </p>
 
                 <ul className="mb-9 mt-6 space-y-3">
-                  {model.points.map((point) => (
-                    <li
-                      key={point}
-                      className="flex gap-3 text-[0.93rem] leading-snug opacity-80"
-                    >
-                      <svg
-                        viewBox="0 0 20 20"
-                        className="mt-0.5 h-4 w-4 shrink-0"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M4 10.5l4 4 8-9"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      {point}
-                    </li>
-                  ))}
+                  {points}
                 </ul>
 
                 <Button

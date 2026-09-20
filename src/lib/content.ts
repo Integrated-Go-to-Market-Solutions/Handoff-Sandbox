@@ -193,21 +193,7 @@ export const models = [
     featured: true,
   },
   {
-    tag: "Direct the work yourself",
-    name: "Remote Employee of Record (EOR)",
-    forWho: "Companies that want to manage day to day",
-    price: "~$2,900/month",
-    terms: "Compliant employment, benefits included",
-    copy: "We legally employ your team and carry payroll, benefits and in-country compliance. You direct the work exactly as you would with any employee.",
-    points: [
-      "Handoff is the legal employer, on our own entity",
-      "Payroll, benefits and compliance handled in country",
-      "You run the day to day",
-    ],
-    featured: false,
-  },
-  {
-    tag: "Fastest yes",
+    tag: "Ready to Go",
     name: "Recruitment & Placement",
     forWho: "Smaller teams and one-off hires",
     price: "~$1,600/month",
@@ -215,7 +201,7 @@ export const models = [
     copy: "We find and vet the person, you employ them directly. Includes a 90-day guarantee. Three of our last four new clients started here.",
     points: [
       "Direct hire model",
-      "Lowest ongoing cost of the three models",
+      "Lowest ongoing cost of the two models",
       "Full ownership of the relationship",
     ],
     featured: false,
@@ -223,11 +209,11 @@ export const models = [
 ];
 
 /**
- * Shown once beneath the three cards, not repeated per-card: every model
- * carries the same one-time placement fee on top of its own figure above.
+ * Shown once beneath the two cards, not repeated per-card: both models
+ * carry the same one-time placement fee on top of their own figure above.
  */
 export const modelsFootnote =
-  "All models include a one-time placement fee of 25% of the candidate's first-year salary. The final amount varies by role, seniority and scope, typically $4,500 to $6,500.";
+  "Both models include a one-time placement fee of 25% of the candidate's first-year salary. The final amount varies by role, seniority and scope, typically $4,500 to $6,500.";
 
 /**
  * Real Handoff team members, not stock and not placed talent. This is the
