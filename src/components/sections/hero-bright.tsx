@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button, Eyebrow } from "../brand";
 import { LatamMap } from "../latam-map";
 import { hero } from "@/lib/content";
@@ -44,11 +45,17 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
           {subhead ?? hero.body}
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <div className="mt-8 flex flex-col items-start gap-2.5">
           <Button href={hero.primary.href}>{hero.primary.label}</Button>
-          <Button href={hero.secondary.href} variant="ghostDark">
+          <Link
+            href={hero.secondary.href}
+            className="group inline-flex items-center gap-1.5 py-1.5 text-sm font-semibold text-bone/75 underline-offset-4 transition-colors duration-300 hover:text-cyan hover:underline"
+          >
             {hero.secondary.label}
-          </Button>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              &rarr;
+            </span>
+          </Link>
         </div>
       </div>
     </section>
