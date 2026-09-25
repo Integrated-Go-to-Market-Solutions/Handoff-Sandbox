@@ -450,15 +450,6 @@ body {
   background: var(--color-cyan);
   border-color: var(--color-bone);
 }
-.hw-day {
-  color: var(--color-bone);
-  opacity: 0.45;
-  transition: opacity 0.4s, color 0.4s;
-}
-.hw-stop.in .hw-day {
-  color: var(--color-cyan);
-  opacity: 1;
-}
 .hw-card {
   opacity: 0;
   transform: translateY(18px);
@@ -468,7 +459,7 @@ body {
     border-color 0.4s var(--ease-out-brand),
     box-shadow 0.4s var(--ease-out-brand);
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .hw-stop-left .hw-card { transform: translateX(-26px); }
   .hw-stop-right .hw-card { transform: translateX(26px); }
 }

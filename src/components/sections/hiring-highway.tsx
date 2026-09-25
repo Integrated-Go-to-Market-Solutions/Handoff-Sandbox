@@ -4,18 +4,21 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { Button, Pill } from "../brand";
 import { Reveal } from "../reveal";
-import { highwayIcons } from "../highway-icons";
+import { HuntIcon, ScopeIcon, ShortlistIcon, StayIcon } from "../highway-icons";
 import { process, site } from "@/lib/content";
 
+/** Discovery, The Vet, The Shortlist, The Guarantee. */
+const stepIcons = [ScopeIcon, HuntIcon, ShortlistIcon, StayIcon];
+
 /**
- * The Hiring Highway as a vertical road. Six stops alternate left and right
+ * The Hiring Highway as a vertical road. Stops alternate left and right
  * of a spine that fills with cyan as the reader scrolls; each stop lights
  * up when the fill reaches it. The last stop is the wide cyan card, because
- * "we stay on" is the part nobody else does and it should read that way.
+ * the guarantee is the part nobody else offers and it should read that way.
  *
- * `compact` is the homepage version: same road, no lede, no bullets, tighter
- * spacing, and the whole thing is one link through to /how-it-works where
- * the full version lives.
+ * `compact` is the homepage version: same road and copy, no lede, smaller
+ * type, tighter spacing, and the whole thing is one link through to
+ * /how-it-works where the full version lives.
  *
  * The scroll-driven fill is plain DOM work in an effect, no library: the
  * fill height and each stop's `in` class are set directly so nothing
@@ -92,21 +95,21 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
       {/* The spine. Left on mobile, centered on desktop. */}
       <div
         ref={roadRef}
-        className="hw-road left-[11px] md:left-1/2 md:-translate-x-1/2"
+        className="hw-road left-[11px] lg:left-1/2 lg:-translate-x-1/2"
         aria-hidden="true"
       >
         <div ref={fillRef} className="hw-road-fill" />
         <div className="hw-road-dash" />
       </div>
 
-      <ol className={`relative ${compact ? "space-y-5 md:space-y-0" : "space-y-6 md:space-y-0"}`}>
+      <ol className={`relative ${compact ? "space-y-5 lg:space-y-0" : "space-y-6 lg:space-y-0"}`}>
         {steps.map((step, i) => {
-          const Icon = highwayIcons[i % highwayIcons.length];
+          const Icon = stepIcons[i % stepIcons.length];
           const isEnd = i === last;
           const left = i % 2 === 0;
           // Desktop: alternating stops sit in opposite columns, so each one
           // tucks up beside the previous card instead of starting a new row.
-          const tuck = i === 0 ? "" : compact ? "md:-mt-12" : "md:-mt-24";
+          const tuck = i === 0 ? "" : compact ? "lg:-mt-12" : "lg:-mt-20";
 
           if (isEnd) {
             return (
@@ -115,17 +118,17 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                 ref={(el) => {
                   stopRefs.current[i] = el;
                 }}
-                className="hw-stop grid grid-cols-[40px_1fr] gap-x-4 md:mt-6 md:grid-cols-[1fr_110px_1fr] md:gap-x-0"
+                className="hw-stop grid grid-cols-[40px_1fr] gap-x-4 lg:mt-6 lg:grid-cols-[1fr_110px_1fr] lg:gap-x-0"
               >
-                <div className="hidden md:block" />
-                <div className="flex justify-center md:pt-1">
+                <div className="hidden lg:block" />
+                <div className="flex justify-center lg:pt-1">
                   <span
                     className={`hw-node hw-node-end block ${compact ? "h-6 w-6" : "h-8 w-8"}`}
                   />
                 </div>
-                <div className="hidden md:block" />
+                <div className="hidden lg:block" />
                 <div
-                  className={`hw-card col-start-2 mt-4 rounded-[var(--radius-card)] border-2 border-cyan bg-cyan text-ink md:col-span-3 md:col-start-1 md:mx-auto md:mt-6 md:w-full ${
+                  className={`hw-card col-start-2 mt-4 rounded-[var(--radius-card)] border-2 border-cyan bg-cyan text-ink lg:col-span-3 lg:col-start-1 lg:mx-auto lg:mt-6 lg:w-full ${
                     compact ? "max-w-2xl p-6" : "max-w-3xl p-6 md:p-7"
                   }`}
                 >
@@ -136,28 +139,18 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                     />
                     <div className="min-w-0 flex-1">
                       <p className="eyebrow text-[0.75rem] tracking-[0.2em] text-ink/70">
-                        {step.n} · {step.day}
+                        {step.n}
                       </p>
                       <h3
                         className={`display mt-2 leading-tight ${compact ? "text-xl" : "text-xl md:text-2xl"}`}
                       >
                         {step.title}
                       </h3>
-                      <p className="mt-1.5 text-sm font-semibold text-ink/70">
-                        {step.subtitle}
+                      <p
+                        className={`mt-2 font-semibold leading-relaxed text-ink/80 ${compact ? "hidden text-sm md:block" : "text-[0.95rem]"}`}
+                      >
+                        {step.body}
                       </p>
-                      {!compact && (
-                        <ul className="mt-4 flex flex-wrap gap-1.5">
-                          {step.bullets.map((b) => (
-                            <li
-                              key={b}
-                              className="rounded-full border-2 border-ink/25 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-ink"
-                            >
-                              {b}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -183,35 +176,14 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                   >
                     {step.title}
                   </h3>
-                  <p className="mt-1 text-sm font-semibold text-bone/60">
-                    {step.subtitle}
+                  <p
+                    className={`mt-2 leading-relaxed text-bone/75 ${compact ? "hidden text-sm md:block" : "text-[0.95rem]"}`}
+                  >
+                    {step.body}
                   </p>
-                  {!compact && (
-                    <ul className="mt-3 space-y-1.5">
-                      {step.bullets.map((b) => (
-                        <li
-                          key={b}
-                          className="flex gap-2.5 text-sm leading-snug text-bone/80"
-                        >
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
                 </div>
               </div>
             </div>
-          );
-
-          const dayLabel = (
-            <p
-              className={`hw-day eyebrow text-[0.72rem] tracking-[0.2em] ${
-                left ? "md:text-right" : "md:text-left"
-              }`}
-            >
-              {step.day}
-            </p>
           );
 
           return (
@@ -220,35 +192,22 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
               ref={(el) => {
                 stopRefs.current[i] = el;
               }}
-              className={`hw-stop ${left ? "hw-stop-left" : "hw-stop-right"} grid grid-cols-[40px_1fr] gap-x-4 md:grid-cols-[1fr_110px_1fr] md:gap-x-0 ${tuck}`}
+              className={`hw-stop ${left ? "hw-stop-left" : "hw-stop-right"} grid grid-cols-[40px_1fr] gap-x-4 lg:grid-cols-[1fr_110px_1fr] lg:gap-x-0 ${tuck}`}
             >
               {/* Desktop left column */}
-              <div className="hidden md:block">
-                {left && (
-                  <div className={compact ? "md:pr-6" : "md:pr-8"}>
-                    {dayLabel}
-                    <div className="mt-2">{card}</div>
-                  </div>
-                )}
+              <div className="hidden lg:block">
+                {left && <div className={compact ? "lg:pr-6" : "lg:pr-8"}>{card}</div>}
               </div>
 
               {/* Node column */}
-              <div className="flex justify-center md:pt-7">
+              <div className="flex justify-center pt-5 lg:pt-6">
                 <span className={`hw-node block ${compact ? "h-6 w-6" : "h-8 w-8"}`} />
               </div>
 
-              {/* Mobile: every card on the right. Desktop: only the right stops. */}
-              <div className="md:hidden">
-                {dayLabel}
-                <div className="mt-2">{card}</div>
-              </div>
-              <div className="hidden md:block">
-                {!left && (
-                  <div className={compact ? "md:pl-6" : "md:pl-8"}>
-                    {dayLabel}
-                    <div className="mt-2">{card}</div>
-                  </div>
-                )}
+              {/* Mobile and tablet: every card on the right. Desktop: only the right stops. */}
+              <div className="lg:hidden">{card}</div>
+              <div className="hidden lg:block">
+                {!left && <div className={compact ? "lg:pl-6" : "lg:pl-8"}>{card}</div>}
               </div>
             </li>
           );
@@ -303,22 +262,24 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
           )}
         </div>
 
-        {compact ? (
-          <Reveal className="mt-10 text-center">
-            <Button href="/how-it-works">{process.teaserCta}</Button>
-          </Reveal>
-        ) : (
-          <Reveal className="mt-10 text-center md:mt-12">
-            <p className="display text-[clamp(1.4rem,2.6vw,2rem)]">
-              {process.closer.line}
-            </p>
-            <div className="mt-6">
+        <Reveal className={`text-center ${compact ? "mt-10" : "mt-10 md:mt-12"}`}>
+          <p
+            className={`mx-auto max-w-[60ch] font-semibold leading-relaxed text-bone/85 ${
+              compact ? "text-base md:text-lg" : "text-lg md:text-xl"
+            }`}
+          >
+            {process.closer.line}
+          </p>
+          <div className="mt-6">
+            {compact ? (
+              <Button href="/how-it-works">{process.teaserCta}</Button>
+            ) : (
               <Button href={site.bookCall} size="lg">
                 {process.closer.cta}
               </Button>
-            </div>
-          </Reveal>
-        )}
+            )}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

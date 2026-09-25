@@ -266,19 +266,53 @@ export const logos = [
 ] as const;
 
 /**
- * "Hiring Highway": the proprietary six-step system, per the client's own
- * direction. The four real, already-vetted steps from the original process
- * got split into six at finer grain rather than padded out with invented
- * ones — step 3 splits into skills/English and AI fluency, step 4 splits
- * into meeting the shortlist and the actual employment/onboarding.
+ * The Hands Off Hiring System: four steps, CEO-approved copy, verbatim.
+ * Read by the homepage (compact) and /how-it-works (full).
  */
 export const process = {
   eyebrow: "Hands Off Hiring System",
-  headline: "Six steps. One person who sticks.",
+  headline: "Four steps. One person who sticks.",
   /** Same headline, split so the last word can carry the cyan swipe. */
-  headlineParts: { before: "Six steps. One person who", swipe: "sticks", after: "." },
-  body: "Every hire goes through the same six steps, no shortcuts. That is how the right person lands in the right seat and stays there.",
+  headlineParts: { before: "Four steps. One person who", swipe: "sticks", after: "." },
+  body: "Every hire goes through the same four steps, no shortcuts. That is how the right person lands in the right seat and stays there.",
   lede: "Nobody skips a step, not even when you needed someone yesterday. About 21 days start to finish, and you'll know exactly where things stand the whole way.",
+  steps: [
+    {
+      n: "01",
+      title: "Discovery",
+      body: "We get aligned on exactly what \"right\" looks like for this role, this team, this culture. No generic job description. No guesswork.",
+    },
+    {
+      n: "02",
+      title: "The Vet",
+      body: "We start with 200 candidates. Video submissions. Skills testing. Culture fit. AI fluency. Round after round of interviews on our side, so you never have to sit through the ones who aren't it.",
+    },
+    {
+      n: "03",
+      title: "The Shortlist",
+      body: "You see two. That's it. Two candidates, delivered inside Alma with salary expectations, availability, everything you need, ready to book time on their calendar directly.",
+    },
+    {
+      n: "04",
+      title: "The Guarantee",
+      body: "If neither of your first four candidates is the one, you get $1,000 off. We don't say that because we expect to pay it out. We say it because we're that confident in who we send you.",
+    },
+  ],
+  closer: {
+    line: "Every hire after your first gets easier. We learn your company, your culture, your bar for 'great.' By hire five, you might not meet the candidate until their first day.",
+    cta: "Start at step one",
+  },
+  /** Homepage teaser copy: the compact road links through to the full page. */
+  teaserCta: "See every step",
+};
+
+/**
+ * The previous six-step version, kept only for the /v2 alternate homepage,
+ * whose road graphic is drawn around exactly six markers.
+ */
+export const legacyProcess = {
+  headline: "Six steps. One person who sticks.",
+  body: "Every hire goes through the same six steps, no shortcuts. That is how the right person lands in the right seat and stays there.",
   steps: [
     {
       n: "01",
@@ -323,12 +357,6 @@ export const process = {
       bullets: ["Payroll and benefits", "Equipment", "Compliance", "Weekly check ins", "Ongoing coaching", "90 day guarantee"],
     },
   ],
-  closer: {
-    line: "You don't pay a thing until you hire.",
-    cta: "Start at step one",
-  },
-  /** Homepage teaser copy: the compact road links through to the full page. */
-  teaserCta: "See every step",
 };
 
 /**
