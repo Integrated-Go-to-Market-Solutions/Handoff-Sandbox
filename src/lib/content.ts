@@ -743,10 +743,10 @@ export const nav: NavItem[] = [
 ];
 
 /**
- * Client proof. The quotes are cleared for the site but not yet cleared with
- * the individual clients, so the module ships with the slots visible and the
- * copy obviously fake. Each live quote needs a real name, title, company and
- * a link to that person's actual LinkedIn profile.
+ * Client proof. Five client-approved quotes, verbatim (the em dashes in
+ * Robert Horsley's quote are the approved wording, an exception to the
+ * no-em-dash rule). No photos or LinkedIn links yet, so cards show an
+ * initials avatar and `linkedin` stays empty until real profiles land.
  */
 export const clientQuotes = {
   eyebrow: "In their words",
@@ -755,28 +755,46 @@ export const clientQuotes = {
     {
       id: "quote-1",
       quote:
-        "Handoff has brought us A-players across sales, ops, and marketing. Talent with real smarts and grit. They own outcomes, not just check boxes.",
-      name: "Robert Horsley",
-      title: "CPO",
-      company: "WorkRight",
+        "Ten hires in six months, every one of them scoring 90%+ in our reviews. Handoff doesn't make us choose between speed and quality.",
+      name: "Steve Frey",
+      title: "CEO",
+      company: "Oasis",
       linkedin: "",
     },
     {
       id: "quote-2",
       quote:
-        "I've done four interviews with the people you've recruited, and I liked every one of them. I rarely like the people I interview in the States.",
-      name: "Bridget Kiernan",
-      title: "",
-      company: "Oasis",
+        "Product, GTM, content, events — Handoff has staffed nearly every function we've needed as WorkRight scales, and each hire has been strong enough that we didn't have to think twice.",
+      name: "Robert Horsley",
+      title: "Co-Founder & COO",
+      company: "WorkRight",
       linkedin: "",
     },
     {
       id: "quote-3",
       quote:
-        "I took a month to work side by side with him and I must say I was extremely impressed. He is one of the best designers I have ever worked with.",
-      name: "Maxime Fernandez",
-      title: "",
+        "Handoff placed a UI/UX designer with us who was so strong, our Head of Product flew to Colombia and spent a month working alongside him.",
+      name: "Lynn Greenberg",
+      title: "Founder",
       company: "Pivt",
+      linkedin: "",
+    },
+    {
+      id: "quote-4",
+      quote:
+        "We don't take chances on where we source talent. Handoff has earned that trust across three different parts of our business.",
+      name: "Bob Rosing",
+      title: "CEO",
+      company: "Dwellworks",
+      linkedin: "",
+    },
+    {
+      id: "quote-5",
+      quote:
+        "Turnover is a challenge in this industry. Handoff has placed people who are committed, fast learners, and genuinely care about the work... and that's exactly what's moved the needle for us.",
+      name: "Ryan Hoover",
+      title: "Founder & CEO",
+      company: "United Corporate Housing",
       linkedin: "",
     },
   ],
