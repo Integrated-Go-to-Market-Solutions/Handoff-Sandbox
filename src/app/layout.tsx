@@ -3,7 +3,6 @@ import { Rubik } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { hero } from "@/lib/content";
 
 // Rubik is the brand typeface. Weights match the guidelines: Light, Medium,
 // SemiBold, Bold.
@@ -14,15 +13,16 @@ const rubik = Rubik({
   display: "swap",
 });
 
+const siteTitle = "Handoff | The Best of LATAM. AI Trained. Here to Stay.";
+const siteDescription =
+  "We help the best US companies hire Latin America's top 1% talent — vetted, AI-trained, and ready to make an impact from day one.";
+
 export const metadata: Metadata = {
-  title: "Handoff | The team behind your team",
-  description:
-    "Handoff places the top 1% of Latin American talent, AI-enabled and trained, inside the best US companies. Managed staffing, employer of record and direct-hire recruiting.",
-  // Same line as the hero. This used to carry a third variant of the brand
-  // statement, which is what every shared link previewed with.
+  title: siteTitle,
+  description: siteDescription,
   openGraph: {
-    title: "Handoff | The team behind your team",
-    description: hero.body,
+    title: siteTitle,
+    description: siteDescription,
     type: "website",
   },
 };
