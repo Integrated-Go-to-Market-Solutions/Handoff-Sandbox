@@ -436,7 +436,7 @@ export const roleTicker = [
 /**
  * Day-in-the-life video band. Mark, 8/13: "we don't talk about overseas
  * talent. We are the overseas talent. And that's the difference." Clips are
- * Handoff's own footage, transcoded by scripts/prep-video.mjs.
+ * Handoff's own Instagram reels, served from /public/videos.
  */
 export const vibes = {
   headline: "We are the",
@@ -445,19 +445,19 @@ export const vibes = {
   body: "Competitors film their founders describing how good the talent is. You never actually see the talent. This is ours, in their own words, shot where they work.",
   clips: [
     {
-      slug: "vibes",
-      name: "A day at Handoff",
-      caption: "Medellín. Part working session, part the reason people stay.",
+      slug: "day-with-handoff",
+      name: "A day with Handoff",
+      caption: "Our Colombia office, from the first laptop open to city lights.",
     },
     {
-      slug: "jazmin",
-      name: "Jazmin Esparza",
-      caption: "Chief of Staff. Started as employee number two.",
+      slug: "remote-culture",
+      name: "Our remote culture",
+      caption: "Confidence and accountability, no matter the distance.",
     },
     {
-      slug: "shaori",
-      name: "Shaori Velueta",
-      caption: "Digital Marketer, on what changed for her.",
+      slug: "handoff-values",
+      name: "Handoff values",
+      caption: "Our values are simple. This is how we lead.",
     },
   ],
 };

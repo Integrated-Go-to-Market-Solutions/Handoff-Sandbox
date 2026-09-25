@@ -31,8 +31,8 @@ export function Vibes() {
           {vibes.clips.map((clip, i) => (
             <Reveal key={clip.slug} delay={i * 110}>
               <VideoLoop
-                src={`/video/${clip.slug}.mp4`}
-                poster={`/video/${clip.slug}.jpg`}
+                src={`/videos/${clip.slug}.mp4`}
+                poster={`/videos/${clip.slug}.jpg`}
                 name={clip.name}
                 caption={clip.caption}
               />

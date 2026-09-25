@@ -3,6 +3,7 @@ import { Reveal } from "@/components/reveal";
 import { TalentCard } from "@/components/talent-card";
 import { Cta } from "@/components/sections/cta";
 import { Soul } from "@/components/sections/soul";
+import { ValuesVideo } from "@/components/sections/values-video";
 import { proof, socialLinks, team } from "@/lib/content";
 
 function SocialMark({ platform }: { platform: "youtube" | "linkedin" | "instagram" }) {
@@ -103,6 +104,8 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+
+      <ValuesVideo />
 
       {/* Same Alma-over-the-footage section as the homepage, per direct
           instruction, in place of the old quote-and-panel layout. */}
