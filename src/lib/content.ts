@@ -238,31 +238,24 @@ export const proof = {
 };
 
 /**
- * Confirmed against the real 36-company client roster (2026-09-07). The
- * four names that were not on the roster (Best Western, Jacob Street,
- * Elevate, and "Fragomen" alone) have been dropped rather than guessed at;
- * "Fragomen" is real as the joint "Fragomen WorkRight" account (same client
- * as the Robert Horsley / WorkRight testimonial in clientQuotes below).
- * Extended 2026-09-08 against the real logo wall from the sales deck,
- * pasted directly — but a pasted image can't be extracted into individual
- * files, so entries without a real `slug` image render as a clean text
- * wordmark instead (`hasImage: false`) until the actual logo files land.
+ * Only the companies the client has approved for the site, in the client's
+ * order. GFDA / Good Feature Design Alliance must not be shown. Entries
+ * without a logo file (`hasImage: false`) render as a text wordmark until
+ * the real file lands in /public/images/logos.
  */
 export const logos = [
-  { slug: "dwellworks", name: "Dwellworks", hasImage: true },
-  { slug: "fragomen", name: "Fragomen WorkRight", hasImage: true },
-  { slug: "quest-relocation", name: "Quest Relocation Group", hasImage: true },
   { slug: "united-corporate-housing", name: "United Corporate Housing", hasImage: true },
-  { slug: "nyc-navigator", name: "NYC Navigator", hasImage: true },
-  { slug: "good-carma", name: "Good Carma Consulting", hasImage: true },
-  { slug: "utility-basics", name: "Utility Basics", hasImage: true },
-  { slug: "3sixty", name: "3Sixty", hasImage: false },
-  { slug: "guru", name: "We Are GURU", hasImage: false },
+  { slug: "oasis", name: "Oasis", hasImage: false },
   { slug: "altovita", name: "AltoVita", hasImage: false },
+  { slug: "do-good-cfo", name: "Do Good CFO", hasImage: false },
+  { slug: "igtms", name: "IGTMS", hasImage: false },
+  { slug: "snap-supplements", name: "Snap Supplements", hasImage: false },
+  { slug: "earth-side-farms", name: "Earth Side Farms", hasImage: false },
+  { slug: "charcharms", name: "Charcharms", hasImage: false },
+  { slug: "dwellworks", name: "Dwellworks", hasImage: true },
+  { slug: "doorspot", name: "DoorSpot", hasImage: false },
+  { slug: "fragomen", name: "Fragomen WorkRight", hasImage: true },
   { slug: "pivt", name: "PIVT", hasImage: false },
-  { slug: "gfda", name: "GFDA", hasImage: false },
-  { slug: "all-that-housing", name: "All That Housing", hasImage: false },
-  { slug: "maha", name: "MAHA", hasImage: false },
 ] as const;
 
 /**
