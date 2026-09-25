@@ -273,7 +273,7 @@ export const logos = [
  * into meeting the shortlist and the actual employment/onboarding.
  */
 export const process = {
-  eyebrow: "The Hiring Highway",
+  eyebrow: "Hands Off Hiring System",
   headline: "Six steps. One person who sticks.",
   /** Same headline, split so the last word can carry the cyan swipe. */
   headlineParts: { before: "Six steps. One person who", swipe: "sticks", after: "." },
@@ -338,7 +338,7 @@ export const process = {
  * rather than invented claims.
  */
 export const hiringHighwayVideo = {
-  label: "Watch the Hiring Highway",
+  label: "Watch the Hands Off Hiring System",
   caption: "The real journey, filmed start to finish. Coming soon.",
 };
 

@@ -99,11 +99,14 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
         <div className="hw-road-dash" />
       </div>
 
-      <ol className={`relative ${compact ? "space-y-8 md:space-y-4" : "space-y-12 md:space-y-8"}`}>
+      <ol className={`relative ${compact ? "space-y-5 md:space-y-0" : "space-y-6 md:space-y-0"}`}>
         {steps.map((step, i) => {
           const Icon = highwayIcons[i % highwayIcons.length];
           const isEnd = i === last;
           const left = i % 2 === 0;
+          // Desktop: alternating stops sit in opposite columns, so each one
+          // tucks up beside the previous card instead of starting a new row.
+          const tuck = i === 0 ? "" : compact ? "md:-mt-12" : "md:-mt-24";
 
           if (isEnd) {
             return (
@@ -112,7 +115,7 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                 ref={(el) => {
                   stopRefs.current[i] = el;
                 }}
-                className="hw-stop grid grid-cols-[40px_1fr] gap-x-4 md:grid-cols-[1fr_110px_1fr] md:gap-x-0"
+                className="hw-stop grid grid-cols-[40px_1fr] gap-x-4 md:mt-6 md:grid-cols-[1fr_110px_1fr] md:gap-x-0"
               >
                 <div className="hidden md:block" />
                 <div className="flex justify-center md:pt-1">
@@ -123,20 +126,20 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                 <div className="hidden md:block" />
                 <div
                   className={`hw-card col-start-2 mt-4 rounded-[var(--radius-card)] border-2 border-cyan bg-cyan text-ink md:col-span-3 md:col-start-1 md:mx-auto md:mt-6 md:w-full ${
-                    compact ? "max-w-2xl p-6" : "max-w-3xl p-8 md:p-10"
+                    compact ? "max-w-2xl p-6" : "max-w-3xl p-6 md:p-7"
                   }`}
                 >
                   <div className="flex flex-col items-start gap-4 sm:flex-row sm:gap-5">
                     <Icon
                       cut="#1f1f1f"
-                      className={`shrink-0 ${compact ? "h-10 w-10" : "h-14 w-14"}`}
+                      className={`shrink-0 ${compact ? "h-10 w-10" : "h-12 w-12"}`}
                     />
                     <div className="min-w-0 flex-1">
                       <p className="eyebrow text-[0.75rem] tracking-[0.2em] text-ink/70">
                         {step.n} · {step.day}
                       </p>
                       <h3
-                        className={`display mt-2 leading-tight ${compact ? "text-xl" : "text-2xl md:text-3xl"}`}
+                        className={`display mt-2 leading-tight ${compact ? "text-xl" : "text-xl md:text-2xl"}`}
                       >
                         {step.title}
                       </h3>
@@ -144,11 +147,11 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                         {step.subtitle}
                       </p>
                       {!compact && (
-                        <ul className="mt-5 flex flex-wrap gap-2">
+                        <ul className="mt-4 flex flex-wrap gap-1.5">
                           {step.bullets.map((b) => (
                             <li
                               key={b}
-                              className="rounded-full border-2 border-ink/25 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-ink"
+                              className="rounded-full border-2 border-ink/25 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-ink"
                             >
                               {b}
                             </li>
@@ -164,21 +167,19 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
 
           const card = (
             <div
-              className={`hw-card rounded-[var(--radius-card)] border-2 border-cyan/25 bg-ink-100 text-bone ${
-                compact ? "p-5 md:p-6" : "p-7 md:p-8"
-              }`}
+              className="hw-card rounded-[var(--radius-card)] border-2 border-cyan/25 bg-ink-100 p-5 text-bone md:p-6"
             >
               <div className="flex items-start gap-4">
                 <Icon
                   cut="#2a2a2c"
-                  className={`shrink-0 ${compact ? "h-10 w-10" : "h-14 w-14"}`}
+                  className={`shrink-0 ${compact ? "h-10 w-10" : "h-11 w-11"}`}
                 />
                 <div className="min-w-0 flex-1">
                   <p className="eyebrow text-[0.75rem] tracking-[0.2em] text-cyan">
                     {step.n}
                   </p>
                   <h3
-                    className={`display mt-1.5 leading-tight ${compact ? "text-lg" : "text-2xl"}`}
+                    className={`display mt-1.5 leading-tight ${compact ? "text-lg" : "text-xl"}`}
                   >
                     {step.title}
                   </h3>
@@ -186,13 +187,13 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                     {step.subtitle}
                   </p>
                   {!compact && (
-                    <ul className="mt-4 space-y-2">
+                    <ul className="mt-3 space-y-1.5">
                       {step.bullets.map((b) => (
                         <li
                           key={b}
-                          className="flex gap-2.5 text-[0.95rem] leading-snug text-bone/80"
+                          className="flex gap-2.5 text-sm leading-snug text-bone/80"
                         >
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
                           {b}
                         </li>
                       ))}
@@ -219,7 +220,7 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
               ref={(el) => {
                 stopRefs.current[i] = el;
               }}
-              className={`hw-stop ${left ? "hw-stop-left" : "hw-stop-right"} grid grid-cols-[40px_1fr] gap-x-4 md:grid-cols-[1fr_110px_1fr] md:gap-x-0`}
+              className={`hw-stop ${left ? "hw-stop-left" : "hw-stop-right"} grid grid-cols-[40px_1fr] gap-x-4 md:grid-cols-[1fr_110px_1fr] md:gap-x-0 ${tuck}`}
             >
               {/* Desktop left column */}
               <div className="hidden md:block">
@@ -260,7 +261,7 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
     <section
       id="process"
       className={`hw-dots relative overflow-hidden bg-ink text-bone ${
-        compact ? "section-py" : "section-py-hero"
+        compact ? "py-16 md:py-24" : "py-14 md:py-20"
       }`}
     >
       <div className="shell relative">
@@ -270,7 +271,7 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
             className={`display mt-6 ${
               compact
                 ? "text-[clamp(2rem,4.4vw,3.4rem)]"
-                : "text-[clamp(2.3rem,5.4vw,4.4rem)]"
+                : "text-[clamp(2.1rem,4.8vw,3.8rem)]"
             }`}
           >
             {process.headlineParts.before}{" "}
@@ -282,17 +283,17 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
               {process.body}
             </p>
           ) : (
-            <p className="mx-auto mt-6 max-w-[58ch] text-lg leading-relaxed text-bone/70">
+            <p className="mx-auto mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
               {process.lede}
             </p>
           )}
         </Reveal>
 
-        <div className={compact ? "mt-12 md:mt-14" : "mt-16 md:mt-20"}>
+        <div className={compact ? "mt-10" : "mt-10 md:mt-12"}>
           {compact ? (
             <Link
               href="/how-it-works"
-              aria-label="See every step of the Hiring Highway"
+              aria-label="See every step of the Hands Off Hiring System"
               className="block rounded-[var(--radius-card)] outline-none transition-transform duration-500 hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-cyan"
             >
               {road}
@@ -303,15 +304,15 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
         </div>
 
         {compact ? (
-          <Reveal className="mt-12 text-center">
+          <Reveal className="mt-10 text-center">
             <Button href="/how-it-works">{process.teaserCta}</Button>
           </Reveal>
         ) : (
-          <Reveal className="mt-16 text-center md:mt-20">
-            <p className="display text-[clamp(1.5rem,3vw,2.2rem)]">
+          <Reveal className="mt-10 text-center md:mt-12">
+            <p className="display text-[clamp(1.4rem,2.6vw,2rem)]">
               {process.closer.line}
             </p>
-            <div className="mt-7">
+            <div className="mt-6">
               <Button href={site.bookCall} size="lg">
                 {process.closer.cta}
               </Button>
