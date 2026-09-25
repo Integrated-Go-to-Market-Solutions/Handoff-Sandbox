@@ -1,50 +1,22 @@
 import { Button, Pill } from "../brand";
 import { Reveal } from "../reveal";
+import { TypedPoints } from "../typed-points";
 import { models, modelsFootnote, site } from "@/lib/content";
 
-/* Each card is its own gradient with a cyan outline, per direct feedback —
-   the same treatment as the Hiring Highway cards, not plain boxes. The
-   featured card keeps the brightest (cyan) gradient so it still reads as
-   the recommended choice at a glance. */
+/* Two equally strong gradients with the same cyan outline, so neither
+   option reads as the lesser choice. */
 const cardAccents = [
   {
     card: "bg-gradient-to-br from-cyan to-cyan-dim text-ink",
     pill: "!border-ink/30 !text-ink",
-    price: "text-ink",
     button: "ink" as const,
   },
   {
-    card: "bg-gradient-to-br from-ink-300 to-ink text-bone",
-    pill: "!border-bone/30 !text-bone",
-    price: "text-cyan",
+    card: "bg-gradient-to-br from-royal to-azure text-bone",
+    pill: "!border-bone/40 !text-bone",
     button: "cyan" as const,
   },
 ] as const;
-
-function renderPoints(points: string[]) {
-  return points.map((point) => (
-    <li
-      key={point}
-      className="flex gap-3 text-[0.93rem] leading-snug opacity-80"
-    >
-      <svg
-        viewBox="0 0 20 20"
-        className="mt-0.5 h-4 w-4 shrink-0"
-        aria-hidden="true"
-      >
-        <path
-          d="M4 10.5l4 4 8-9"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-      {point}
-    </li>
-  ));
-}
 
 export function Models() {
   return (
@@ -64,7 +36,6 @@ export function Models() {
         <div className="mt-14 grid gap-5 lg:grid-cols-2">
           {models.map((model, i) => {
             const accent = cardAccents[i % cardAccents.length];
-            const points = renderPoints(model.points);
             return (
             <Reveal key={model.name} delay={i * 110}>
               <article
@@ -74,29 +45,27 @@ export function Models() {
                   {model.tag}
                 </Pill>
 
-                <h3 className="display mt-5 min-h-[5.5rem] text-2xl">
+                <h3 className="display mt-5 text-2xl md:text-[1.75rem]">
                   {model.name.replace("-", "‑")}
                 </h3>
-                <p className="mt-2 min-h-[2.5rem] text-sm font-medium opacity-75">
+                <p className="display mt-2 text-[clamp(2.2rem,4vw,2.9rem)] leading-none">
+                  {model.price}
+                </p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] opacity-75">
+                  {model.terms}
+                </p>
+
+                <p className="mt-5 text-sm font-medium opacity-80">
                   {model.forWho}
                 </p>
 
-                <div className="mt-6 min-h-[6.5rem] py-5">
-                  <p className={`display text-2xl ${accent.price}`}>
-                    {model.price}
-                  </p>
-                  <p className="mt-1 text-xs font-medium opacity-70">
-                    {model.terms}
-                  </p>
+                <div className="mt-6 border-t-2 border-current/15 pt-6">
+                  <TypedPoints points={model.points} />
                 </div>
 
-                <p className="mt-6 min-h-[7.5rem] text-[0.97rem] leading-relaxed opacity-80">
+                <p className="mb-9 mt-6 text-[0.97rem] leading-relaxed opacity-80">
                   {model.copy}
                 </p>
-
-                <ul className="mb-9 mt-6 space-y-3">
-                  {points}
-                </ul>
 
                 <Button
                   href={site.bookCall}
