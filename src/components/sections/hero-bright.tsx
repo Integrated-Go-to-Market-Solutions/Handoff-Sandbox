@@ -18,7 +18,7 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
     <section className="halftone relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
       <div className="absolute inset-0" aria-hidden="true">
         <LatamMap
-          className="absolute right-0 top-1/2 h-80 w-80 -translate-y-1/2 md:h-96 md:w-96"
+          className="absolute -right-24 top-1/2 aspect-[1014/1293] h-[70%] -translate-y-1/2 sm:-right-16 md:-right-24 md:h-[90%] lg:-right-16 lg:h-[110%] xl:-right-4 xl:h-[130%]"
           baseClassName="bg-black opacity-30 md:opacity-40"
           glowClassName="opacity-45"
         />
