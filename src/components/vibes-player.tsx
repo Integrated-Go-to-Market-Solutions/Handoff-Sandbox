@@ -88,13 +88,19 @@ export function VibesPlayer({ clips }: { clips: Clip[] }) {
   const slotOf = (i: number) => (n === 3 ? ((i - active + 1 + n) % n) : i);
 
   return (
-    <div ref={rootRef}>
+    <div ref={rootRef} className="relative">
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan/15 blur-[90px] md:w-[45%]"
+        aria-hidden="true"
+      />
       <div
         ref={scrollerRef}
-        className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[11vw] pb-2 md:mx-0 md:grid md:grid-cols-[1fr_1.3fr_1fr] md:items-center md:gap-5 md:overflow-visible md:px-0 md:pb-0"
+        className="relative -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[11vw] py-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-[1fr_1.3fr_1fr] md:items-center md:gap-6 md:overflow-visible md:px-0 md:py-0 [&::-webkit-scrollbar]:hidden"
       >
         {clips.map((clip, i) => {
           const isMain = i === active;
+          // "Live" is whichever reel is actually playing: the main one, or a hover preview.
+          const isLive = i === (preview ?? active);
           return (
             <figure
               key={clip.slug}
@@ -104,10 +110,10 @@ export function VibesPlayer({ clips }: { clips: Clip[] }) {
               style={{ "--slot": slotOf(i) } as CSSProperties}
               onMouseEnter={() => !isMain && window.matchMedia("(min-width: 768px)").matches && setPreview(i)}
               onMouseLeave={() => preview === i && setPreview(null)}
-              className={`group relative w-[78vw] shrink-0 snap-center overflow-hidden rounded-[var(--radius-brand)] border-2 bg-ink transition-[border-color,box-shadow,opacity] duration-500 md:w-auto md:[order:var(--slot)] ${
-                isMain
-                  ? "border-cyan shadow-[0_0_36px_-8px_rgba(61,214,189,0.7)]"
-                  : "border-cyan/30 md:opacity-80 md:hover:opacity-100"
+              className={`group relative w-[78vw] shrink-0 snap-center overflow-hidden rounded-[var(--radius-brand)] border-2 bg-ink transition-[border-color,box-shadow,transform] duration-700 ease-out motion-reduce:transition-none md:w-auto md:[order:var(--slot)] ${
+                isLive
+                  ? "border-cyan shadow-[0_0_0_4px_rgba(61,214,189,0.12),0_0_48px_-6px_rgba(61,214,189,0.75)]"
+                  : "border-white/10 shadow-[0_20px_40px_-24px_rgba(0,0,0,0.8)] md:scale-[0.96]"
               }`}
             >
               <button
@@ -124,7 +130,9 @@ export function VibesPlayer({ clips }: { clips: Clip[] }) {
                   ref={(el) => {
                     videos.current[i] = el;
                   }}
-                  className="aspect-[9/16] w-full object-cover"
+                  className={`aspect-[9/16] w-full object-cover transition-[filter] duration-700 ease-out motion-reduce:transition-none ${
+                    isLive ? "brightness-100 saturate-100" : "brightness-[0.55] saturate-[0.55]"
+                  }`}
                   poster={`/videos/${clip.slug}.jpg`}
                   muted
                   loop
@@ -157,14 +165,44 @@ export function VibesPlayer({ clips }: { clips: Clip[] }) {
                   )}
                 </span>
 
-                <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-5 pt-14">
+                <span
+                  className={`absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-ink/70 px-3 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-cyan backdrop-blur-sm transition-opacity duration-500 motion-reduce:transition-none ${
+                    isLive ? "opacity-100" : "opacity-0"
+                  }`}
+                  aria-hidden="true"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-cyan motion-safe:animate-pulse" />
+                  {isMain ? "Now playing" : "Preview"}
+                </span>
+
+                <figcaption
+                  className={`pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/95 via-ink/60 to-transparent p-5 pt-16 transition-opacity duration-700 motion-reduce:transition-none ${
+                    isLive ? "opacity-100" : "opacity-80"
+                  }`}
+                >
                   <p className="display text-lg text-bone">{clip.name}</p>
-                  <p className="mt-1 text-[0.85rem] leading-snug text-bone/70">{clip.caption}</p>
+                  <p className="mt-1 text-[0.85rem] leading-snug text-bone/75">{clip.caption}</p>
                 </figcaption>
               </button>
             </figure>
           );
         })}
+      </div>
+
+      {/* Phones: where you are in the swipe row. */}
+      <div className="relative mt-5 flex justify-center gap-2 md:hidden">
+        {clips.map((clip, i) => (
+          <button
+            key={clip.slug}
+            type="button"
+            aria-label={`Show ${clip.name}`}
+            aria-current={i === active}
+            onClick={() => cards.current[i]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" })}
+            className={`h-2 rounded-full transition-all duration-500 motion-reduce:transition-none ${
+              i === active ? "w-7 bg-cyan" : "w-2 bg-white/30"
+            }`}
+          />
+        ))}
       </div>
     </div>
   );

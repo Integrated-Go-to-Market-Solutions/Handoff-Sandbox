@@ -76,6 +76,36 @@ _Summary is added here once all eight tasks are done._
 - `src/components/sections/problem.tsx`
 - `src/app/globals.css`: removed the panel's now-unused fade styles.
 
+## Task 5: "We are the overseas talent" videos polished
+
+**What changed**
+
+- **Dimmed state:** videos that aren't playing sit at 55% brightness and 55% saturation. They're clearly visible, not black.
+- **Playing state:** whichever video is playing (the main one, or a side video being previewed on hover) is at full brightness. The change animates smoothly over 0.7s.
+- **Active card:**
+  - A teal border, a soft teal ring and an outer glow.
+  - A small "Now playing" tag, or "Preview" while hovering, with a pulsing dot.
+  - The caption goes to full opacity.
+- **Side cards:** shrink slightly (96%) and lose the glow.
+- **Framing:** a soft teal glow sits behind the row. Spacing is a little wider, and the caption gradient is deeper for easier reading.
+- **Phones:**
+  - Position dots under the swipe row show which video is centred. Tapping a dot scrolls to that video without turning the sound on.
+  - The scrollbar is hidden.
+- **Reduced motion:** the transitions are switched off (states change instantly), and the tag's pulse is off.
+- **Behaviour unchanged:**
+  - Only one video plays at a time.
+  - Hovering a side video previews it silently.
+  - Clicking moves it to the middle with sound.
+  - Videos only play while on screen, and still load metadata only, with posters.
+
+**Files**
+
+- `src/components/vibes-player.tsx`
+
+**Please check**
+
+- The dimming level and glow on a real screen. If you want the side videos brighter, change `brightness-[0.55]`.
+
 ---
 
 # Round 2: AI Trained section, map edges, git authorship
