@@ -50,11 +50,14 @@ function getDisplayValue(originalValue: string, current: number): string {
 export function Stats({
   include,
   bare = false,
+  variant = "cards",
 }: {
   /** Labels to show, in proofStats order. Defaults to all four. */
   include?: readonly string[];
   /** Just the tiles, no section wrapper, for embedding in another section. */
   bare?: boolean;
+  /** "band": one divided glass strip for dark sections, instead of cards. */
+  variant?: "cards" | "band";
 } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const items = proofStats
@@ -66,6 +69,12 @@ export function Stats({
     if (!root) return;
     // Initialize all stat numbers to "0" so they're visible and not the final state
     const stats = root.querySelectorAll<HTMLSpanElement>(".stat-number");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      stats.forEach((el) => {
+        el.textContent = el.dataset.target || "";
+      });
+      return;
+    }
     stats.forEach((el) => {
       el.textContent = "0";
     });
@@ -111,6 +120,40 @@ export function Stats({
       observer.disconnect();
     };
   }, []);
+
+  if (variant === "band") {
+    return (
+      <div
+        ref={rootRef}
+        className="mx-auto grid max-w-3xl grid-cols-2 divide-x divide-white/15 overflow-hidden rounded-[var(--radius-card)] border border-white/15 bg-ink/60 backdrop-blur-md"
+      >
+        {items.map(({ stat }) => (
+          <Link
+            key={stat.label}
+            href="/results"
+            className="group flex flex-col items-center justify-center px-3 py-6 text-center transition-colors duration-300 hover:bg-white/[0.04] md:py-8"
+          >
+            <span className="sr-only">
+              {stat.value} {stat.label}
+            </span>
+            <span
+              className="stat-number display text-[clamp(2.3rem,5.4vw,3.9rem)] leading-none text-cyan"
+              data-target={stat.value}
+              aria-hidden="true"
+            >
+              {stat.value}
+            </span>
+            <span
+              className="mt-2.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-bone/80 md:text-sm"
+              aria-hidden="true"
+            >
+              {stat.label}
+            </span>
+          </Link>
+        ))}
+      </div>
+    );
+  }
 
   const grid = (
         <div

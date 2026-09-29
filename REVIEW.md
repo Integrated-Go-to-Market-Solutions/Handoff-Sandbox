@@ -1,5 +1,42 @@
 # Review notes
 
+# Round 3
+
+_Summary is added here once all eight tasks are done._
+
+## Task 1: "Trusted by teams" and "Built for your industry" merged
+
+**What changed**
+
+- **Heading:** now reads "TRUSTED BY TEAMS THAT KEEP MOVING FORWARD | BUILT FOR YOUR INDUSTRY", in bold white display type at about 2.4rem on desktop, with a teal divider. On phones and tablets the two halves stack, and the second half is teal.
+- **Industry links:** now proper cards, with the same five links to the industry pages:
+  - **Card design:** a 56–64px icon in a teal ring, the label, and a small "See roles →" hint.
+  - **Hover:** the card lifts, the border turns teal with a soft glow, and the icon fills teal.
+  - **Layout:** five across on desktop, three plus a centred two on tablet, two plus two plus one full-width on phones.
+- **Background:** the same grayscale culture video the "Built for your industry" section used (`/video/culture.mp4`, 2.4 MB), behind a dark overlay.
+  - The video uses the existing player: muted, loops, loads metadata only, has a poster frame, and plays only while on screen.
+  - With reduced motion it shows the poster still.
+- **Logo scroll:** now runs on a light frosted band across the section.
+- **Stat cards:** replaced by one divided glass band, centred under the logos, with large teal numbers ($50K+, 96%+) and small uppercase labels. The numbers and labels are unchanged. The count-up now shows the final numbers straight away when reduced motion is on.
+
+**Files**
+
+- `src/components/sections/credibility-strip.tsx`
+- `src/components/sections/stats.tsx`: new `variant="band"` option, plus the reduced-motion fix.
+
+**Decisions I made**
+
+- **"Darker" heading:** the brief asked for a darker, bolder heading and also a dark overlay on the video. Dark text would disappear on a dark background, so "darker" is read as heavier and higher-contrast: bold white, bigger, with a teal accent.
+- **Logos on a light band:** most of the client logo files are dark artwork (Fragomen's is a dark box), so inverting them would ruin some. The band keeps every logo readable.
+- **Stats layout:** one shared band instead of two separate cards, so they read as part of the section rather than tacked on.
+
+**Please check**
+
+- The heading wording and the "|" divider.
+- Whether the logo band feels right against the dark video.
+
+---
+
 # Round 2: AI Trained section, map edges, git authorship
 
 ## Git authorship
