@@ -12,7 +12,13 @@ import { vibes } from "@/lib/content";
  * Plain carbon behind the videos, per direct instruction (2026-09-08). The
  * duotone team photo that used to sit here competed with the three clips.
  */
-export function Vibes() {
+export function Vibes({
+  order,
+}: {
+  /** Clip indexes in display order; defaults to the content order (used by /v2). */
+  order?: number[];
+} = {}) {
+  const clips = order ? order.map((i) => vibes.clips[i]) : vibes.clips;
   return (
     <section className="relative overflow-hidden bg-ink section-py text-bone">
       <div className="shell relative z-10">
@@ -28,7 +34,7 @@ export function Vibes() {
         </Reveal>
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-          {vibes.clips.map((clip, i) => (
+          {clips.map((clip, i) => (
             <Reveal key={clip.slug} delay={i * 110}>
               <VideoLoop
                 src={`/videos/${clip.slug}.mp4`}

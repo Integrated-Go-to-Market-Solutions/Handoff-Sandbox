@@ -177,3 +177,37 @@ Nothing.
 - Scroll through the section on the homepage and on `/how-it-works` on a real desktop. Check the pin, fill and pop-in feel right, and that it lets go cleanly.
 - Test with reduced motion turned on in your OS (no pinning, everything visible).
 - On a phone: the vertical stack, with icons popping in.
+
+---
+
+## Block 5: Quick wins
+
+**What changed**
+
+- **Roles section ("Built for your industry"):** the five repeated "See the roles" links are removed. The industry tiles still link to their pages. One centred "Meet Your Talent" button below the tiles scrolls to the new map section (`#meet-your-talent`), landing just under the header.
+- **"We are the overseas talent" videos:** the first and second are swapped on the homepage, so "Our remote culture" now comes first, then "A day with Handoff", then "Handoff values".
+- **AI Trained section:** a "Training includes" list under the paragraph, with "AI fundamentals (how it works)" and "Mastering prompts" as check-marked pills.
+
+**Files**
+
+- `src/components/sections/industries-teaser.tsx`
+- `src/components/sections/vibes.tsx`: optional `order` setting.
+- `src/app/page.tsx`
+- `src/components/sections/ai-trained.tsx`
+- `src/lib/content.ts`: the training topics.
+
+**Decisions I made**
+
+- **Video swap on the homepage only:** `/v2` uses the same video section, so I left the shared content order alone and passed the new order from the homepage. `/v2` keeps its original order.
+- **Topics label:** "Training includes" is my wording.
+
+**Couldn't do**
+
+- **"See how we make it happen":** that phrase doesn't exist anywhere on the site. I searched all the source and content. So there was nothing to turn into an anchor link, and no roles block next to it to swap for the promo video. The promo video (`handoff-promo.mp4`) is still on `/how-it-works` below the hiring system. If you point me to where this link should go, it's a small change.
+- **AI Excellence badge:** there's no badge image in `design-refs/` (only the map files), so I skipped it as instructed.
+
+**Please check**
+
+- Homepage: the "Meet Your Talent" button scrolls smoothly up to the map.
+- The new video order.
+- The training-topic pills in the AI Trained section.

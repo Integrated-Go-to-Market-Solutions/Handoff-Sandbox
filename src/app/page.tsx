@@ -39,7 +39,7 @@ export default function Home() {
       <WhyLatam />
       <Stats include={["Clients", "Placements"]} />
       <Problem />
-      <Vibes />
+      <Vibes order={[1, 0, 2]} />
       <Soul />
       <ClientQuotes />
       <Models />

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "../brand";
 import { Reveal } from "../reveal";
 import { VideoLoop } from "../video-loop";
 import { Icon, type IconName } from "../icon";
@@ -61,16 +62,14 @@ export function IndustriesTeaser() {
                 <span className="mt-2 block min-h-[2.75rem] text-[0.95rem] leading-snug text-ink/65">
                   {industry.problemHeadline}
                 </span>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-ink">
-                  See the roles
-                  <span className="text-cyan-dim transition-transform duration-300 group-hover:translate-x-1">
-                    &rarr;
-                  </span>
-                </span>
               </Link>
             </Reveal>
           ))}
         </div>
+
+        <Reveal className="mt-14 text-center">
+          <Button href="#meet-your-talent">Meet Your Talent</Button>
+        </Reveal>
       </div>
     </section>
   );
