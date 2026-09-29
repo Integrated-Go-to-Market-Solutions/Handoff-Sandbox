@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "../reveal";
+import { TypingCycle } from "../typing-cycle";
 import { aiTrained } from "@/lib/content";
 
 /**
@@ -38,6 +39,14 @@ export function AiTrained() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div className="mt-6 pl-6">
+            <p className="eyebrow text-[0.72rem] tracking-[0.2em] text-cyan">{aiTrained.coursesLabel}</p>
+            <TypingCycle
+              phrases={aiTrained.courses}
+              className="mt-2 font-gotham text-lg font-semibold text-bone md:text-xl"
+            />
           </div>
 
           <div className="mt-6 pl-6">

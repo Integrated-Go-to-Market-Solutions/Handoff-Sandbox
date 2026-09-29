@@ -81,6 +81,33 @@ Nothing. All three logos were available.
 - If you'd rather use files straight from each company's own press kit, drop them into `public/images/ai-tools/` with the same names.
 - Some brand guidelines ask for their full-colour logo only, or have rules about use next to other brands. Worth a quick legal and brand check before launch.
 
+## Task 4: Course typing animation
+
+**What changed**
+
+- **Placement:** under "Courses like" in the AI Trained section.
+- **Animation:** types each course name, holds it for 1.5s, deletes it and types the next, looping. It pauses while the section is off screen.
+- **Stable layout:** space for the longest name is reserved, so the section never shifts as names change length. On a 320px phone that's two lines, reserved in advance.
+- **Screen readers:** they get the full list at once.
+- **Reduced motion:** a static list of all five names, with no typing.
+- **⚠ PLACEHOLDER course names:** "AI Fundamentals: How AI Works", "Mastering Prompts", "AI for Everyday Workflows", "Automating Tasks with AI Tools", "Responsible AI Use". They're marked as placeholders in `content.ts` (`aiTrained.courses`).
+
+**Files**
+
+- `src/components/typing-cycle.tsx` (new)
+- `src/components/sections/ai-trained.tsx`
+- `src/lib/content.ts`
+
+**Decisions I made**
+
+- **Why not the pricing typewriter directly:** it types a list once from empty to full, so it can't type-delete-retype. The new component uses the same approach: the full text for screen readers, the reserved space, the same reduced-motion check, and starting only when on screen.
+- **"Training includes" pills:** kept. They cover the two topics from round 1, and the typing line shows example courses.
+
+**Please check**
+
+- The typing speed feels right, on a real screen.
+- Replace the placeholder names with the real Coursera course names.
+
 ---
 
 # Round 1

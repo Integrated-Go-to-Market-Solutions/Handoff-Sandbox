@@ -396,6 +396,15 @@ export const aiTrained = {
   body: "Every person we place already works with AI tools daily and knows where to use them and where not to. That is a hiring standard for us, not a feature we added. It is also why they move faster on the same work. The judgement stays human. The busywork does not.",
   topicsLabel: "Training includes",
   topics: ["AI fundamentals (how it works)", "Mastering prompts"],
+  coursesLabel: "Courses like",
+  /** PLACEHOLDER course names until the real catalogue is confirmed. */
+  courses: [
+    "AI Fundamentals: How AI Works",
+    "Mastering Prompts",
+    "AI for Everyday Workflows",
+    "Automating Tasks with AI Tools",
+    "Responsible AI Use",
+  ],
   toolsLabel: "Tools our talent trains on",
   /** Icons are LobeHub Icons (MIT), recoloured white: /public/images/ai-tools. */
   tools: [
