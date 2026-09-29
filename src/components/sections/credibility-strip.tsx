@@ -27,7 +27,7 @@ export function CredibilityStrip() {
       <div className="shell relative">
         <h2
           id="credibility-heading"
-          className="display mx-auto max-w-5xl text-center text-[clamp(1.35rem,2.9vw,2.4rem)] font-bold leading-tight text-white"
+          className="display mx-auto text-center text-[clamp(1.35rem,2.9vw,2.4rem)] font-bold leading-tight text-white md:whitespace-nowrap md:text-[clamp(0.95rem,2.2vw,1.85rem)]"
         >
           <span className="block md:inline">Trusted by teams that keep moving forward</span>
           <span className="mx-4 hidden text-cyan md:inline" aria-hidden="true">
@@ -66,8 +66,8 @@ export function CredibilityStrip() {
         </nav>
       </div>
 
-      <div className="relative mt-12 border-y border-white/20 bg-bone/90 py-3 backdrop-blur-md">
-        <LogoMarquee bare durationSeconds={53} />
+      <div className="relative mt-12 border-y border-white/10 bg-white/[0.03] py-3">
+        <LogoMarquee bare onDark durationSeconds={53} />
       </div>
 
       <div className="shell relative mt-12">

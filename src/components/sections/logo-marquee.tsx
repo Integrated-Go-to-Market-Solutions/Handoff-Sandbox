@@ -11,10 +11,13 @@ import { logos } from "@/lib/content";
 export function LogoMarquee({
   bare = false,
   durationSeconds,
+  onDark = false,
 }: {
   bare?: boolean;
   /** Overrides the default 46s loop from globals.css. */
   durationSeconds?: number;
+  /** Recolour logos light for dark backgrounds. */
+  onDark?: boolean;
 }) {
   const row = [...logos, ...logos];
 
@@ -35,7 +38,7 @@ export function LogoMarquee({
                 alt={logo.name}
                 fill
                 sizes="260px"
-                className="object-contain object-center"
+                className={`object-contain object-center ${onDark ? "opacity-80 grayscale invert" : ""}`}
               />
             </div>
           ) : (
@@ -46,7 +49,7 @@ export function LogoMarquee({
               key={`${logo.slug}-${i}`}
               className="grid h-24 w-[260px] shrink-0 place-items-center transition-transform duration-500 hover:scale-105"
             >
-              <span className="display text-xl text-ink/70">{logo.name}</span>
+              <span className={`display text-xl ${onDark ? "text-bone/80" : "text-ink/70"}`}>{logo.name}</span>
             </div>
           ),
         )}
