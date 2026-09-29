@@ -1,6 +1,34 @@
 # Review notes
 
-_Summary is added at the top once all blocks are done._
+## Summary
+
+All five blocks and both stretch goals are done. Each has its own commit, pushed to `dev`:
+
+| Block | Commit |
+|---|---|
+| Block 1: hero and header | `fa4482e` |
+| Block 2: credibility strip | `898cfa4` |
+| Block 3: talent map | `6c5730f` |
+| Block 4: hiring system | `6d52580` |
+| Block 5: quick wins | `0b1da2e` |
+| Stretch goals | `a24b125` |
+
+Nothing was deployed, and `vercel` was never run.
+
+**Couldn't do** (details in each block):
+- **"See how we make it happen":** that link doesn't exist anywhere on the site, so there was nothing to turn into an anchor or pair with the promo video.
+- **AI Excellence badge:** there's no badge image in `design-refs/`, so it was skipped.
+- **Placeholders:** the talent map uses placeholder avatars and the promo video as a placeholder until real talent assets exist. This is marked in the code.
+
+**Things only you can judge on a real screen:**
+- **Hiring system:** the sticky scroll feel, on the homepage and `/how-it-works`.
+- **Reel slider:** hover and click behaviour on desktop, and swiping on a phone.
+- **Reduced motion:** with it turned on in your OS, nothing pins or autoplays.
+- **New copy:** "Meet your talent" plus its intro line, and "Training includes".
+
+**Final check:** the homepage, `/how-it-works`, `/about` and `/industries/corporate-relocation`, each at 1440, 768 and 375px wide: no horizontal scroll, no elements running off the page, no console errors. TypeScript and ESLint pass.
+
+**About the testing:** the test browser ran in the background for most of the session. It often wouldn't draw screenshots, play video or run smooth scrolling, so most checks were done by measuring the page directly, and I've said so wherever that matters.
 
 General notes for the whole session:
 
