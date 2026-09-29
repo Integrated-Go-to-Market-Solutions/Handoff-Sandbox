@@ -2,6 +2,7 @@ import { HeroBright } from "@/components/sections/hero-bright";
 import { Stats } from "@/components/sections/stats";
 import { CredibilityStrip } from "@/components/sections/credibility-strip";
 import { IndustriesTeaser } from "@/components/sections/industries-teaser";
+import { TalentMap } from "@/components/sections/talent-map";
 import { WhyLatam } from "@/components/sections/why-latam";
 import { Problem } from "@/components/sections/problem";
 import { HiringHighway } from "@/components/sections/hiring-highway";
@@ -31,6 +32,7 @@ export default function Home() {
     <>
       <HeroBright />
       <CredibilityStrip />
+      <TalentMap />
       <IndustriesTeaser />
       <AiTrained />
       <HiringHighway compact />

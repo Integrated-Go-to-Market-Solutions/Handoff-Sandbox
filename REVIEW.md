@@ -84,3 +84,46 @@ Nothing.
 - The strip on the homepage at all three sizes. The industry links wrap to 4 + 1 on tablet and 2 + 2 + 1 on mobile.
 - The logo speed feels right.
 - The lower stats row now has just two cards, centred.
+
+---
+
+## Block 3: Interactive talent map
+
+**What changed**
+
+- **Hero:** the map is removed from the hero only. The maps in the "Why LATAM" and "Problem" sections are untouched.
+- **New "Meet your talent" section:** a dark section with the LATAM map, placed right before "Built for your industry" (the area with the repeated "See the roles" links). It includes:
+  - eight circular talent pins, each with a pill-shaped role label (Digital Marketing Manager, Full Stack Developer, AP/AR Specialist, AI Specialist, Relocation Coordinator, Guest Services Specialist, Reservations Manager, Sales Development Representative)
+  - dashed teal routes between the pins
+  - three pulsing ring markers, based on `design-refs/HANDOFFMAP.png`
+- **Hover:** a pin scales up with a teal glow, and its label turns teal.
+- **Click:** opens a pop-up playing `public/videos/handoff-promo.mp4`. It closes with the X, the Escape key or a click outside.
+- **Placeholders:** the video is a PLACEHOLDER, labelled as such in the code (`PLACEHOLDER_VIDEO` in `talent-map.tsx`) and in the pop-up's accessible label. The photos in the code export were `placehold.co` URLs, so every pin uses a neutral local avatar (also marked as a placeholder in the code). No images load from outside the site.
+- **Mobile (under 768px):** the map shows the pins only, with no labels, and the eight roles are listed underneath as tappable rows that open the same pop-up. The labels can't collide this way.
+
+**Files**
+
+- `src/components/sections/talent-map.tsx` (new)
+- `src/components/video-modal.tsx` (new, reusable pop-up)
+- `public/brand/latam-land.png` (new, 3.3 KB): a filled land mask made from the existing `latam-outline.svg`, which is only a coastline outline.
+- `src/app/page.tsx`: adds the section.
+- `src/components/sections/hero-bright.tsx`: map removed.
+
+**Decisions I made**
+
+- **Rebuilt, not pasted:** the Figma export is a fixed 7,000px canvas, so I rebuilt it as a responsive component. The pins, routes and land all share the outline SVG's coordinate space, so they stay aligned at any width.
+- **Pin positions:** approximated on the site's own map outline to match the reference image (for example Digital Marketing Manager on Mexico, Relocation Coordinator on Brazil's east tip, SDR in Patagonia). Guest Services sits slightly west of the reference, so its label fits on a 768px tablet.
+- **Section copy:** the heading "Meet your talent" and the one-line intro are my copy. Please check them.
+- **Map size:** 600px wide on desktop, 560px on tablet, full width on phones.
+- **Reduced motion:** the pulse animation only runs when reduced motion is off.
+
+**Couldn't do**
+
+- **Real photos:** there are none in the repo for these roles, so the pins use placeholder avatars.
+
+**Please check**
+
+- The map section on the homepage at all three sizes: the pins sit on the right countries, and no labels overlap.
+- Click a pin, and on mobile a role row: the pop-up opens and closes.
+- Replace the placeholder avatars and video when the real talent assets exist.
+- I made a first attempt at a filled map (`latam-fill.svg`) that didn't work. It's in my scratch folder, not in the repo, so nothing was deleted from the project.
