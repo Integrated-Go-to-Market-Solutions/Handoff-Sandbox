@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Reveal } from "../reveal";
 import { Icon, type IconName } from "../icon";
-import { LatamMap } from "../latam-map";
 import { problem } from "@/lib/content";
 
 /* The site's one card system: each face its own gradient, outlined in
@@ -110,26 +109,9 @@ function ProblemCard({
 export function Problem() {
   return (
     <section className="relative overflow-hidden bg-ink section-py text-bone">
-      {/* Editorial photo, per direct reference: a real photo in grayscale,
-          bleeding off the right edge of the viewport and dissolving into
-          the carbon on its left and bottom edges instead of sitting in a
-          frame. Only spans the intro block so it never runs behind the
-          cards. On phones it sits above the copy and fades out downward. */}
       <div className="shell relative">
-        <div className="relative lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-10">
-          <div
-            className="problem-photo relative -mx-6 mb-8 h-72 sm:h-80 lg:absolute lg:-inset-y-10 lg:right-0 lg:mx-0 lg:mb-0 lg:h-auto lg:w-[58%] lg:-mr-[max(0px,calc((100vw-var(--shell))/2))]"
-            aria-hidden="true"
-          >
-            <LatamMap
-              className="absolute inset-0"
-              baseClassName="bg-white opacity-10"
-              glowClassName="opacity-25"
-              align="top"
-            />
-          </div>
-
-          <Reveal className="relative max-w-3xl lg:py-10">
+        <div className="relative">
+          <Reveal className="relative max-w-3xl">
             <h2 className="display mt-2 text-[clamp(2rem,5vw,3.9rem)]">
               {problem.headline}
             </h2>

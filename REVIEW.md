@@ -63,6 +63,19 @@ _Summary is added here once all eight tasks are done._
 
 - `src/components/sections/ai-trained.tsx`
 
+## Task 4: Map removed from the "You are the bottleneck" section
+
+**What changed**
+
+- **Map removed:** taken out of the `Problem` section ("You are the bottleneck") only. That includes the decorative panel that held it: on desktop it filled the right half, and on phones it added a tall empty block above the heading.
+- **Layout:** the intro text now sits in a single column.
+- **Other maps unchanged:** the "Why LATAM" map and the talent map section are untouched.
+
+**Files**
+
+- `src/components/sections/problem.tsx`
+- `src/app/globals.css`: removed the panel's now-unused fade styles.
+
 ---
 
 # Round 2: AI Trained section, map edges, git authorship

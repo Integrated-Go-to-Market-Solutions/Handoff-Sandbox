@@ -324,17 +324,6 @@ body {
   100% { opacity: 0; }
 }
 
-/* Editorial photo in "You are the bottleneck": the picture dissolves into
-   the carbon on every edge (a mask, not an overlay, so there is no hard
-   line anywhere). Phones fade top and bottom; desktop fades the left edge
-   hardest since the copy sits there, and softens top and bottom. */
-.problem-photo {
-  -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0%, #000 22%, #000 70%, transparent 100%);
-  mask-image:
-    linear-gradient(to bottom, transparent 0%, #000 22%, #000 70%, transparent 100%);
-}
-
 /* The existing LATAM silhouette stays visible as the static base. A second
    copy uses the same asset as a mask and is revealed north-to-south, so the
    light follows the exact map geometry rather than drawing over it. */
@@ -364,13 +353,6 @@ body {
   from { clip-path: inset(0 0 100% 0); }
   to { clip-path: inset(0); }
 }
-@media (min-width: 1024px) {
-  .problem-photo {
-    -webkit-mask-image: radial-gradient(ellipse 72% 64% at 64% 50%, #000 38%, transparent 82%);
-    mask-image: radial-gradient(ellipse 72% 64% at 64% 50%, #000 38%, transparent 82%);
-  }
-}
-
 /* The Hiring Highway as a vertical road. A gray spine with a dashed centre
    line, and a cyan fill that follows the reader down the page; each stop
    lights up as the fill reaches it. The compact homepage version and the
