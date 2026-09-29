@@ -2,7 +2,42 @@
 
 # Round 3
 
-_Summary is added here once all eight tasks are done._
+## Summary
+
+All eight tasks are done, one commit each, pushed to `dev`. Every commit is authored by `UmairRasheed712` with no co-author or tool lines. Nothing was deployed.
+
+| # | Task | Commit |
+|---|---|---|
+| 1 | "Trusted by" and industries merged over the culture video, with bigger industry cards and a stats band | `5e3c004` |
+| 2 | "Built for your industry" section removed | `08e8979` |
+| 3 | AI Excellence badge straightened | `94bab9b` |
+| 4 | Map removed from the "bottleneck" section | `3711d44` |
+| 5 | Talent videos dim when not playing, polished row | `b930812` |
+| 6 | Testimonial cards with video backgrounds (3 clips, 1.5–2.5 MB each) | `5527f65` |
+| 7 | Tighter pricing cards, with "Both include" and per-model lists | `2660618` |
+| 8 | Animated "Stop being the bottleneck" finale, no buttons | `0ae4f3d` |
+
+**Final check**
+
+- **Pages:** the homepage, `/how-it-works`, `/about` and `/industries/hospitality` at 1440, 768 and 375px: no horizontal scroll, no elements running off the page, no console errors.
+- **Code:** TypeScript passes. ESLint is clean apart from one existing warning on the hidden `/preview/testimonials` page. The final commit also fixes two older lint errors in the pricing typewriter (`typed-points.tsx`); it behaves the same and still types every character.
+- **Videos:** every video on those pages is muted, loads metadata only or nothing until needed, has a poster, and only plays while on screen.
+- **Files:** no file over 20 MB was added. The only one in the repo is the existing `public/Latam v2_1.mp4`. The testimonial originals are still outside the project.
+- **`/v2`:** untouched. It keeps its old pricing and closing sections.
+
+**Placeholders to approve**
+
+- **Testimonial videos:** only Lynn Greenberg's card shows the real person.
+- **Pricing lists:** "Both models include" and "Also included with Managed Staffing".
+- **Finale copy:** "Let Handoff take it from here." and the ten work-item labels.
+
+**Check on a real screen**
+
+The test browser can't draw frames or play video in the background, so these were verified by measurement only:
+- The finale's scroll pacing on desktop.
+- Hover and tap on the testimonial cards.
+- The dimmed and bright video transitions.
+- Everything again with reduced motion turned on.
 
 ## Task 1: "Trusted by teams" and "Built for your industry" merged
 

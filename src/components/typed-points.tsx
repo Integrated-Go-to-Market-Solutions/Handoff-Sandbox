@@ -1,9 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const DURATION_MS = 1800;
 const START_DELAY_MS = 250;
+
+const REDUCED = "(prefers-reduced-motion: reduce)";
+const subscribeReduced = (cb: () => void) => {
+  const mq = window.matchMedia(REDUCED);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
 
 /**
  * Feature checklist that types itself out once, the first time it scrolls
@@ -14,18 +21,14 @@ const START_DELAY_MS = 250;
 export function TypedPoints({ points }: { points: string[] }) {
   const ref = useRef<HTMLUListElement>(null);
   const total = points.reduce((sum, p) => sum + p.length, 0);
-  const [typed, setTyped] = useState(0);
+  const starts = points.map((_, i) => points.slice(0, i).reduce((sum, p) => sum + p.length, 0));
+  const [progress, setTyped] = useState(0);
+  const reduced = useSyncExternalStore(subscribeReduced, () => window.matchMedia(REDUCED).matches, () => false);
+  const typed = reduced ? total : progress;
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      typeof IntersectionObserver === "undefined"
-    ) {
-      setTyped(total);
-      return;
-    }
+    if (!el || reduced) return;
 
     let raf = 0;
     let timer = 0;
@@ -51,15 +54,13 @@ export function TypedPoints({ points }: { points: string[] }) {
       clearTimeout(timer);
       cancelAnimationFrame(raf);
     };
-  }, [total]);
+  }, [total, reduced]);
 
-  let offset = 0;
   return (
     <ul ref={ref} className="space-y-3">
-      {points.map((point) => {
-        const shown = Math.max(0, Math.min(point.length, typed - offset));
+      {points.map((point, i) => {
+        const shown = Math.max(0, Math.min(point.length, typed - starts[i]));
         const typing = shown > 0 && shown < point.length;
-        offset += point.length;
         return (
           <li key={point} className="flex gap-3 text-[0.93rem] leading-snug">
             <svg
