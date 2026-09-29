@@ -106,6 +106,62 @@ _Summary is added here once all eight tasks are done._
 
 - The dimming level and glow on a real screen. If you want the side videos brighter, change `brightness-[0.55]`.
 
+## Task 6: Client testimonial cards with background videos
+
+**What changed**
+
+- **Three clips compressed** into `public/video/testimonials-web/`, each 720×1280, 18s, with no audio track, plus a poster frame:
+
+  | Clip | Size | Taken from the original |
+  |---|---|---|
+  | `pivt.mp4` | 2.5 MB | 0:14–0:32 |
+  | `quest.mp4` | 1.5 MB | 0:30–0:48 |
+  | `rincon-rehab.mp4` | 2.3 MB | 0:28–0:46 |
+
+  The 4K originals (400–500 MB each) stay in `F:\Official work\IGTMS\testimonial-originals\`; nothing from there was copied in.
+- **Card defaults:** each of the five cards has a video background. At rest it shows only the person's avatar, name and title over a dimmed (50% brightness), paused video.
+- **Hover (mouse):** the video brightens to 95%, zooms slightly and plays. The quote slides up in a frosted dark panel anchored to the bottom, so most of the video stays visible:
+  - desktop: the panel covers at most 45% of the card
+  - tablet: about 62%
+  - 375px phone: 57%
+- **Touch and keyboard:** tapping a card (or pressing Enter) opens it, tapping another switches, and tapping again closes. A small "Tap to read" tag shows only on touch screens.
+- **Video assignment (mixed, all three used, two repeated):**
+
+  | Card | Video |
+  |---|---|
+  | Steve Frey | Quest |
+  | Robert Horsley | Rincon Rehab |
+  | Lynn Greenberg | PIVT |
+  | Bob Rosing | Quest |
+  | Ryan Hoover | Rincon Rehab |
+
+- **Performance:**
+  - `preload="none"` with a poster, so no video data loads until a card is opened.
+  - Muted.
+  - Only the open card's video plays, and only while the section is on screen.
+- **Reduced motion:** the videos stay on their still poster and the transitions are instant. The quote still opens on hover or tap.
+- **Text unchanged:** all quotes, names and titles are exactly as before. They're still in the page for screen readers when a card is closed.
+- **Other pages:** the same section appears on `/results` and the industry pages, so they get the new cards too.
+
+**Files**
+
+- `src/components/sections/client-quotes.tsx` (rewritten)
+- `public/video/testimonials-web/`: `pivt`, `quest` and `rincon-rehab`, each an `.mp4` plus a `.jpg` poster.
+
+**Decisions I made**
+
+- **Choosing the segments:** each clip starts after the speaker's burned-in name tag (for example "Robert Brezosky, CEO at Quest Relocation") and avoids the "What was it like working with Handoff?" title cards. A different person's name showing behind a card would be confusing.
+- **Taller cards on phones:** 3:4 instead of 4:5, with slightly smaller quote text, so the quote doesn't swallow the video.
+
+**⚠ Placeholder content**
+
+- **The videos don't match most of the people on the cards.** Only Lynn Greenberg's card (PIVT) shows the actual person. Steve Frey, Robert Horsley, Bob Rosing and Ryan Hoover are shown over Quest and Rincon Rehab footage of other people, until their own videos exist.
+
+**Please check**
+
+- Hover and tap feel right on a real device.
+- On a 320px phone, the longest quote still covers most of the card.
+
 ---
 
 # Round 2: AI Trained section, map edges, git authorship
