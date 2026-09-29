@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "./brand";
-import { nav, site } from "@/lib/content";
+import { nav } from "@/lib/content";
 import type { NavItem } from "@/lib/content";
 
 /**
@@ -53,9 +52,42 @@ function NavGroup({ item }: { item: NavItem }) {
   );
 }
 
+const headerCtas = [
+  {
+    label: "Hire Today",
+    href: "/contact",
+    className: "border-cyan bg-cyan text-ink hover:bg-ink hover:text-cyan",
+  },
+  {
+    // Points at /contact until a talent-pool page exists.
+    label: "Join Our Talent Pool",
+    href: "/contact",
+    className: "border-cyan bg-white text-ink hover:bg-cyan",
+  },
+];
+
+function HeaderCtas({ block = false, onNavigate }: { block?: boolean; onNavigate?: () => void }) {
+  return (
+    <div className={block ? "mt-8 flex flex-col gap-3" : "flex items-center gap-2"}>
+      {headerCtas.map((cta) => (
+        <Link
+          key={cta.label}
+          href={cta.href}
+          onClick={onNavigate}
+          className={`inline-flex items-center justify-center whitespace-nowrap rounded-full border-2 font-semibold transition-colors duration-300 ${cta.className} ${
+            block ? "w-full px-6 py-3.5 text-base" : "px-3.5 py-1.5 text-[0.8rem]"
+          }`}
+        >
+          {cta.label}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 /**
  * Back to a conventional single-row header per direct instruction: logo
- * left, nav and CTA right, the whole bar sticky.
+ * left, nav and CTAs right, the whole bar sticky.
  */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -112,9 +144,7 @@ export function SiteHeader() {
               </Link>
             ),
           )}
-          <Button href={site.bookCall} size="sm">
-            Talk to Our Team
-          </Button>
+          <HeaderCtas />
         </nav>
 
         <button
@@ -171,9 +201,7 @@ export function SiteHeader() {
                 )}
               </div>
             ))}
-            <Button href={site.bookCall} className="mt-8 w-full">
-              Talk to Our Team
-            </Button>
+            <HeaderCtas block onNavigate={() => setOpen(false)} />
           </nav>
         </div>
       )}

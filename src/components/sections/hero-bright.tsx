@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Button, Eyebrow } from "../brand";
 import { LatamMap } from "../latam-map";
 import { hero } from "@/lib/content";
@@ -26,17 +25,14 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
       </div>
       <div className="shell relative z-10">
         <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>
-        <h1 className="display max-w-[15ch] text-[clamp(3rem,9vw,7.5rem)] text-bone [line-height:1.08]">
-          {hero.headline.map((part) => (
+        {/* Sized off the viewport so the longest line never wraps or overflows. */}
+        <h1 className="display text-[clamp(1.5rem,calc((100vw-56px)/10.4),7rem)] text-bone [line-height:1.08]">
+          {hero.headlineLines.map((line) => (
             <span
-              key={part.text}
-              className={
-                part.tone === "cyan"
-                  ? "text-cyan"
-                  : undefined
-              }
+              key={line.text}
+              className={`block whitespace-nowrap ${line.tone === "cyan" ? "text-cyan" : ""}`}
             >
-              {part.text}{" "}
+              {line.text}
             </span>
           ))}
         </h1>
@@ -45,17 +41,8 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
           {subhead ?? hero.body}
         </p>
 
-        <div className="mt-8 flex flex-col items-start gap-2.5">
+        <div className="mt-8">
           <Button href={hero.primary.href}>{hero.primary.label}</Button>
-          <Link
-            href={hero.secondary.href}
-            className="group inline-flex items-center gap-1.5 py-1.5 text-sm font-semibold text-bone/75 underline-offset-4 transition-colors duration-300 hover:text-cyan hover:underline"
-          >
-            {hero.secondary.label}
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
-              &rarr;
-            </span>
-          </Link>
         </div>
       </div>
     </section>

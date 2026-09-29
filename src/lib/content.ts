@@ -46,6 +46,12 @@ export const hero = {
     { text: "AI trained." },
     { text: "Here to stay.", tone: "cyan" },
   ] as { text: string; tone?: "royal" | "cyan" }[],
+  /** One entry per line in the live hero. `headline` above still feeds /v2. */
+  headlineLines: [
+    { text: "The best of LATAM." },
+    { text: "AI trained." },
+    { text: "Here to stay.", tone: "cyan" },
+  ] as { text: string; tone?: "cyan" }[],
   body: "We help the best US companies hire Latin America's top 1% talent.",
   primary: { label: "Get Started Today", href: site.bookCall },
   secondary: { label: "Talk to Our Team", href: site.bookCall },
