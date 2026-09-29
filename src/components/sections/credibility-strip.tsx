@@ -26,9 +26,9 @@ export function CredibilityStrip() {
               <li key={industry.slug}>
                 <Link
                   href={`/industries/${industry.slug}`}
-                  className="group inline-flex items-center gap-2 rounded-full border-2 border-ink/15 bg-white px-4 py-2 text-sm font-semibold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan hover:bg-cyan"
+                  className="group inline-flex items-center gap-2 rounded-full border-2 border-royal/30 bg-white px-4 py-2 text-sm font-semibold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-royal hover:bg-royal hover:text-white"
                 >
-                  <Icon name={industry.icon as IconName} strokeWidth={2.2} className="h-4 w-4 text-cyan-dim group-hover:text-ink" />
+                  <Icon name={industry.icon as IconName} strokeWidth={2.2} className="h-4 w-4 text-ink group-hover:text-white" />
                   {industry.navLabel}
                 </Link>
               </li>

@@ -41,18 +41,18 @@ export function IndustriesTeaser() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {industries.map((industry, i) => (
             <Reveal key={industry.slug} delay={i * 90}>
               <Link
                 href={`/industries/${industry.slug}`}
-                className="group flex h-full flex-col"
+                className="group flex h-full flex-col rounded-[var(--radius-card)] border-2 border-ink/10 bg-white/85 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-royal/40 hover:shadow-md"
               >
-                <span className="inline-flex h-20 w-20 items-center justify-center rounded-full border-[3px] border-cyan text-cyan-dim shadow-[0_0_28px_-6px_rgba(61,214,189,0.7)] transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-cyan group-hover:text-ink group-hover:shadow-[0_0_36px_-4px_rgba(61,214,189,0.9)]">
+                <span className="inline-flex h-16 w-16 items-center justify-center rounded-full border-2 border-royal bg-white text-ink transition-colors duration-300 group-hover:bg-royal group-hover:text-white">
                   <Icon
                     name={industry.icon as IconName}
                     strokeWidth={2.4}
-                    className="h-10 w-10 transition-transform duration-500 group-hover:scale-110"
+                    className="h-8 w-8 transition-transform duration-500 group-hover:scale-110"
                   />
                 </span>
 

@@ -1,5 +1,6 @@
 import { Reveal } from "../reveal";
 import { VideoLoop } from "../video-loop";
+import { VibesPlayer } from "../vibes-player";
 import { vibes } from "@/lib/content";
 
 /**
@@ -14,9 +15,12 @@ import { vibes } from "@/lib/content";
  */
 export function Vibes({
   order,
+  slider = false,
 }: {
   /** Clip indexes in display order; defaults to the content order (used by /v2). */
   order?: number[];
+  /** One-at-a-time player with the middle reel as the main one (homepage). */
+  slider?: boolean;
 } = {}) {
   const clips = order ? order.map((i) => vibes.clips[i]) : vibes.clips;
   return (
@@ -33,18 +37,24 @@ export function Vibes({
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-          {clips.map((clip, i) => (
-            <Reveal key={clip.slug} delay={i * 110}>
-              <VideoLoop
-                src={`/videos/${clip.slug}.mp4`}
-                poster={`/videos/${clip.slug}.jpg`}
-                name={clip.name}
-                caption={clip.caption}
-              />
-            </Reveal>
-          ))}
-        </div>
+        {slider ? (
+          <Reveal className="mt-14">
+            <VibesPlayer clips={clips} />
+          </Reveal>
+        ) : (
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+            {clips.map((clip, i) => (
+              <Reveal key={clip.slug} delay={i * 110}>
+                <VideoLoop
+                  src={`/videos/${clip.slug}.mp4`}
+                  poster={`/videos/${clip.slug}.jpg`}
+                  name={clip.name}
+                  caption={clip.caption}
+                />
+              </Reveal>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

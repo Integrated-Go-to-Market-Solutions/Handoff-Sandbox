@@ -30,9 +30,13 @@ export function WhyLatam() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-10 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
           {whyLatam.categories.map((category, i) => (
-            <Reveal key={category.title} delay={i * 100}>
+            <Reveal
+              key={category.title}
+              delay={i * 100}
+              className="group h-full rounded-[var(--radius-card)] border-2 border-ink/10 bg-white/85 p-6 shadow-sm transition-[border-color,box-shadow] duration-300 hover:border-royal/40 hover:shadow-md md:p-7"
+            >
               <IconBadge name={category.icon as IconName} className="h-14 w-14" />
               <h3 className="display mt-5 text-xl leading-tight text-ink">
                 {category.title}

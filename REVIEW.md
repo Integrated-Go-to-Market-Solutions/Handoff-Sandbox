@@ -211,3 +211,65 @@ Nothing.
 - Homepage: the "Meet Your Talent" button scrolls smoothly up to the map.
 - The new video order.
 - The training-topic pills in the AI Trained section.
+
+---
+
+## Stretch goals
+
+### 1. Icon contrast on light backgrounds
+
+**What changed**
+
+- **"Why LATAM" icons:** now dark (#1f1f1f) inside a white circle with a royal-blue outline. The circle fills royal blue and the icon turns white on hover. These icons used to be cyan on pale cyan, which washed out on the light background.
+- **"Why LATAM" reasons:** each of the three is now a white card, so the icons and text sit on a solid surface.
+- **"Built for your industry" tiles:** each is now a white card with the same dark-icon, royal-ring treatment and hover.
+- **Credibility-strip industry pills:** dark icons with a royal outline, filling royal with white text and icon on hover.
+
+**Files**
+
+- `src/components/icon.tsx` (`IconBadge`, only used by "Why LATAM")
+- `src/components/sections/why-latam.tsx`
+- `src/components/sections/industries-teaser.tsx`
+- `src/components/sections/credibility-strip.tsx`
+
+**Decisions I made**
+
+- **Hover colour:** the credibility pills now fill royal on hover instead of teal, to match this icon treatment.
+- **Scope:** I only restyled icons on light backgrounds. The icons on dark sections were already high-contrast.
+
+### 2. "We are the overseas talent" slider (homepage)
+
+**What changed**
+
+- **One at a time:** only one video ever plays.
+- **Desktop and tablet:** the middle reel is the main one, shown larger, and plays as a muted loop while the section is on screen.
+  - Hovering a side reel pauses the main one and plays that reel as a silent preview. Moving away resumes the main one.
+  - Clicking a side reel slides it into the middle and plays it with sound.
+  - Clicking the main reel toggles its sound.
+- **Phones:** a swipeable row. The centred reel is the main one, and tapping a reel plays it with sound and centres it.
+- **Reduced motion:** nothing autoplays; a click plays with sound.
+
+**Files**
+
+- `src/components/vibes-player.tsx` (new)
+- `src/components/sections/vibes.tsx`: new `slider` setting.
+- `src/app/page.tsx`
+
+**Decisions I made**
+
+- **`/v2`:** the new player is homepage-only. `/v2` keeps its old three-autoplay grid, since you asked me not to touch it.
+- **Starting video:** with the Block 5 order, "A day with Handoff" is in the middle, so it starts as the main reel.
+
+**Couldn't do**
+
+- **Watching real playback:** the test browser was in the background, so it wouldn't play media or report what's on screen. I tested the logic by recording every play and pause request instead:
+  - at rest, only the middle reel plays (muted)
+  - hovering a side reel plays only that one (muted)
+  - moving away resumes the main one
+  - clicking a side reel moves it to the middle and plays only it, with sound
+  - on phones, the centred reel plays
+
+**Please check**
+
+- Hover and click the three reels on a real desktop.
+- Swipe through them on a phone.
