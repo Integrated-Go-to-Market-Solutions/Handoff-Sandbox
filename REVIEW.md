@@ -35,6 +35,23 @@ _Summary is added here once all eight tasks are done._
 - The heading wording and the "|" divider.
 - Whether the logo band feels right against the dark video.
 
+## Task 2: "Built for your industry" removed
+
+**What changed**
+
+- **Section removed:** taken off the homepage, with its component file deleted (`src/components/sections/industries-teaser.tsx`; code only, no media). Its background video now lives in the task 1 section.
+- **No broken links:** nothing linked to it. I checked every in-page `#` link on the homepage, and all of them still resolve.
+- **Homepage comment:** updated to match the new page structure.
+
+**Files**
+
+- `src/app/page.tsx`
+- `src/components/sections/industries-teaser.tsx` (deleted)
+
+**Decisions I made**
+
+- **"Meet Your Talent" button:** it lived in this section and went with it. The talent map now comes directly after the credibility section, so it's the very next thing on the page anyway.
+
 ---
 
 # Round 2: AI Trained section, map edges, git authorship
