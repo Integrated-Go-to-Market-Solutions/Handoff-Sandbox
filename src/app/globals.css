@@ -425,3 +425,29 @@ body {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Hero headline: each line rises out of a soft blur on load; "Here to
+   stay." then catches a single light sweep. Reduced motion collapses the
+   durations (global rule above), so it simply appears. */
+.hero-rise {
+  animation: hero-rise 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(0.35em); filter: blur(10px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+.hero-shine {
+  background: linear-gradient(100deg, var(--color-cyan) 40%, #e9fffb 50%, var(--color-cyan) 60%);
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    hero-rise 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) both,
+    hero-shine 1.6s ease-in-out 1.4s both;
+}
+@keyframes hero-shine {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
