@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Reveal } from "../reveal";
 import { proofStats } from "@/lib/content";
@@ -47,10 +47,25 @@ function getDisplayValue(originalValue: string, current: number): string {
   return String(Math.floor(current));
 }
 
-export function Stats() {
+export function Stats({
+  include,
+  bare = false,
+}: {
+  /** Labels to show, in proofStats order. Defaults to all four. */
+  include?: readonly string[];
+  /** Just the tiles, no section wrapper, for embedding in another section. */
+  bare?: boolean;
+} = {}) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const items = proofStats
+    .map((stat, i) => ({ stat, accent: cardAccents[i % cardAccents.length] }))
+    .filter(({ stat }) => !include || include.includes(stat.label));
+
   useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
     // Initialize all stat numbers to "0" so they're visible and not the final state
-    const stats = document.querySelectorAll(".stat-number");
+    const stats = root.querySelectorAll<HTMLSpanElement>(".stat-number");
     stats.forEach((el) => {
       el.textContent = "0";
     });
@@ -97,12 +112,16 @@ export function Stats() {
     };
   }, []);
 
-  return (
-    <section className="bg-bone py-16 md:py-20">
-      <div className="shell">
-        <div className="grid grid-cols-1 gap-5 min-[380px]:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-          {proofStats.map((stat, i) => {
-            const accent = cardAccents[i % cardAccents.length];
+  const grid = (
+        <div
+          ref={rootRef}
+          className={`grid gap-5 sm:gap-6 ${
+            items.length > 2
+              ? "grid-cols-1 min-[380px]:grid-cols-2 lg:grid-cols-4"
+              : "mx-auto max-w-3xl grid-cols-2 gap-3"
+          }`}
+        >
+          {items.map(({ stat, accent }, i) => {
             return (
               <Reveal key={stat.label} delay={i * 100}>
                 <Link
@@ -126,7 +145,13 @@ export function Stats() {
             );
           })}
         </div>
-      </div>
+  );
+
+  if (bare) return grid;
+
+  return (
+    <section className="bg-bone py-16 md:py-20">
+      <div className="shell">{grid}</div>
     </section>
   );
 }

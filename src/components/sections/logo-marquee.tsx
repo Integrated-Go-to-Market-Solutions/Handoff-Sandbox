@@ -8,12 +8,22 @@ import { logos } from "@/lib/content";
  * `bare` drops the section chrome so this can sit inside the hero, letting the
  * hero photograph bleed down behind it instead of stopping at a hard edge.
  */
-export function LogoMarquee({ bare = false }: { bare?: boolean }) {
+export function LogoMarquee({
+  bare = false,
+  durationSeconds,
+}: {
+  bare?: boolean;
+  /** Overrides the default 46s loop from globals.css. */
+  durationSeconds?: number;
+}) {
   const row = [...logos, ...logos];
 
   const track = (
     <div className="marquee-mask relative overflow-hidden">
-      <div className="marquee-track flex w-max items-center gap-20 px-10">
+      <div
+        className="marquee-track flex w-max items-center gap-20 px-10"
+        style={durationSeconds ? { animationDuration: `${durationSeconds}s` } : undefined}
+      >
         {row.map((logo, i) =>
           logo.hasImage ? (
             <div

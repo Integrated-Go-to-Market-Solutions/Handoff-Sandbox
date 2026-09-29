@@ -1,6 +1,6 @@
 import { HeroBright } from "@/components/sections/hero-bright";
 import { Stats } from "@/components/sections/stats";
-import { LogoMarquee } from "@/components/sections/logo-marquee";
+import { CredibilityStrip } from "@/components/sections/credibility-strip";
 import { IndustriesTeaser } from "@/components/sections/industries-teaser";
 import { WhyLatam } from "@/components/sections/why-latam";
 import { Problem } from "@/components/sections/problem";
@@ -30,12 +30,12 @@ export default function Home() {
   return (
     <>
       <HeroBright />
-      <LogoMarquee />
+      <CredibilityStrip />
       <IndustriesTeaser />
       <AiTrained />
       <HiringHighway compact />
       <WhyLatam />
-      <Stats />
+      <Stats include={["Clients", "Placements"]} />
       <Problem />
       <Vibes />
       <Soul />
