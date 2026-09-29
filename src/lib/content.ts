@@ -265,11 +265,11 @@ export const logos = [
 ] as const;
 
 /**
- * The Hands Off Hiring System: four steps, CEO-approved copy, verbatim.
+ * The Handoff Hiring System: four steps, CEO-approved copy, verbatim.
  * Read by the homepage (compact) and /how-it-works (full).
  */
 export const process = {
-  eyebrow: "Hands Off Hiring System",
+  eyebrow: "Handoff Hiring System",
   headline: "Four steps. One person who sticks.",
   /** Same headline, split so the last word can carry the cyan swipe. */
   headlineParts: { before: "Four steps. One person who", swipe: "sticks", after: "." },
@@ -365,7 +365,7 @@ export const legacyProcess = {
  * rather than invented claims.
  */
 export const hiringHighwayVideo = {
-  label: "Watch the Hands Off Hiring System",
+  label: "Watch the Handoff Hiring System",
   caption: "The real journey, filmed start to finish. Coming soon.",
 };
 

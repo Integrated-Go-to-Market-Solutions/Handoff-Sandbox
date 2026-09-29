@@ -1,5 +1,5 @@
 /**
- * Brand promo under the Hands Off Hiring System on /how-it-works. Grayscale
+ * Brand promo under the Handoff Hiring System on /how-it-works. Grayscale
  * like the site's other footage; plays only when the visitor presses play,
  * starting muted.
  */

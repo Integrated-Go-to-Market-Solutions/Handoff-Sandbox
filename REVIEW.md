@@ -127,3 +127,53 @@ Nothing.
 - Click a pin, and on mobile a role row: the pop-up opens and closes.
 - Replace the placeholder avatars and video when the real talent assets exist.
 - I made a first attempt at a filled map (`latam-fill.svg`) that didn't work. It's in my scratch folder, not in the repo, so nothing was deleted from the project.
+
+---
+
+## Block 4: Handoff Hiring System (horizontal sticky version)
+
+**What changed**
+
+- **Rename:** "Hands Off Hiring System" is now "Handoff Hiring System" in all visitor-facing text: the section label, the `/how-it-works` meta description, and the video label. Component and file names are unchanged.
+- **Content:** the four steps and their copy are unchanged. The step numbers and the old road visual are gone.
+- **Desktop (1024px and up):**
+  - The section pins in place below the header while you scroll.
+  - A teal line fills from left to right, and each step's icon pops in, with a slight bounce, as the line reaches it. Its card then fades up.
+  - Once all four are in, the section lets go and the page scrolls on normally.
+  - The line fills over the first 80% of the pinned scroll; the rest holds the finished state for a moment.
+- **Icons:**
+  - Discovery: magnifying glass
+  - The Vet: target/scope
+  - The Shortlist: two people
+  - The Guarantee: checkmark
+- **The Guarantee highlight:** a larger, filled teal icon with a glow, and a solid teal card.
+- **Under 1024px:** a plain vertical stack, with no pinning and no horizontal scrolling. Icons pop in as each step enters the screen.
+- **Reduced motion:** no pinning, the line fully filled, and all steps shown at once.
+- **Both pages:** this applies to the homepage (compact version) and `/how-it-works` (full version). The homepage on phones still shows titles only, as requested earlier.
+
+**Files**
+
+- `src/components/sections/hiring-highway.tsx` (rewritten)
+- `src/app/globals.css`: the old road styles are replaced by the new pop-in styles. Also adds a `short:` variant for desktop screens under 820px tall.
+- `src/lib/content.ts`: rename.
+- `src/app/how-it-works/page.tsx`: meta description.
+- `src/components/sections/promo-video.tsx`: comment only.
+
+**Decisions I made**
+
+- **The Vet icon:** the site's existing target/crosshair icon is used as the "radar/scope". I reused the existing icon set so the style matches.
+- **Short laptops:** on shorter screens (720 to 820px tall), spacing and type tighten so the whole pinned view fits. Checked at 1440×900, 1366×768, 1280×720 and 1024×768.
+- **Scroll length:** the pinned run is about 1.1 screens of scrolling on the homepage and 1.5 on `/how-it-works`.
+- **Homepage link:** the whole compact section used to be one big link to `/how-it-works`. That doesn't work with a pinned section, so the "See every step" button below it is now the link.
+- **`/v2`:** its section label also reads "Handoff Hiring System" now, because `process.tsx` takes the label from the shared content. I didn't edit `process.tsx` or any `/v2` file. Everything else on `/v2` (six steps, headline) is unchanged.
+
+**Couldn't do**
+
+- **Visual check:** the test browser stopped drawing partway through this block, so I verified by measurement instead of screenshots: pin position, line fill level and which steps are showing at each scroll point, plus fit on each screen size.
+- **Reduced motion:** the test browser can't switch it on. I confirmed the code path and that the reduced-motion styles are generated.
+
+**Please check**
+
+- Scroll through the section on the homepage and on `/how-it-works` on a real desktop. Check the pin, fill and pop-in feel right, and that it lets go cleanly.
+- Test with reduced motion turned on in your OS (no pinning, everything visible).
+- On a phone: the vertical stack, with icons popping in.

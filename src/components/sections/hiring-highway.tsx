@@ -1,88 +1,86 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { Button, Pill } from "../brand";
 import { Reveal } from "../reveal";
 import { HuntIcon, ScopeIcon, ShortlistIcon, StayIcon } from "../highway-icons";
 import { process, site } from "@/lib/content";
 
-/** Discovery, The Vet, The Shortlist, The Guarantee. */
-const stepIcons = [ScopeIcon, HuntIcon, ShortlistIcon, StayIcon];
+/** Discovery = magnifying glass, The Vet = scope, The Shortlist = two people, The Guarantee = checkmark. */
+const stepIcons = [HuntIcon, ScopeIcon, ShortlistIcon, StayIcon];
+
+/** Share of the sticky scroll spent filling the line; the rest holds the finished state. */
+const FILL_SHARE = 0.8;
 
 /**
- * The Hiring Highway as a vertical road. Stops alternate left and right
- * of a spine that fills with cyan as the reader scrolls; each stop lights
- * up when the fill reaches it. The last stop is the wide cyan card, because
- * the guarantee is the part nobody else offers and it should read that way.
+ * The Handoff Hiring System. Desktop: the section pins while a horizontal
+ * line fills left to right, and each step's icon pops in as the line
+ * reaches it; once all four are in, the page scrolls on. Below 1024px it is
+ * a plain vertical stack whose icons pop in as they enter the viewport.
+ * Reduced motion gets no pinning and every step shown at once.
  *
- * `compact` is the homepage version: same road and copy, no lede, smaller
- * type, tighter spacing, and the whole thing is one link through to
- * /how-it-works where the full version lives.
- *
- * The scroll-driven fill is plain DOM work in an effect, no library: the
- * fill height and each stop's `in` class are set directly so nothing
- * re-renders on scroll.
+ * `compact` is the homepage version: shorter pin, the body copy hidden on
+ * phones, and a button through to /how-it-works.
  */
 export function HiringHighway({ compact = false }: { compact?: boolean }) {
-  const roadRef = useRef<HTMLDivElement>(null);
-  const fillRef = useRef<HTMLDivElement>(null);
-  const stopRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   useEffect(() => {
-    const road = roadRef.current;
-    const fill = fillRef.current;
-    if (!road || !fill) return;
+    const track = trackRef.current;
+    const sticky = stickyRef.current;
+    const line = lineRef.current;
+    if (!track || !sticky || !line) return;
 
-    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      road.style.bottom = "auto";
-      fill.style.height = "100%";
-      for (const stop of stopRefs.current) stop?.classList.add("in");
-      const endNode = stopRefs.current[stopRefs.current.length - 1]?.querySelector<HTMLElement>(".hw-node-end");
-      const wrap = road.parentElement;
-      if (endNode && wrap) {
-        const e = endNode.getBoundingClientRect();
-        const w = wrap.getBoundingClientRect();
-        road.style.height = `${e.top + e.height / 2 - w.top}px`;
-      }
-      return;
-    }
-    road.style.bottom = "auto";
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const steps = stepRefs.current;
+    const n = steps.length;
 
     let raf = 0;
     const update = () => {
       raf = 0;
-      // The road ends at the centre of the last node, not the bottom of the
-      // list, so it never runs on through the closing card.
-      const endNode = stopRefs.current[stopRefs.current.length - 1]?.querySelector<HTMLElement>(".hw-node-end");
-      const wrap = road.parentElement;
-      if (endNode && wrap) {
-        const e = endNode.getBoundingClientRect();
-        const w = wrap.getBoundingClientRect();
-        road.style.height = `${e.top + e.height / 2 - w.top}px`;
+      if (reduced.matches) {
+        line.style.setProperty("--hs-fill", "1");
+        for (const s of steps) s?.classList.add("in");
+        return;
       }
-      const rect = road.getBoundingClientRect();
-      const mark = window.innerHeight * 0.62;
-      const px = Math.min(Math.max(mark - rect.top, 0), rect.height);
-      fill.style.height = `${px}px`;
-      for (const stop of stopRefs.current) {
-        if (!stop) continue;
-        const node = stop.querySelector<HTMLElement>(".hw-node");
-        const top = (node ?? stop).getBoundingClientRect().top;
-        stop.classList.toggle("in", top <= mark);
+
+      if (desktop.matches) {
+        const rect = track.getBoundingClientRect();
+        const travel = Math.max(track.offsetHeight - sticky.offsetHeight, 1);
+        const progress = Math.min(Math.max(-rect.top / travel, 0), 1);
+        const fill = Math.min(progress / FILL_SHARE, 1);
+        line.style.setProperty("--hs-fill", String(fill));
+        steps.forEach((s, i) => {
+          if (!s) return;
+          const reached = i === 0 ? rect.top < window.innerHeight * 0.6 : fill >= i / (n - 1) - 0.001;
+          s.classList.toggle("in", reached);
+        });
+        return;
+      }
+
+      // Stacked layout: each step pops in as it scrolls into view, and stays.
+      for (const s of steps) {
+        if (s && s.getBoundingClientRect().top < window.innerHeight * 0.85) s.classList.add("in");
       }
     };
-    const onScroll = () => {
+    const schedule = () => {
       if (!raf) raf = requestAnimationFrame(update);
     };
 
     update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    desktop.addEventListener("change", schedule);
+    reduced.addEventListener("change", schedule);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      desktop.removeEventListener("change", schedule);
+      reduced.removeEventListener("change", schedule);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
@@ -90,197 +88,112 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
   const steps = process.steps;
   const last = steps.length - 1;
 
-  const road = (
-    <div className="relative">
-      {/* The spine. Left on mobile, centered on desktop. */}
+  return (
+    <section id="process" className="hw-dots relative scroll-mt-20 bg-ink text-bone">
       <div
-        ref={roadRef}
-        className="hw-road left-[11px] lg:left-1/2 lg:-translate-x-1/2"
-        aria-hidden="true"
+        ref={trackRef}
+        className={`relative ${compact ? "lg:h-[210vh]" : "lg:h-[250vh]"} motion-reduce:lg:h-auto`}
       >
-        <div ref={fillRef} className="hw-road-fill" />
-        <div className="hw-road-dash" />
+        <div
+          ref={stickyRef}
+          className="lg:sticky lg:top-[72px] lg:flex lg:h-[calc(100vh-72px)] lg:flex-col lg:justify-center motion-reduce:lg:static motion-reduce:lg:h-auto"
+        >
+          <div className={`shell w-full short:py-4 ${compact ? "pt-16 md:pt-24 lg:py-8" : "pt-14 md:pt-20 lg:py-8"}`}>
+            <Reveal className="mx-auto max-w-3xl text-center">
+              <Pill>{process.eyebrow}</Pill>
+              <h2
+                className={`display mt-6 short:mt-4 short:text-[2.6rem] ${
+                  compact ? "text-[clamp(2rem,4.4vw,3.4rem)]" : "text-[clamp(2.1rem,4.8vw,3.8rem)]"
+                }`}
+              >
+                {process.headlineParts.before}{" "}
+                <span className="hw-swipe">{process.headlineParts.swipe}</span>
+                {process.headlineParts.after}
+              </h2>
+              <p className="mx-auto mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 short:mt-3 md:text-lg short:text-base">
+                {compact ? process.body : process.lede}
+              </p>
+            </Reveal>
+
+            <div className="relative mt-10 lg:mt-12 short:mt-7">
+              {/* Desktop only: the line runs from the first icon's centre to the last. */}
+              <div
+                className="absolute left-[12.5%] right-[12.5%] top-[34px] hidden h-1 rounded-full bg-white/10 lg:block"
+                aria-hidden="true"
+              >
+                <div ref={lineRef} className="hs-fill h-full rounded-full bg-cyan shadow-[0_0_14px_rgba(61,214,189,0.7)]" />
+              </div>
+
+              <ol className="grid gap-4 lg:grid-cols-4 lg:gap-6">
+                {steps.map((step, i) => {
+                  const Icon = stepIcons[i % stepIcons.length];
+                  const isEnd = i === last;
+                  return (
+                    <li
+                      key={step.title}
+                      ref={(el) => {
+                        stepRefs.current[i] = el;
+                      }}
+                      className="hs-step relative flex items-start gap-4 lg:flex-col lg:items-center lg:gap-0"
+                    >
+                      <span
+                        className={`hs-icon relative z-10 grid shrink-0 place-items-center rounded-full border-2 ${
+                          isEnd
+                            ? "h-16 w-16 border-cyan bg-cyan shadow-[0_0_32px_-4px_rgba(61,214,189,0.85)] lg:-mt-2 lg:h-[84px] lg:w-[84px]"
+                            : "h-14 w-14 border-cyan/40 bg-ink lg:h-[68px] lg:w-[68px]"
+                        }`}
+                      >
+                        <Icon
+                          cut="#1f1f1f"
+                          className={isEnd ? "h-10 w-10 lg:h-12 lg:w-12" : "h-9 w-9 lg:h-11 lg:w-11"}
+                        />
+                      </span>
+
+                      <div
+                        className={`hs-card min-w-0 flex-1 rounded-[var(--radius-card)] border-2 p-5 lg:mt-5 lg:w-full lg:flex-none lg:self-stretch lg:text-center short:mt-4 short:p-4 ${
+                          isEnd
+                            ? "border-cyan bg-cyan text-ink shadow-[0_0_36px_-8px_rgba(61,214,189,0.8)]"
+                            : "border-cyan/25 bg-ink-100 text-bone"
+                        } ${compact ? "" : "md:p-6"}`}
+                      >
+                        <h3 className={`display leading-tight ${isEnd ? "text-2xl" : "text-xl"}`}>
+                          {step.title}
+                        </h3>
+                        <p
+                          className={`mt-2 leading-relaxed ${
+                            isEnd ? "font-semibold text-ink/85" : "text-bone/75"
+                          } ${compact ? "hidden text-sm md:block" : "text-[0.95rem] short:text-sm"}`}
+                        >
+                          {step.body}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <ol className={`relative ${compact ? "space-y-5 lg:space-y-0" : "space-y-6 lg:space-y-0"}`}>
-        {steps.map((step, i) => {
-          const Icon = stepIcons[i % stepIcons.length];
-          const isEnd = i === last;
-          const left = i % 2 === 0;
-          // Desktop: alternating stops sit in opposite columns, so each one
-          // tucks up beside the previous card instead of starting a new row.
-          const tuck = i === 0 ? "" : compact ? "lg:-mt-12" : "lg:-mt-20";
-
-          if (isEnd) {
-            return (
-              <li
-                key={step.n}
-                ref={(el) => {
-                  stopRefs.current[i] = el;
-                }}
-                className="hw-stop grid grid-cols-[40px_1fr] gap-x-4 lg:mt-6 lg:grid-cols-[1fr_110px_1fr] lg:gap-x-0"
-              >
-                <div className="hidden lg:block" />
-                <div className="flex justify-center lg:pt-1">
-                  <span
-                    className={`hw-node hw-node-end block ${compact ? "h-6 w-6" : "h-8 w-8"}`}
-                  />
-                </div>
-                <div className="hidden lg:block" />
-                <div
-                  className={`hw-card col-start-2 mt-4 rounded-[var(--radius-card)] border-2 border-cyan bg-cyan text-ink lg:col-span-3 lg:col-start-1 lg:mx-auto lg:mt-6 lg:w-full ${
-                    compact ? "max-w-2xl p-6" : "max-w-3xl p-6 md:p-7"
-                  }`}
-                >
-                  <div className="flex flex-col items-start gap-4 sm:flex-row sm:gap-5">
-                    <Icon
-                      cut="#1f1f1f"
-                      className={`shrink-0 ${compact ? "h-10 w-10" : "h-12 w-12"}`}
-                    />
-                    <div className="min-w-0 flex-1">
-                      <p className="eyebrow text-[0.75rem] tracking-[0.2em] text-ink/70">
-                        {step.n}
-                      </p>
-                      <h3
-                        className={`display mt-2 leading-tight ${compact ? "text-xl" : "text-xl md:text-2xl"}`}
-                      >
-                        {step.title}
-                      </h3>
-                      <p
-                        className={`mt-2 font-semibold leading-relaxed text-ink/80 ${compact ? "hidden text-sm md:block" : "text-[0.95rem]"}`}
-                      >
-                        {step.body}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            );
-          }
-
-          const card = (
-            <div
-              className="hw-card rounded-[var(--radius-card)] border-2 border-cyan/25 bg-ink-100 p-5 text-bone md:p-6"
-            >
-              <div className="flex items-start gap-4">
-                <Icon
-                  cut="#2a2a2c"
-                  className={`shrink-0 ${compact ? "h-10 w-10" : "h-11 w-11"}`}
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="eyebrow text-[0.75rem] tracking-[0.2em] text-cyan">
-                    {step.n}
-                  </p>
-                  <h3
-                    className={`display mt-1.5 leading-tight ${compact ? "text-lg" : "text-xl"}`}
-                  >
-                    {step.title}
-                  </h3>
-                  <p
-                    className={`mt-2 leading-relaxed text-bone/75 ${compact ? "hidden text-sm md:block" : "text-[0.95rem]"}`}
-                  >
-                    {step.body}
-                  </p>
-                </div>
-              </div>
-            </div>
-          );
-
-          return (
-            <li
-              key={step.n}
-              ref={(el) => {
-                stopRefs.current[i] = el;
-              }}
-              className={`hw-stop ${left ? "hw-stop-left" : "hw-stop-right"} grid grid-cols-[40px_1fr] gap-x-4 lg:grid-cols-[1fr_110px_1fr] lg:gap-x-0 ${tuck}`}
-            >
-              {/* Desktop left column */}
-              <div className="hidden lg:block">
-                {left && <div className={compact ? "lg:pr-6" : "lg:pr-8"}>{card}</div>}
-              </div>
-
-              {/* Node column */}
-              <div className="flex justify-center pt-5 lg:pt-6">
-                <span className={`hw-node block ${compact ? "h-6 w-6" : "h-8 w-8"}`} />
-              </div>
-
-              {/* Mobile and tablet: every card on the right. Desktop: only the right stops. */}
-              <div className="lg:hidden">{card}</div>
-              <div className="hidden lg:block">
-                {!left && <div className={compact ? "lg:pl-6" : "lg:pl-8"}>{card}</div>}
-              </div>
-            </li>
-          );
-        })}
-      </ol>
-    </div>
-  );
-
-  return (
-    <section
-      id="process"
-      className={`hw-dots relative overflow-hidden bg-ink text-bone ${
-        compact ? "py-16 md:py-24" : "py-14 md:py-20"
-      }`}
-    >
-      <div className="shell relative">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <Pill>{process.eyebrow}</Pill>
-          <h2
-            className={`display mt-6 ${
-              compact
-                ? "text-[clamp(2rem,4.4vw,3.4rem)]"
-                : "text-[clamp(2.1rem,4.8vw,3.8rem)]"
-            }`}
-          >
-            {process.headlineParts.before}{" "}
-            <span className="hw-swipe">{process.headlineParts.swipe}</span>
-            {process.headlineParts.after}
-          </h2>
+      <Reveal className={`shell text-center ${compact ? "pb-16 pt-10 md:pb-24" : "pb-14 pt-10 md:pb-20"}`}>
+        <p
+          className={`mx-auto max-w-[60ch] font-semibold leading-relaxed text-bone/85 ${
+            compact ? "text-base md:text-lg" : "text-lg md:text-xl"
+          }`}
+        >
+          {process.closer.line}
+        </p>
+        <div className="mt-6">
           {compact ? (
-            <p className="mx-auto mt-5 max-w-[52ch] text-base leading-relaxed text-bone/70 md:text-lg">
-              {process.body}
-            </p>
+            <Button href="/how-it-works">{process.teaserCta}</Button>
           ) : (
-            <p className="mx-auto mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
-              {process.lede}
-            </p>
-          )}
-        </Reveal>
-
-        <div className={compact ? "mt-10" : "mt-10 md:mt-12"}>
-          {compact ? (
-            <Link
-              href="/how-it-works"
-              aria-label="See every step of the Hands Off Hiring System"
-              className="block rounded-[var(--radius-card)] outline-none transition-transform duration-500 hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-cyan"
-            >
-              {road}
-            </Link>
-          ) : (
-            road
+            <Button href={site.bookCall} size="lg">
+              {process.closer.cta}
+            </Button>
           )}
         </div>
-
-        <Reveal className={`text-center ${compact ? "mt-10" : "mt-10 md:mt-12"}`}>
-          <p
-            className={`mx-auto max-w-[60ch] font-semibold leading-relaxed text-bone/85 ${
-              compact ? "text-base md:text-lg" : "text-lg md:text-xl"
-            }`}
-          >
-            {process.closer.line}
-          </p>
-          <div className="mt-6">
-            {compact ? (
-              <Button href="/how-it-works">{process.teaserCta}</Button>
-            ) : (
-              <Button href={site.bookCall} size="lg">
-                {process.closer.cta}
-              </Button>
-            )}
-          </div>
-        </Reveal>
-      </div>
+      </Reveal>
     </section>
   );
 }
