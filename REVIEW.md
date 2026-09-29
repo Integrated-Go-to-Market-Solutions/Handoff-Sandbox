@@ -1,5 +1,18 @@
 # Review notes
 
+# Round 2: AI Trained section, map edges, git authorship
+
+## Git authorship
+
+- **Identity:** `git config user.name` is `UmairRasheed712` and `git config user.email` is `feral.gamer012@gmail.com`, both set in your global git config. This is the identity on all 26 of your earlier commits in this repo, so I took it as yours and didn't change it.
+  - **Please check:** it is not `umair@igtms.com`. If you want commits under the work address, you'd need to change it yourself.
+- **Attribution off:** Claude Code's automatic attribution is turned off for this project in `.claude/settings.json` (`attribution.commit` and `pr` empty, `sessionUrl` false). Commits from here on carry no co-author or tool lines.
+- **Earlier commits:** the round-1 commits (`fa4482e` to `559fc51`) still have a "Co-Authored-By" line. They're already pushed, and rewriting them would need a force-push to `dev`, so I left them. If you want them cleaned, that's a history rewrite you'd need to approve.
+
+---
+
+# Round 1
+
 ## Summary
 
 All five blocks and both stretch goals are done. Each has its own commit, pushed to `dev`:
