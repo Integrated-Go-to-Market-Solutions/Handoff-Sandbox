@@ -9,6 +9,31 @@
 - **Attribution off:** Claude Code's automatic attribution is turned off for this project in `.claude/settings.json` (`attribution.commit` and `pr` empty, `sessionUrl` false). Commits from here on carry no co-author or tool lines.
 - **Earlier commits:** the round-1 commits (`fa4482e` to `559fc51`) still have a "Co-Authored-By" line. They're already pushed, and rewriting them would need a force-push to `dev`, so I left them. If you want them cleaned, that's a history rewrite you'd need to approve.
 
+## Task 1: AI Excellence badge
+
+**What changed**
+
+- **Image:** the badge is copied to `public/images/ai-excellence-badge.webp`. It's resized from 600px to 400px, sharp at double density, and compressed from a 78 KB PNG to a 23 KB WebP with its transparent background intact.
+- **Placement:** added to the AI Trained section with alt text "Handoff AI Excellence badge, powered by Coursera".
+  - **Desktop (1024px and up):** a 176px stamp, rotated 10°, overlapping the bottom-right corner of the section text. The last text row is padded so the badge never sits over any words.
+  - **Phones and tablets:** a smaller 96px badge, tilted -6°, in its own row after the text. No overlap.
+
+**Files**
+
+- `public/images/ai-excellence-badge.webp` (new)
+- `src/components/sections/ai-trained.tsx`
+- `src/lib/content.ts`: the alt text.
+- `design-refs/ai-excellence-badge.png`: your source file, now committed with the rest of `design-refs/`.
+
+**Decisions I made**
+
+- **No hanging off the edge:** at 1024 and 1280px the stamp poked past the screen edge and got cut off. It now stays inside the column horizontally and only hangs over the bottom corner.
+- **Served as-is:** the badge is served as-is rather than through Next.js image optimisation. That was converting it to JPEG and would have lost the transparent background.
+
+**Please check**
+
+- The stamp's size and angle on desktop.
+
 ---
 
 # Round 1
