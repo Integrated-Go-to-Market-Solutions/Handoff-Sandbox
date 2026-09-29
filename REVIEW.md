@@ -197,6 +197,50 @@ _Summary is added here once all eight tasks are done._
 
 - Confirm each placeholder item is accurate for both models, especially "The hiring guarantee" and "Replacement support".
 
+## Task 8: "Stop being the bottleneck" animated finale
+
+**What changed**
+
+- **New closing section:** `Finale` replaces the old closing section (`Cta`) on the homepage, `/how-it-works`, `/about`, `/results`, `/talent` and every industry page. It has no buttons or links.
+- **The story**, one continuous animation on a dark wave-textured background with a soft teal glow:
+  1. **Jam:** work items ("Inbox 214", "Invoices", "Hiring", "Client calls", "Payroll" and so on) drop into a large upside-down bottle, one by one with a slight bounce. They pile up and jam above its narrow neck.
+  2. **Release:** the neck widens (the bottle outline morphs), and the items funnel into the neck and stream out of the bottom, fading as they go.
+  3. **Resolve:** the emptied bottle recedes into a faint backdrop, and "STOP BEING THE BOTTLENECK." resolves word by word, rising and un-blurring, with "bottleneck." in teal.
+  4. **Close:** "Let Handoff take it from here." fades up underneath.
+- **Desktop (1024px and up):** the section pins for about 1.3 screens of scrolling, and the story follows your scroll, forwards and backwards. It lets go when finished. That's what makes it read as the end of the page.
+- **Tablet and phones:** a simpler version with 6 items instead of 10 and no pinning. It plays once, over about 5 seconds, when the section is 35% on screen.
+- **Reduced motion:** only the final frame (open, faint bottle, headline and line). No pinning, no movement.
+- **Performance:**
+  - Frames are written straight to the page: movement, fades and one outline shape. Nothing re-renders while it runs.
+  - It only listens to scrolling while the section is near the screen, so it costs nothing elsewhere on the page.
+  - It uses no video.
+
+**Files**
+
+- `src/components/sections/finale.tsx` (new)
+- `src/lib/content.ts`: `cta.closing` and `cta.jam`.
+- Swapped `Cta` for `Finale` in `src/app/page.tsx`, `how-it-works`, `about`, `results`, `talent` and `industries/[slug]`.
+
+**Decisions I made**
+
+- **`/v2`:** it still uses the old `Cta` section (with its buttons), since you asked me not to touch `/v2`. `cta.tsx` is unchanged for that reason.
+- **Where the calls to action are now:** without buttons at the end, the "Hire Today" and "Join Our Talent Pool" buttons in the header are the always-available next step.
+
+**⚠ Placeholder copy**
+
+- The closing line "Let Handoff take it from here."
+- The ten work-item labels.
+
+**Couldn't do**
+
+- **Watching it play:** the test browser can't draw frames or run the scroll and visibility triggers in the background. I verified the sequence by measuring the scene at ten scroll positions (items in, pile, neck width, item exit, bottle fade, word and line opacity), and the phone timeline over time.
+
+**Please check**
+
+- Scroll through the end of the homepage on a real desktop. Check the pacing: the section pins for about 2,070px, and `lg:h-[230vh]` in `finale.tsx` adjusts it.
+- On a phone.
+- With reduced motion on.
+
 ---
 
 # Round 2: AI Trained section, map edges, git authorship

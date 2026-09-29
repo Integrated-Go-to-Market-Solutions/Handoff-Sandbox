@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HiringHighway } from "@/components/sections/hiring-highway";
 import { PromoVideo } from "@/components/sections/promo-video";
-import { Cta } from "@/components/sections/cta";
+import { Finale } from "@/components/sections/finale";
 
 export const metadata: Metadata = {
   title: "How it works | Handoff",
@@ -14,7 +14,7 @@ export default function HowItWorksPage() {
     <>
       <HiringHighway />
       <PromoVideo />
-      <Cta />
+      <Finale />
     </>
   );
 }

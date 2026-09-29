@@ -11,7 +11,7 @@ import { AiTrained } from "@/components/sections/ai-trained";
 import { ClientQuotes } from "@/components/sections/client-quotes";
 import { Models } from "@/components/sections/models";
 import { Faq } from "@/components/sections/faq";
-import { Cta } from "@/components/sections/cta";
+import { Finale } from "@/components/sections/finale";
 
 /**
  * The industry links live in the credibility strip under the hero; the
@@ -40,7 +40,7 @@ export default function Home() {
       <ClientQuotes />
       <Models detailed />
       <Faq />
-      <Cta />
+      <Finale />
     </>
   );
 }

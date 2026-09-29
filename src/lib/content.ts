@@ -558,6 +558,10 @@ export const soul = {
 export const cta = {
   headline: "Stop being the bottleneck.",
   headlineParts: { before: "Stop being the", accent: "bottleneck." },
+  /** Closing line of the animated finale. PLACEHOLDER copy. */
+  closing: "Let Handoff take it from here.",
+  /** Work items that jam the bottle in the finale. PLACEHOLDER copy. */
+  jam: ["Inbox 214", "Invoices", "Hiring", "Client calls", "Reports", "Payroll", "Scheduling", "Follow-ups", "Onboarding", "Approvals"],
   body: "Bring the role you cannot get off your plate. One call is usually enough to scope it, pick the model and give you a real timeline.",
   primary: { label: "Get Started Today", href: site.bookCall },
   secondary: { label: "Talk to Our Team", href: site.bookCall },
