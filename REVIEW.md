@@ -108,6 +108,35 @@ Nothing. All three logos were available.
 - The typing speed feels right, on a real screen.
 - Replace the placeholder names with the real Coursera course names.
 
+## Task 5: Sharp map edges
+
+**What changed**
+
+- **New vector mask:** the talent map's land now uses `public/brand/latam-land.svg`, a true vector shape (3 outlines, about 1,000 points, 11 KB), instead of the old 507×647 PNG. The edges are smooth and sharp at any size or screen density.
+- **Old file:** `latam-land.png` (the jagged one) is removed, since this replaces it.
+- **How it was made:**
+  1. The site's coastline outline (`latam-outline.svg`) is only a thin traced line, so it can't be filled directly.
+  2. I rebuilt the land area from it at twice the outline's full resolution (2028×2586).
+  3. I traced the land's edge into vector outlines and simplified them to within 0.35px.
+- **Same colour and position:**
+  - It uses the same coordinate space as the pins and routes, and the same grey gradient fill.
+  - Against the old mask it matches 98.7%, with an identical bounding box. The remaining difference is under a pixel along the coast.
+  - All eight pins still sit on land at desktop, tablet and mobile.
+
+**Files**
+
+- `public/brand/latam-land.svg` (new)
+- `public/brand/latam-land.png` (removed)
+- `src/components/sections/talent-map.tsx`: now points at the SVG.
+
+**Couldn't do**
+
+- **Screenshots:** the test browser wouldn't take them this time. I verified by overlaying the old and new masks and by checking each pin against the mask.
+
+**Please check**
+
+- Look at the map edges on a high-density screen or with the page zoomed in.
+
 ---
 
 # Round 1

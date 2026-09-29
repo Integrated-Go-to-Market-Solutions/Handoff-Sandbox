@@ -8,7 +8,7 @@ import { VideoModal } from "../video-modal";
  * Rebuilt from design-refs/HANDOFFMAP.png (the Figma export in
  * design-refs/CODE IMAGE.txt is a fixed 7000px canvas). Everything sits in
  * the 1014x1293 space of /brand/latam-outline.svg, so pins, curves and the
- * land mask (/brand/latam-land.png) line up at any width.
+ * land mask (/brand/latam-land.svg) line up at any width.
  *
  * PLACEHOLDERS: the export's photos were placehold.co URLs, so each pin uses
  * a neutral avatar, and every pin opens the brand promo video until the real
@@ -109,8 +109,8 @@ export function TalentMap() {
           <div
             className="absolute inset-0 bg-gradient-to-b from-[#3d3d3d] to-[#2a2a2a]"
             style={{
-              WebkitMaskImage: "url(/brand/latam-land.png)",
-              maskImage: "url(/brand/latam-land.png)",
+              WebkitMaskImage: "url(/brand/latam-land.svg)",
+              maskImage: "url(/brand/latam-land.svg)",
               WebkitMaskSize: "100% 100%",
               maskSize: "100% 100%",
             }}
