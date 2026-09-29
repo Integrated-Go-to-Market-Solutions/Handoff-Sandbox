@@ -34,6 +34,23 @@
 
 - The stamp's size and angle on desktop.
 
+## Task 2: Coursera line
+
+**What changed**
+
+- **Placement:** added right next to the badge. On phones and tablets it's to the right of the badge in the same row. On desktop it's the last line of the text block, with the stamp on its right and about 34px of space between them.
+- **⚠ DRAFT COPY, needs approval before launch:** "Every Handoff professional earns our AI Excellence certification, powered by Coursera, with ongoing access to new courses as AI evolves." It's also marked as a draft in `content.ts` (`aiTrained.certLine`).
+
+**Files**
+
+- `src/components/sections/ai-trained.tsx`
+- `src/lib/content.ts`
+
+**Please check**
+
+- Approve or edit the wording.
+- Confirm the Coursera claim is accurate before it goes live.
+
 ---
 
 # Round 1

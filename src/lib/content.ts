@@ -397,6 +397,9 @@ export const aiTrained = {
   topicsLabel: "Training includes",
   topics: ["AI fundamentals (how it works)", "Mastering prompts"],
   badgeAlt: "Handoff AI Excellence badge, powered by Coursera",
+  /** DRAFT: needs client approval before launch. */
+  certLine:
+    "Every Handoff professional earns our AI Excellence certification, powered by Coursera, with ongoing access to new courses as AI evolves.",
 };
 
 export const faqs = [

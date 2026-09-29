@@ -43,7 +43,7 @@ export function AiTrained() {
           {/* Certification row. Phones: badge sits in the row beside the copy.
               Desktop: it becomes a tilted stamp on the column's bottom-right
               corner, with the row padded so it never covers text. */}
-          <div className="mt-8 flex items-center gap-4 pl-6 lg:min-h-[8.5rem] lg:pr-48">
+          <div className="mt-8 flex items-center gap-4 pl-6 lg:min-h-[8.5rem] lg:pr-56">
             <Image
               src="/images/ai-excellence-badge.webp"
               alt={aiTrained.badgeAlt}
@@ -52,6 +52,9 @@ export function AiTrained() {
               unoptimized
               className="h-24 w-24 shrink-0 -rotate-6 drop-shadow-[0_10px_24px_rgba(0,0,0,0.45)] lg:absolute lg:-bottom-8 lg:right-0 lg:h-44 lg:w-44 lg:rotate-[10deg]"
             />
+            <p className="max-w-[46ch] text-sm font-semibold leading-relaxed text-bone md:text-base">
+              {aiTrained.certLine}
+            </p>
           </div>
         </Reveal>
       </div>
