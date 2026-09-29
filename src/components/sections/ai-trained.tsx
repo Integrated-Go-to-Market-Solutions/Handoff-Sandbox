@@ -40,6 +40,19 @@ export function AiTrained() {
             </ul>
           </div>
 
+          <div className="mt-6 pl-6">
+            <p className="eyebrow text-[0.72rem] tracking-[0.2em] text-cyan">{aiTrained.toolsLabel}</p>
+            <ul className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-x-7">
+              {aiTrained.tools.map((tool) => (
+                <li key={tool.name} className="inline-flex items-center gap-2 text-sm font-semibold text-bone sm:gap-2.5 sm:text-base">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/images/ai-tools/${tool.file}.svg`} alt="" width={26} height={26} className="h-[26px] w-[26px]" />
+                  {tool.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Certification row. Phones: badge sits in the row beside the copy.
               Desktop: it becomes a tilted stamp on the column's bottom-right
               corner, with the row padded so it never covers text. */}

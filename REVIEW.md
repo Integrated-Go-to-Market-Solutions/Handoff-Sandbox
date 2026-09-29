@@ -51,6 +51,36 @@
 - Approve or edit the wording.
 - Confirm the Coursera claim is accurate before it goes live.
 
+## Task 3: AI tool logos
+
+**What changed**
+
+- **New row:** added to the AI Trained section, labelled "Tools our talent trains on". It never says "partners".
+- **Logos:** Claude, ChatGPT (with the OpenAI mark) and Gemini, each shown as its logo next to the product name.
+- **Style:** all three in one style, a white single-colour mark.
+- **Size:** 26px, on one row at 375px and up. On a 320px phone it wraps to two plus one.
+
+**Source and files**
+
+- **Source:** all three icons come from LobeHub Icons (`@lobehub/icons-static-svg` 1.95.1, MIT licence), a widely used open-source AI brand icon set.
+- **What I changed:** only the fill colour, to white, and the default size attributes. I compared the path data with the originals, and it's identical.
+- **Files:** saved as `public/images/ai-tools/claude.svg`, `openai.svg` and `gemini.svg`, loaded from the site itself (nothing external at runtime). `public/images/ai-tools/LICENSE.txt` holds the MIT notice and says the marks are Anthropic, OpenAI and Google trademarks.
+- **Code:** `src/components/sections/ai-trained.tsx`, and `src/lib/content.ts` for the label and tool list.
+
+**Decisions I made**
+
+- **Why not Simple Icons:** I checked it first (CC0). It has Claude and Gemini but no OpenAI logo, so I used LobeHub for all three to keep one consistent style.
+- **ChatGPT name:** the OpenAI entry is labelled "ChatGPT", which is the product your talent uses, with the OpenAI mark.
+
+**Couldn't do**
+
+Nothing. All three logos were available.
+
+**Please check**
+
+- If you'd rather use files straight from each company's own press kit, drop them into `public/images/ai-tools/` with the same names.
+- Some brand guidelines ask for their full-colour logo only, or have rules about use next to other brands. Worth a quick legal and brand check before launch.
+
 ---
 
 # Round 1
