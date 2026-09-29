@@ -16,16 +16,21 @@ import { industries } from "@/lib/content";
 export function CredibilityStrip() {
   return (
     <section
-      className="relative overflow-hidden bg-ink py-16 text-bone md:py-20"
+      className="relative overflow-hidden bg-ink pb-16 text-bone md:pb-20"
       aria-labelledby="credibility-heading"
     >
+      {/* White logo band on top: a clear seam between the hero and this section. */}
+      <div className="relative z-10 border-b border-ink/10 bg-white py-3">
+        <LogoMarquee bare durationSeconds={53} />
+      </div>
+
       <div className="absolute inset-0 grayscale" aria-hidden="true">
         <VideoLoop src="/video/culture.mp4" poster="/video/culture.jpg" name="" caption="" bare />
         <div className="absolute inset-0 bg-ink/80" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-transparent to-ink/80" />
       </div>
 
-      <div className="shell relative">
+      <div className="shell relative pt-14 md:pt-16">
         <h2
           id="credibility-heading"
           className="display mx-auto text-center text-[clamp(1.35rem,2.9vw,2.4rem)] font-bold leading-tight text-white md:whitespace-nowrap md:text-[clamp(0.95rem,2.2vw,1.85rem)]"
@@ -63,10 +68,6 @@ export function CredibilityStrip() {
         <div className="mt-8 text-center">
           <Button href="/talent">See the roles</Button>
         </div>
-      </div>
-
-      <div className="relative mt-12 border-y border-white/10 bg-white/[0.03] py-3">
-        <LogoMarquee bare onDark durationSeconds={53} />
       </div>
 
       <div className="shell relative mt-12">

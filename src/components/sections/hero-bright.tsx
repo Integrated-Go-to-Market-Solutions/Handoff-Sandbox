@@ -1,4 +1,5 @@
 import { Button, Eyebrow } from "../brand";
+import { VideoLoop } from "../video-loop";
 import { hero } from "@/lib/content";
 
 /**
@@ -8,6 +9,14 @@ import { hero } from "@/lib/content";
 export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
     <section className="halftone relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
+      {/* The team's culture footage, grayscale and heavily darkened so it only
+          adds texture and motion behind the headline. */}
+      <div className="absolute inset-0 grayscale" aria-hidden="true">
+        <VideoLoop src="/video/culture.mp4" poster="/video/culture.jpg" name="" caption="" bare />
+        <div className="absolute inset-0 bg-ink/85" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-ink/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/60" />
+      </div>
       <div className="shell relative z-10">
         <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>
         {/* Sized off the viewport so the longest line never wraps or overflows. */}
