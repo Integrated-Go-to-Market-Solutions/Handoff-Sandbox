@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "../brand";
 import { Icon, type IconName } from "../icon";
 import { VideoLoop } from "../video-loop";
 import { LogoMarquee } from "./logo-marquee";
@@ -53,17 +54,15 @@ export function CredibilityStrip() {
                     <Icon name={industry.icon as IconName} strokeWidth={2.2} className="h-7 w-7 md:h-8 md:w-8" />
                   </span>
                   <span className="display text-base leading-tight text-white md:text-lg">{industry.navLabel}</span>
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-bone/60 transition-colors group-hover:text-cyan">
-                    See roles
-                    <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
-                      &rarr;
-                    </span>
-                  </span>
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
+
+        <div className="mt-8 text-center">
+          <Button href="/talent">See the roles</Button>
+        </div>
       </div>
 
       <div className="relative mt-12 border-y border-white/10 bg-white/[0.03] py-3">
