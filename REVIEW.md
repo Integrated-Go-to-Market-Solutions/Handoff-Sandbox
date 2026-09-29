@@ -52,6 +52,17 @@ _Summary is added here once all eight tasks are done._
 
 - **"Meet Your Talent" button:** it lived in this section and went with it. The talent map now comes directly after the credibility section, so it's the very next thing on the page anyway.
 
+## Task 3: AI Excellence badge straightened
+
+**What changed**
+
+- **No rotation:** removed on every screen size (it was 10° on desktop and -6° on smaller screens).
+- **Size and position unchanged:** 176px on the bottom-right corner of the text on desktop, 96px beside the Coursera line on phones and tablets. It still doesn't overlap any text.
+
+**Files**
+
+- `src/components/sections/ai-trained.tsx`
+
 ---
 
 # Round 2: AI Trained section, map edges, git authorship
