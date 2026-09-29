@@ -196,6 +196,16 @@ export const models = [
       "Office-based, supervised team members",
       "Extra structure and accountability",
     ],
+    /** PLACEHOLDER copy pending client approval. */
+    extrasLabel: "Also included with Managed Staffing",
+    extras: [
+      "Employment and payroll handled by Handoff",
+      "Compliance",
+      "Office space and equipment",
+      "Day-to-day supervision",
+      "Performance management",
+      "Replacement support",
+    ],
     featured: true,
   },
   {
@@ -210,9 +220,30 @@ export const models = [
       "Lowest ongoing cost of the two models",
       "Full ownership of the relationship",
     ],
+    /** The existing card copy, split into points (no new claims). */
+    extrasLabel: "How Recruitment & Placement works",
+    extras: [
+      "We find and vet the person",
+      "You employ them directly",
+      "Includes a 90-day guarantee",
+      "Three of our last four new clients started here",
+    ],
     featured: false,
   },
 ];
+
+/** PLACEHOLDER copy pending client approval: what both models share. */
+export const modelsShared = {
+  label: "Both models include",
+  items: [
+    "Candidate sourcing",
+    "Multi-round vetting",
+    "Skills and culture assessments",
+    "AI-trained talent",
+    "A curated shortlist",
+    "The hiring guarantee",
+  ],
+};
 
 /**
  * Shown once beneath the two cards, not repeated per-card: both models

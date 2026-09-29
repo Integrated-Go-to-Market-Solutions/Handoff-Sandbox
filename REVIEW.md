@@ -162,6 +162,41 @@ _Summary is added here once all eight tasks are done._
 - Hover and tap feel right on a real device.
 - On a 320px phone, the longest quote still covers most of the card.
 
+## Task 7: "Two ways to work together" pricing
+
+**What changed**
+
+- **Tighter cards:**
+  - Padding goes from 32px to 24–28px.
+  - Smaller plan name and price, with the price and terms on one line.
+  - Tighter spacing and a regular-size button instead of large.
+  - On desktop they now hold more but are slightly shorter (590px, was 594px), with equal heights.
+- **Unchanged:** prices, plan names, tags and the typing animation.
+- **New "Both models include" panel** above the cards, with six check-marked items.
+- **Each card has its own list** in the same panel style, so neither reads as "base plan plus extras":
+  - **Managed Staffing:** "Also included with Managed Staffing", six items.
+  - **Recruitment & Placement:** "How Recruitment & Placement works", four items. These are its existing card copy split into points (vet, employ directly, 90-day guarantee, "three of our last four new clients started here"), so there are no new claims. The long description paragraph each card had is replaced by these lists.
+
+**Files**
+
+- `src/components/sections/models.tsx`
+- `src/lib/content.ts`: `modelsShared`, plus `extrasLabel` and `extras` on each model.
+- `src/app/page.tsx` and `src/app/industries/[slug]/page.tsx`: use `<Models detailed />`.
+
+**Decisions I made**
+
+- **`/v2` keeps the old version:** it renders this section too, so the previous design is kept as the default and only the homepage and industry pages ask for the new one. `/v2` is unchanged.
+- **No invented terms:** no new prices, numbers or guarantee terms. "The hiring guarantee" is kept general, and the only guarantee detail shown is the 90-day one the site already states.
+
+**⚠ Placeholder copy (needs approval)**
+
+- **Both models include:** Candidate sourcing · Multi-round vetting · Skills and culture assessments · AI-trained talent · A curated shortlist · The hiring guarantee.
+- **Also included with Managed Staffing:** Employment and payroll handled by Handoff · Compliance · Office space and equipment · Day-to-day supervision · Performance management · Replacement support.
+
+**Please check**
+
+- Confirm each placeholder item is accurate for both models, especially "The hiring guarantee" and "Replacement support".
+
 ---
 
 # Round 2: AI Trained section, map edges, git authorship

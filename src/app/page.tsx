@@ -38,7 +38,7 @@ export default function Home() {
       <Vibes order={[1, 0, 2]} slider />
       <Soul />
       <ClientQuotes />
-      <Models />
+      <Models detailed />
       <Faq />
       <Cta />
     </>

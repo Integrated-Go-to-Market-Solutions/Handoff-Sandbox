@@ -108,7 +108,7 @@ export default async function IndustryPage({
         </div>
       </section>
 
-      <Models />
+      <Models detailed />
       <ClientQuotes />
       <Cta />
     </>
