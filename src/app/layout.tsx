@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
+import { textFace } from "./fonts";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -31,7 +32,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={rubik.variable}>
+    <html lang="en" className={`${rubik.variable} ${textFace.variable}`}>
       <body className="min-h-screen bg-ink text-bone antialiased">
         <SiteHeader />
         <main>{children}</main>

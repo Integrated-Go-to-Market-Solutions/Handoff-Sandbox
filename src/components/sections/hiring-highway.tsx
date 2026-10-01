@@ -1,19 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Button, Pill } from "../brand";
+import { Button } from "../brand";
 import { Reveal } from "../reveal";
-import { HuntIcon, ScopeIcon, ShortlistIcon, StayIcon } from "../highway-icons";
+import { HandoffCheckIcon, HuntIcon, ScopeIcon, ShortlistIcon } from "../highway-icons";
 import { process, site } from "@/lib/content";
 
-/** Discovery = magnifying glass, The Vet = scope, The Shortlist = two people, The Guarantee = checkmark. */
-const stepIcons = [HuntIcon, ScopeIcon, ShortlistIcon, StayIcon];
+/** Discovery = magnifying glass, The Vet = scope, The Shortlist = two people, The Guarantee = the Handoff check. */
+const stepIcons = [HuntIcon, ScopeIcon, ShortlistIcon, HandoffCheckIcon];
 
 /** Share of the sticky scroll spent filling the line; the rest holds the finished state. */
 const FILL_SHARE = 0.8;
 
 /**
- * The Handoff Hiring System. Desktop: the section pins while a horizontal
+ * The Hands-off Hiring System. Desktop: the section pins while a horizontal
  * line fills left to right, and each step's icon pops in as the line
  * reaches it; once all four are in, the page scrolls on. Below 1024px it is
  * a plain vertical stack whose icons pop in as they enter the viewport.
@@ -21,6 +21,11 @@ const FILL_SHARE = 0.8;
  *
  * `compact` is the homepage version: shorter pin, the body copy hidden on
  * phones, and a button through to /how-it-works.
+ *
+ * All four cards are the same size: each icon sits in an identical slot, so
+ * the cards start on one line, and the cards stretch to the tallest one.
+ * The closing line and button sit inside the pinned view, just under the
+ * cards.
  */
 export function HiringHighway({ compact = false }: { compact?: boolean }) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -98,27 +103,27 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
           ref={stickyRef}
           className="lg:sticky lg:top-[72px] lg:flex lg:h-[calc(100vh-72px)] lg:flex-col lg:justify-center motion-reduce:lg:static motion-reduce:lg:h-auto"
         >
-          <div className={`shell w-full short:py-4 ${compact ? "pt-16 md:pt-24 lg:py-8" : "pt-14 md:pt-20 lg:py-8"}`}>
-            <Reveal className="mx-auto max-w-3xl text-center">
-              <Pill>{process.eyebrow}</Pill>
+          <div
+            className={`shell w-full lg:py-8 short:py-4 ${
+              compact ? "pb-16 pt-16 md:pb-24 md:pt-24" : "pb-14 pt-14 md:pb-20 md:pt-20"
+            }`}
+          >
+            <Reveal className="mx-auto max-w-6xl text-center">
               <h2
-                className={`display mt-6 short:mt-4 short:text-[2.6rem] ${
+                className={`display short:text-[2.6rem] ${
                   compact ? "text-[clamp(2rem,4.4vw,3.4rem)]" : "text-[clamp(2.1rem,4.8vw,3.8rem)]"
                 }`}
               >
-                {process.headlineParts.before}{" "}
-                <span className="hw-swipe">{process.headlineParts.swipe}</span>
-                {process.headlineParts.after}
+                {process.titleParts.before}{" "}
+                <span className="hw-swipe">{process.titleParts.swipe}</span>{" "}
+                {process.titleParts.after}
               </h2>
-              <p className="mx-auto mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 short:mt-3 md:text-lg short:text-base">
-                {compact ? process.body : process.lede}
-              </p>
             </Reveal>
 
             <div className="relative mt-10 lg:mt-12 short:mt-7">
-              {/* Desktop only: the line runs from the first icon's centre to the last. */}
+              {/* Desktop only: the line runs through the centres of the icon slots. */}
               <div
-                className="absolute left-[12.5%] right-[12.5%] top-[34px] hidden h-1 rounded-full bg-white/10 lg:block"
+                className="absolute left-[12.5%] right-[12.5%] top-[40px] hidden h-1 rounded-full bg-white/10 lg:block"
                 aria-hidden="true"
               >
                 <div ref={lineRef} className="hs-fill h-full rounded-full bg-cyan shadow-[0_0_14px_rgba(61,214,189,0.7)]" />
@@ -134,35 +139,35 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                       ref={(el) => {
                         stepRefs.current[i] = el;
                       }}
-                      className="hs-step relative flex items-start gap-4 lg:flex-col lg:items-center lg:gap-0"
+                      className="hs-step relative flex items-start gap-4 lg:flex-col lg:items-stretch lg:gap-0"
                     >
-                      <span
-                        className={`hs-icon relative z-10 grid shrink-0 place-items-center rounded-full border-2 ${
-                          isEnd
-                            ? "h-16 w-16 border-cyan bg-cyan shadow-[0_0_32px_-4px_rgba(61,214,189,0.85)] lg:-mt-2 lg:h-[84px] lg:w-[84px]"
-                            : "h-14 w-14 border-cyan/40 bg-ink lg:h-[68px] lg:w-[68px]"
-                        }`}
-                      >
-                        <Icon
-                          cut="#1f1f1f"
-                          className={isEnd ? "h-10 w-10 lg:h-12 lg:w-12" : "h-9 w-9 lg:h-11 lg:w-11"}
-                        />
+                      {/* Same slot for every icon (64px wide on phones, 84px
+                          tall on desktop), so the Guarantee's larger icon no
+                          longer pushes its card out of line. */}
+                      <span className="grid w-16 shrink-0 place-items-center lg:h-[84px] lg:w-full">
+                        <span
+                          className={`hs-icon relative z-10 grid place-items-center rounded-full border-2 ${
+                            isEnd
+                              ? "h-16 w-16 border-cyan bg-cyan shadow-[0_0_32px_-4px_rgba(61,214,189,0.85)] lg:h-[84px] lg:w-[84px]"
+                              : "h-14 w-14 border-cyan/40 bg-ink lg:h-[68px] lg:w-[68px]"
+                          }`}
+                        >
+                          <Icon cut="#1f1f1f" className="h-9 w-9 lg:h-11 lg:w-11" />
+                        </span>
                       </span>
 
                       <div
-                        className={`hs-card min-w-0 flex-1 rounded-[var(--radius-card)] border-2 p-5 lg:mt-5 lg:w-full lg:flex-none lg:self-stretch lg:text-center short:mt-4 short:p-4 ${
+                        className={`hs-card min-w-0 flex-1 rounded-[var(--radius-card)] border-2 p-5 lg:mt-5 lg:text-center short:mt-4 short:p-4 ${
                           isEnd
                             ? "border-cyan bg-cyan text-ink shadow-[0_0_36px_-8px_rgba(61,214,189,0.8)]"
                             : "border-cyan/25 bg-ink-100 text-bone"
                         } ${compact ? "" : "md:p-6"}`}
                       >
-                        <h3 className={`display leading-tight ${isEnd ? "text-2xl" : "text-xl"}`}>
-                          {step.title}
-                        </h3>
+                        <h3 className="display text-xl leading-tight">{step.title}</h3>
                         <p
-                          className={`mt-2 leading-relaxed ${
-                            isEnd ? "font-semibold text-ink/85" : "text-bone/75"
-                          } ${compact ? "hidden text-sm md:block" : "text-[0.95rem] short:text-sm"}`}
+                          className={`mt-2 font-text leading-relaxed ${isEnd ? "text-ink/85" : "text-bone/75"} ${
+                            compact ? "hidden text-sm md:block" : "text-[0.95rem] short:text-sm"
+                          }`}
                         >
                           {step.body}
                         </p>
@@ -172,28 +177,28 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                 })}
               </ol>
             </div>
+
+            <Reveal className="mt-8 text-center lg:mt-10 short:mt-5">
+              <p
+                className={`mx-auto max-w-[62ch] font-text font-medium leading-relaxed text-bone/85 ${
+                  compact ? "text-base md:text-lg short:text-base" : "text-lg md:text-xl short:text-base"
+                }`}
+              >
+                {process.closer.line}
+              </p>
+              <div className="mt-5 short:mt-4">
+                {compact ? (
+                  <Button href="/how-it-works">{process.teaserCta}</Button>
+                ) : (
+                  <Button href={site.bookCall} size="lg">
+                    {process.closer.cta}
+                  </Button>
+                )}
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>
-
-      <Reveal className={`shell text-center ${compact ? "pb-16 pt-10 md:pb-24" : "pb-14 pt-10 md:pb-20"}`}>
-        <p
-          className={`mx-auto max-w-[60ch] font-semibold leading-relaxed text-bone/85 ${
-            compact ? "text-base md:text-lg" : "text-lg md:text-xl"
-          }`}
-        >
-          {process.closer.line}
-        </p>
-        <div className="mt-6">
-          {compact ? (
-            <Button href="/how-it-works">{process.teaserCta}</Button>
-          ) : (
-            <Button href={site.bookCall} size="lg">
-              {process.closer.cta}
-            </Button>
-          )}
-        </div>
-      </Reveal>
     </section>
   );
 }

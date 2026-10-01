@@ -328,6 +328,9 @@ export const logos = [
  * Read by the homepage (compact) and /how-it-works (full).
  */
 export const process = {
+  /** The live section title (homepage and /how-it-works). No tagline under it. */
+  titleParts: { before: "The", swipe: "Hands-off", after: "Hiring System" },
+  /** eyebrow, headline, body: still used by /v2 (process.tsx) only. */
   eyebrow: "Handoff Hiring System",
   headline: "Four steps. One person who sticks.",
   /** Same headline, split so the last word can carry the cyan swipe. */

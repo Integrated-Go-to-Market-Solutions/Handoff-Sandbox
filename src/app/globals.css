@@ -41,6 +41,10 @@
      so this stack picks up Gotham the moment it is installed and falls
      back to Rubik until then. Use via `font-gotham`. */
   --font-gotham: "Gotham", "Gotham SSm", "Gotham A", "Gotham B", var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+  /* Text face for text-heavy content, via `font-text`. Loaded in
+     src/app/fonts.ts: Montserrat for now, standing in for Gotham. Swapping
+     to Gotham is a change to that one file. */
+  --font-text: var(--font-text-face), var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
 
   /* Corner rounding: 33, per the Shapes page — one value for every card,
      not two. Buttons and tags are full pills (rounded-full), separately. */
