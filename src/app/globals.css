@@ -350,6 +350,9 @@ body {
   filter: drop-shadow(0 0 7px rgba(61, 214, 189, 0.7));
   will-change: clip-path;
 }
+.latam-map-glow-royal {
+  filter: drop-shadow(0 0 6px rgba(45, 66, 185, 0.45));
+}
 .latam-map.is-tracing .latam-map-glow {
   animation: latam-map-trace 3s linear forwards;
 }

@@ -3,11 +3,14 @@ export function LatamMap({
   baseClassName = "",
   glowClassName = "",
   align = "center",
+  tone = "cyan",
 }: {
   className?: string;
   baseClassName?: string;
   glowClassName?: string;
   align?: "center" | "top";
+  /** Colour of the tracing line and its glow. */
+  tone?: "cyan" | "royal";
 }) {
   const shapeClass = align === "top" ? "latam-map-shape-top" : "";
 
@@ -20,7 +23,9 @@ export function LatamMap({
         className={`latam-map-shape absolute inset-0 ${shapeClass} ${baseClassName}`}
       />
       <span
-        className={`latam-map-shape latam-map-glow absolute inset-0 bg-cyan ${shapeClass} ${glowClassName}`}
+        className={`latam-map-shape latam-map-glow absolute inset-0 ${
+          tone === "royal" ? "latam-map-glow-royal bg-royal" : "bg-cyan"
+        } ${shapeClass} ${glowClassName}`}
       />
     </div>
   );

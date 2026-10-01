@@ -51,13 +51,22 @@ export function Stats({
   include,
   bare = false,
   variant = "cards",
+  hrefs,
+  className = "bg-bone py-16 md:py-20",
 }: {
   /** Labels to show, in proofStats order. Defaults to all four. */
   include?: readonly string[];
   /** Just the tiles, no section wrapper, for embedding in another section. */
   bare?: boolean;
-  /** "band": one divided glass strip for dark sections, instead of cards. */
-  variant?: "cards" | "band";
+  /**
+   * "band": one divided glass strip for dark sections, instead of cards.
+   * "square": the cards as compact squares, centred, for a pair of tiles.
+   */
+  variant?: "cards" | "band" | "square";
+  /** Per-label link targets. Tiles not listed link to /results. */
+  hrefs?: Partial<Record<string, string>>;
+  /** Section wrapper classes (padding, background). Ignored when `bare`. */
+  className?: string;
 } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const items = proofStats
@@ -155,23 +164,38 @@ export function Stats({
     );
   }
 
+  const square = variant === "square";
   const grid = (
         <div
           ref={rootRef}
-          className={`grid gap-5 sm:gap-6 ${
-            items.length > 2
-              ? "grid-cols-1 min-[380px]:grid-cols-2 lg:grid-cols-4"
-              : "mx-auto max-w-3xl grid-cols-2 gap-3"
-          }`}
+          className={
+            square
+              ? "flex justify-center gap-4 sm:gap-6"
+              : `grid gap-5 sm:gap-6 ${
+                  items.length > 2
+                    ? "grid-cols-1 min-[380px]:grid-cols-2 lg:grid-cols-4"
+                    : "mx-auto max-w-3xl grid-cols-2 gap-3"
+                }`
+          }
         >
           {items.map(({ stat, accent }, i) => {
             return (
-              <Reveal key={stat.label} delay={i * 100}>
+              <Reveal key={stat.label} delay={i * 100} className={square ? "w-[min(42vw,13rem)]" : ""}>
                 <Link
-                  href="/results"
-                  className={`group block h-full rounded-[var(--radius-card)] border-2 border-cyan p-5 shadow-[0_0_28px_-10px_rgba(61,214,189,0.6)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_0_36px_-6px_rgba(61,214,189,0.75)] md:p-6 ${accent.card}`}
+                  href={hrefs?.[stat.label] ?? "/results"}
+                  className={`group block h-full rounded-[var(--radius-card)] border-2 border-cyan p-5 shadow-[0_0_28px_-10px_rgba(61,214,189,0.6)] outline-none transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_0_36px_-6px_rgba(61,214,189,0.75)] focus-visible:-translate-y-1.5 focus-visible:ring-4 focus-visible:ring-royal/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bone md:p-6 ${
+                    square ? "flex aspect-square min-w-0 flex-col items-center justify-center p-3 text-center sm:p-5" : ""
+                  } ${accent.card}`}
                 >
-                  <p className="display text-3xl leading-none md:text-4xl">
+                  <span className="sr-only">
+                    {stat.value} {stat.label}
+                  </span>
+                  <p
+                    className={`display leading-none ${
+                      square ? "text-[clamp(2.4rem,9vw,3.6rem)]" : "text-3xl md:text-4xl"
+                    }`}
+                    aria-hidden="true"
+                  >
                     <span
                       className="stat-number"
                       data-target={stat.value}
@@ -180,7 +204,10 @@ export function Stats({
                       0
                     </span>
                   </p>
-                  <p className={`mt-2 text-sm font-semibold md:text-base ${accent.label}`}>
+                  <p
+                    className={`mt-2 font-semibold ${square ? "text-xs uppercase tracking-[0.08em] sm:text-sm sm:tracking-[0.14em] md:text-base" : "text-sm md:text-base"} ${accent.label}`}
+                    aria-hidden="true"
+                  >
                     {stat.label}
                   </p>
                 </Link>
@@ -193,7 +220,7 @@ export function Stats({
   if (bare) return grid;
 
   return (
-    <section className="bg-bone py-16 md:py-20">
+    <section className={className}>
       <div className="shell">{grid}</div>
     </section>
   );

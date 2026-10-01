@@ -59,7 +59,8 @@ export function ClientQuotes() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-bone section-py text-ink"
+      id="testimonials"
+      className="relative scroll-mt-[72px] overflow-hidden bg-bone section-py text-ink"
       aria-label="Client quotes"
     >
       <div className="shell relative">
