@@ -57,12 +57,16 @@ export function Button({
     ghostDark:
       "border-2 border-white/25 text-bone hover:border-cyan hover:text-cyan",
   };
+  // External links (e.g. a Calendly booking page) open in a new tab.
+  const external = /^https?:\/\//.test(href);
   return (
     <Link
       href={href}
       className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       {children}
+      {external && <span className="sr-only"> (opens in a new tab)</span>}
       <span className="transition-transform duration-300 group-hover:translate-x-1">
         &rarr;
       </span>

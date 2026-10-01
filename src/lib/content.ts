@@ -12,6 +12,13 @@ export const site = {
   tagline: "The team behind your team.",
   // Domain is not pointed yet. Keep links relative so the Vercel URL works.
   bookCall: "/contact",
+  /**
+   * The one booking link for "Book a call" (the finale). PLACEHOLDER: meant
+   * to be David's Calendly, but no URL has been supplied ([CALENDLY_URL]), so
+   * it points at /contact for now. Swap it here; an https link opens in a
+   * new tab automatically.
+   */
+  bookingUrl: "/contact",
   seeTalent: "/talent",
 };
 
@@ -618,8 +625,10 @@ export const cta = {
   headlineParts: { before: "Stop being the", accent: "bottleneck." },
   /** Closing line of the animated finale. PLACEHOLDER copy. */
   closing: "Let Handoff take it from here.",
-  /** Work items that jam the bottle in the finale. PLACEHOLDER copy. */
-  jam: ["Inbox 214", "Invoices", "Hiring", "Client calls", "Reports", "Payroll", "Scheduling", "Follow-ups", "Onboarding", "Approvals"],
+  /** Work items that fall down the sides of the finale. PLACEHOLDER copy. */
+  jam: ["Invoices", "Scheduling", "Follow-ups", "Reporting", "Hiring", "Onboarding", "Payroll", "Inbox"],
+  /** The finale's one button. Links to `site.bookingUrl`. */
+  book: "Book a call",
   body: "Bring the role you cannot get off your plate. One call is usually enough to scope it, pick the model and give you a real timeline.",
   primary: { label: "Get Started Today", href: site.bookCall },
   secondary: { label: "Talk to Our Team", href: site.bookCall },

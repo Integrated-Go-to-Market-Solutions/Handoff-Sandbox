@@ -462,6 +462,28 @@ body {
   to { background-position: 0 0; }
 }
 
+/* Finale: work items fall down the left and right edges and settle in two
+   piles in the bottom corners. Settled is the default (server render, no JS,
+   reduced motion); "armed" lifts them out of view, "falling" plays the drop
+   once with a small bounce. Each word's delay is set inline. */
+.finale-word {
+  bottom: calc(1.25rem + var(--row) * 2.4rem);
+  rotate: var(--r);
+}
+@media (min-width: 768px) {
+  .finale-word { bottom: calc(2.25rem + var(--row) * 2.9rem); }
+}
+.finale[data-phase="armed"] .finale-word { translate: 0 -120vh; }
+.finale[data-phase="falling"] .finale-word {
+  animation: finale-fall 1.4s both;
+}
+@keyframes finale-fall {
+  0% { translate: 0 -120vh; animation-timing-function: cubic-bezier(0.5, 0, 1, 0.6); }
+  72% { translate: 0 0; animation-timing-function: cubic-bezier(0, 0.4, 0.6, 1); }
+  84% { translate: 0 -14px; animation-timing-function: cubic-bezier(0.4, 0, 1, 0.6); }
+  100% { translate: 0 0; }
+}
+
 /* Talent map profile card: a quick fade and lift as it opens. Reduced motion
    collapses it (global rule above). */
 .talent-card-in {
