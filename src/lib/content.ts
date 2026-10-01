@@ -52,6 +52,7 @@ export const hero = {
     { text: "AI trained." },
     { text: "Here to stay.", tone: "cyan" },
   ] as { text: string; tone?: "cyan" }[],
+  imageAlt: "The Handoff team",
   body: "We help the best US companies hire Latin America's top 1% talent.",
   primary: { label: "Get Started Today", href: site.bookCall },
   secondary: { label: "Talk to Our Team", href: site.bookCall },

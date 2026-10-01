@@ -1,23 +1,31 @@
+import Image from "next/image";
 import { Button, Eyebrow } from "../brand";
-import { VideoLoop } from "../video-loop";
 import { hero } from "@/lib/content";
 
 /**
- * Type-led hero: the three-line headline carries it. The LATAM map moved out
- * to its own interactive section (TalentMap) further down the page.
+ * Type-led hero: the two-line headline carries it, centred over a team photo.
+ * The LATAM map moved out to its own interactive section (TalentMap) further
+ * down the page.
  */
 export function HeroBright({ subhead }: { subhead?: string } = {}) {
   return (
     <section className="halftone relative overflow-hidden bg-ink pb-16 pt-14 md:pb-20 md:pt-20">
-      {/* The team's culture footage, grayscale and heavily darkened so it only
-          adds texture and motion behind the headline. */}
-      <div className="absolute inset-0 grayscale" aria-hidden="true">
-        <VideoLoop src="/video/culture.mp4" poster="/video/culture.jpg" name="" caption="" bare />
+      {/* Team photo, grayscale and heavily darkened so it only adds texture
+          behind the headline. Preloaded: it's the first thing on the page. */}
+      <Image
+        src="/images/hero/team.webp"
+        alt={hero.imageAlt}
+        fill
+        preload
+        sizes="100vw"
+        className="object-cover object-[50%_35%] grayscale"
+      />
+      <div className="absolute inset-0" aria-hidden="true">
         <div className="absolute inset-0 bg-ink/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/50 to-ink/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(31_31_31/0.55),transparent_75%)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/60" />
       </div>
-      <div className="shell relative z-10">
+      <div className="shell relative z-10 text-center">
         <Eyebrow className="mb-5 md:mb-6">{hero.eyebrow}</Eyebrow>
         {/* Line 1 big, the two short claims together on line 2. Both sized off
             the viewport so neither line wraps or overflows. */}
@@ -43,7 +51,7 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
           </span>
         </h1>
 
-        <p className="mt-8 max-w-full text-lg font-semibold leading-relaxed text-bone md:whitespace-nowrap md:text-xl">
+        <p className="mx-auto mt-8 max-w-full text-lg font-semibold leading-relaxed text-bone text-balance md:text-xl">
           {subhead ?? hero.body}
         </p>
 
