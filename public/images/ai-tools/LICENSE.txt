@@ -1,7 +1,16 @@
-claude.svg, openai.svg and gemini.svg in this folder come from LobeHub Icons
-(@lobehub/icons-static-svg 1.95.1, https://github.com/lobehub/lobe-icons),
-recoloured white; the shapes are unchanged. The marks themselves are
-trademarks of Anthropic, OpenAI and Google respectively.
+Every SVG in this folder comes from LobeHub Icons
+(@lobehub/icons-static-svg 1.95.1, https://github.com/lobehub/lobe-icons).
+The shapes are unchanged; only the size attributes, and for the white
+files the fill colour, were edited.
+
+- claude-color.svg, gemini-color.svg, perplexity-color.svg: LobeHub's colour
+  versions, colours as published.
+- openai.svg, grok.svg: monochrome marks, recoloured white for dark
+  backgrounds.
+- claude.svg, gemini.svg: earlier white versions, no longer used on the site.
+
+The marks themselves are trademarks of Anthropic, OpenAI, Google, Perplexity
+AI and xAI respectively.
 
 MIT License
 

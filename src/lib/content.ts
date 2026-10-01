@@ -465,11 +465,17 @@ export const aiTrained = {
     "Responsible AI Use",
   ],
   toolsLabel: "Tools our talent trains on",
-  /** Icons are LobeHub Icons (MIT), recoloured white: /public/images/ai-tools. */
+  /**
+   * Icons are LobeHub Icons (MIT) in /public/images/ai-tools: the colour
+   * versions where they exist, and white for OpenAI and Grok, which are
+   * monochrome marks.
+   */
   tools: [
-    { name: "Claude", file: "claude" },
+    { name: "Claude", file: "claude-color" },
     { name: "ChatGPT", file: "openai" },
-    { name: "Gemini", file: "gemini" },
+    { name: "Gemini", file: "gemini-color" },
+    { name: "Perplexity", file: "perplexity-color" },
+    { name: "Grok", file: "grok" },
   ],
   badgeAlt: "Handoff AI Excellence badge, powered by Coursera",
   /** DRAFT: needs client approval before launch. */

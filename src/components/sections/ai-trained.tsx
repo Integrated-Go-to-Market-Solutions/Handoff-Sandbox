@@ -10,21 +10,36 @@ import { aiTrained } from "@/lib/content";
  *
  * A tight aside between two heavier sections rather than its own feature
  * block — deliberately the tight-padding spacing tier.
+ *
+ * Desktop: the claim on the left (badge stamp, headline, then the body as
+ * a quote), the detail on the right. Phones and tablets stack them in that
+ * order.
  */
 export function AiTrained() {
   return (
     <section className="relative overflow-hidden bg-ink section-py-tight text-bone">
-      <div className="shell relative grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div className="shell relative grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center lg:gap-12 xl:grid-cols-2 xl:gap-16">
+        {/* The stamp sits above the headline, straight, and covers no
+            text. The stamp, headline and quote share one left edge. */}
         <Reveal>
+          <Image
+            src="/images/ai-excellence-stamp.webp"
+            alt={aiTrained.badgeAlt}
+            width={208}
+            height={208}
+            unoptimized
+            className="mb-6 h-28 w-28 opacity-90 mix-blend-screen md:h-32 md:w-32 lg:mb-7 lg:h-44 lg:w-44 xl:h-48 xl:w-48"
+          />
           <h2 className="display max-w-[14ch] text-[clamp(1.9rem,4vw,3rem)] text-bone">
             {aiTrained.headline}
           </h2>
-        </Reveal>
-        <Reveal delay={90} className="relative">
-          <p className="max-w-[58ch] border-l-4 border-cyan pl-5 text-base leading-relaxed text-bone/80 md:text-lg">
+          <p className="mt-7 max-w-[58ch] border-l-4 border-cyan pl-5 text-base font-medium leading-relaxed text-bone/85 md:text-lg">
             {aiTrained.body}
           </p>
-          <div className="mt-6 pl-6">
+        </Reveal>
+
+        <Reveal delay={90}>
+          <div>
             <p className="eyebrow text-[0.72rem] tracking-[0.2em] text-cyan">{aiTrained.topicsLabel}</p>
             <ul className="mt-3 flex flex-wrap gap-2.5">
               {aiTrained.topics.map((topic) => (
@@ -41,7 +56,7 @@ export function AiTrained() {
             </ul>
           </div>
 
-          <div className="mt-6 pl-6">
+          <div className="mt-6">
             <p className="eyebrow text-[0.72rem] tracking-[0.2em] text-cyan">{aiTrained.coursesLabel}</p>
             <TypingCycle
               phrases={aiTrained.courses}
@@ -49,35 +64,23 @@ export function AiTrained() {
             />
           </div>
 
-          <div className="mt-6 pl-6">
+          <div className="mt-6">
             <p className="eyebrow text-[0.72rem] tracking-[0.2em] text-cyan">{aiTrained.toolsLabel}</p>
-            <ul className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-x-7">
+            {/* One row from 640px up; phones wrap to a tidy 3 + 2 grid. */}
+            <ul className="mt-3 grid grid-cols-3 gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 lg:gap-x-4 xl:gap-x-6">
               {aiTrained.tools.map((tool) => (
-                <li key={tool.name} className="inline-flex items-center gap-2 text-sm font-semibold text-bone sm:gap-2.5 sm:text-base">
+                <li key={tool.name} className="inline-flex items-center gap-2 text-sm font-semibold text-bone">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/images/ai-tools/${tool.file}.svg`} alt="" width={26} height={26} className="h-[26px] w-[26px]" />
+                  <img src={`/images/ai-tools/${tool.file}.svg`} alt="" width={24} height={24} className="h-6 w-6 shrink-0" />
                   {tool.name}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Certification row. Phones: badge sits in the row beside the copy.
-              Desktop: it becomes a stamp on the column's bottom-right
-              corner, with the row padded so it never covers text. */}
-          <div className="mt-8 flex items-center gap-4 pl-6 lg:min-h-[8.5rem] lg:pr-56">
-            <Image
-              src="/images/ai-excellence-badge.webp"
-              alt={aiTrained.badgeAlt}
-              width={176}
-              height={176}
-              unoptimized
-              className="h-24 w-24 shrink-0 drop-shadow-[0_10px_24px_rgba(0,0,0,0.45)] lg:absolute lg:-bottom-8 lg:right-0 lg:h-44 lg:w-44"
-            />
-            <p className="max-w-[46ch] text-sm font-semibold leading-relaxed text-bone md:text-base">
-              {aiTrained.certLine}
-            </p>
-          </div>
+          <p className="mt-7 max-w-[58ch] text-sm font-semibold leading-relaxed text-bone md:text-base">
+            {aiTrained.certLine}
+          </p>
         </Reveal>
       </div>
     </section>
