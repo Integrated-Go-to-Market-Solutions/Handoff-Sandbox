@@ -61,7 +61,7 @@ function ProblemCard({
       aria-pressed={flipped}
       aria-label={`${title}. ${flipped ? "Show the problem" : "Show the fix"}`}
       onClick={() => setFlipped((value) => !value)}
-      className="group block h-[24rem] w-full cursor-pointer text-left [perspective:1200px] sm:h-[22rem]"
+      className="group block h-[24rem] w-full cursor-pointer text-left [perspective:1200px] sm:h-[22rem] lg:h-[24rem] xl:h-[22rem]"
     >
       <span
         className={`relative block h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:-translate-y-1.5 ${
@@ -72,7 +72,7 @@ function ProblemCard({
             up to the section intro. Four cards each carrying both read as
             four identical labels rather than as four problems. */}
         <span
-          className={`absolute inset-0 flex h-full flex-col rounded-[var(--radius-card)] p-7 transition-shadow duration-500 [backface-visibility:hidden] ${glow} ${accent.front}`}
+          className={`absolute inset-0 flex h-full flex-col items-center rounded-[var(--radius-card)] p-7 text-center transition-shadow duration-500 [backface-visibility:hidden] ${glow} ${accent.front}`}
         >
           <span
             className={`inline-flex h-12 w-12 items-center justify-center rounded-full border-2 ${accent.ring}`}
@@ -90,12 +90,12 @@ function ProblemCard({
         </span>
 
         <span
-          className={`absolute inset-0 flex h-full flex-col justify-between rounded-[var(--radius-card)] p-7 [backface-visibility:hidden] [transform:rotateY(180deg)] ${glow} ${accent.back}`}
+          className={`absolute inset-0 flex h-full flex-col items-center justify-between rounded-[var(--radius-card)] p-7 text-center [backface-visibility:hidden] [transform:rotateY(180deg)] ${glow} ${accent.back}`}
         >
           <span className="display text-6xl leading-none">Stop.</span>
           <span>
             <span className="display block text-xl">Hand it off.</span>
-            <span className="mt-2 block max-w-[30ch] text-[0.95rem] font-medium leading-relaxed opacity-85">
+            <span className="mx-auto mt-2 block max-w-[30ch] text-[0.95rem] font-medium leading-relaxed opacity-85">
               A capable teammate can own this work without becoming another task
               for you to manage.
             </span>
@@ -108,17 +108,17 @@ function ProblemCard({
 
 export function Problem() {
   return (
-    <section className="relative overflow-hidden bg-ink section-py text-bone">
-      <div className="shell relative">
+    <section className="relative overflow-hidden bg-ink pb-10 pt-14 text-bone md:pb-14 md:pt-20">
+      <div className="shell relative text-center">
         <div className="relative">
-          <Reveal className="relative max-w-3xl">
+          <Reveal className="relative mx-auto max-w-3xl">
             <h2 className="display mt-2 text-[clamp(2rem,5vw,3.9rem)]">
               {problem.headline}
             </h2>
-            <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
+            <p className="mx-auto mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
               {problem.body}
             </p>
-            <p className="mt-4 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
+            <p className="mx-auto mt-4 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
               {problem.bodyDepartment}
             </p>
           </Reveal>

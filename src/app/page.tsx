@@ -37,10 +37,10 @@ export default function Home() {
         include={["Clients", "Placements"]}
         variant="square"
         hrefs={{ Clients: "#testimonials", Placements: "/talent" }}
-        className="bg-bone pb-16 pt-6 md:pb-20 md:pt-8"
+        className="bg-bone pb-10 pt-6 md:pb-12 md:pt-8"
       />
       <Problem />
-      <Vibes order={[1, 0, 2]} slider />
+      <Vibes order={[1, 0, 2]} slider tightTop />
       <Soul />
       <ClientQuotes />
       <Models detailed />
