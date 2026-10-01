@@ -139,6 +139,33 @@ export const sampleTalent = [
   { name: "Andres", role: "Marketing Specialist" },
 ] as const;
 
+/**
+ * "Meet your talent" map on the homepage. PLACEHOLDER: the final role list,
+ * photos and salary numbers are still pending. The names are made-up first
+ * names, the cities are realistic but not real people's, and the salary
+ * ranges are rough monthly USD guesses. Every `photo` is null, so the map
+ * shows the neutral avatar.
+ *
+ * Order matters: entry N sits on pin N of the map (positions live in
+ * talent-map.tsx), so swap the content in place rather than reordering.
+ */
+export const talentMap = {
+  heading: { before: "Meet your", link: "talent" },
+  intro: "The roles we place most, from Mexico to Patagonia. Hover or tap a pin to see who you could be working with.",
+  cta: { label: "Explore all roles", href: "/talent" },
+  salaryLabel: "Salary benchmark",
+  profiles: [
+    { name: "Valeria", city: "Guadalajara", country: "Mexico", role: "Digital Marketing Manager", salary: "$2,500–$3,500/mo", photo: null },
+    { name: "Diego", city: "San José", country: "Costa Rica", role: "Full Stack Developer", salary: "$3,500–$5,500/mo", photo: null },
+    { name: "Camila", city: "Medellín", country: "Colombia", role: "AP/AR Specialist", salary: "$1,500–$2,200/mo", photo: null },
+    { name: "Mateo", city: "Lima", country: "Peru", role: "AI Specialist", salary: "$3,000–$5,000/mo", photo: null },
+    { name: "Larissa", city: "Recife", country: "Brazil", role: "Relocation Coordinator", salary: "$1,600–$2,400/mo", photo: null },
+    { name: "Gabriel", city: "São Paulo", country: "Brazil", role: "Guest Services Specialist", salary: "$1,200–$1,800/mo", photo: null },
+    { name: "Sofía", city: "Córdoba", country: "Argentina", role: "Reservations Manager", salary: "$1,800–$2,600/mo", photo: null },
+    { name: "Tomás", city: "Neuquén", country: "Argentina", role: "Sales Development Representative", salary: "$1,500–$2,500/mo", photo: null },
+  ] as { name: string; city: string; country: string; role: string; salary: string; photo: string | null }[],
+};
+
 /** The founder's situation, in his own terms. From the workshopped ICP. */
 export const problem = {
   eyebrow: "Sound familiar",

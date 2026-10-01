@@ -451,3 +451,13 @@ body {
   from { background-position: 100% 0; }
   to { background-position: 0 0; }
 }
+
+/* Talent map profile card: a quick fade and lift as it opens. Reduced motion
+   collapses it (global rule above). */
+.talent-card-in {
+  animation: talent-card-in 0.18s ease-out both;
+}
+@keyframes talent-card-in {
+  from { opacity: 0; transform: translateY(4px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
