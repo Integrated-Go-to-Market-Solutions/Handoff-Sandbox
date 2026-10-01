@@ -884,6 +884,22 @@ export const nav: NavItem[] = [
 export const clientQuotes = {
   eyebrow: "In their words",
   headline: "What clients say when we are not on the call",
+  /**
+   * Client testimonial videos, shown on their own above the quote cards.
+   * `preview` is the 18s silent hover clip and `full` is the full-length
+   * 720p cut with sound for the pop-up, both in /public/video/testimonials-web.
+   * `focus` is the object-position that keeps the face in the wider 4:3 frame
+   * (the sources are vertical).
+   *
+   * The brief asks for Quest Relocation, Nika Housing and Rincon Rehab. There
+   * is no Nika Housing video yet, so Pivt's is used instead. The company names
+   * show as text wordmarks until the real logo files arrive.
+   */
+  videos: [
+    { slug: "pivt", company: "Pivt", focus: "50% 47%" },
+    { slug: "quest", company: "Quest Relocation", focus: "50% 30%" },
+    { slug: "rincon-rehab", company: "Rincon Rehab", focus: "50% 49%" },
+  ],
   slots: [
     {
       id: "quote-1",
