@@ -11,7 +11,7 @@ import { whyLatam } from "@/lib/content";
  * cyan-outline treatment from the brand guide's Elements Usage page.
  *
  * Royal blue is the section's accent: the map outline, the icon rings and
- * the icons themselves at rest. The headline is teal.
+ * the icons themselves at rest. The headline is black.
  */
 export function WhyLatam() {
   return (
@@ -29,7 +29,7 @@ export function WhyLatam() {
 
       <div className="shell relative">
         <Reveal className="max-w-3xl">
-          <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-cyan-dim">
+          <h2 className="display text-[clamp(2.1rem,4.8vw,3.7rem)] text-ink">
             {whyLatam.headline}
           </h2>
         </Reveal>

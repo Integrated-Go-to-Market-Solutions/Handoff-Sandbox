@@ -239,15 +239,6 @@ export function TalentMap() {
           <p className="mx-auto mt-5 max-w-[52ch] text-lg leading-relaxed text-bone/70 lg:mx-0">
             {talentMap.intro}
           </p>
-          <Link
-            href={talentMap.cta.href}
-            className="group mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-cyan/85 transition-colors hover:text-cyan"
-          >
-            {talentMap.cta.label}
-            <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
-              →
-            </span>
-          </Link>
         </Reveal>
 
         <div>

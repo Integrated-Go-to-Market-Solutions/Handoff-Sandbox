@@ -172,7 +172,7 @@ export function Models({ detailed = false }: { detailed?: boolean } = {}) {
               </li>
             ))}
           </ul>
-          <p className="mx-auto mt-8 max-w-[62ch] text-sm leading-relaxed text-bone/55">{modelsFootnote}</p>
+          <p className="mx-auto mt-8 max-w-[62ch] text-balance text-sm leading-relaxed text-bone/55">{modelsFootnote}</p>
         </Reveal>
       </div>
     </section>

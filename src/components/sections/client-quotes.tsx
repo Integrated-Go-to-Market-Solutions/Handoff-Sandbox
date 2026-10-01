@@ -66,9 +66,17 @@ function VideoCard({
         aria-label={`Play the ${company} client video, with sound`}
         className="relative block aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-card)] border-2 border-cyan/40 bg-ink text-left shadow-[0_18px_40px_-24px_rgba(0,0,0,0.6)] outline-none transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-cyan hover:shadow-[0_0_36px_-8px_rgba(61,214,189,0.7)] focus-visible:border-cyan focus-visible:ring-4 focus-visible:ring-cyan/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
       >
+        {/* A blurred copy of the still fills the wide frame; the clip sits on
+            top as a head-and-shoulders portrait, so the face isn't blown up
+            to fill the whole card. */}
+        <span
+          className="absolute inset-0 scale-110 bg-cover bg-center opacity-70 blur-xl"
+          style={{ backgroundImage: `url(${CLIP_BASE}/${slug}.jpg)` }}
+          aria-hidden="true"
+        />
         <video
           ref={ref}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-y-0 left-1/2 aspect-[3/4] h-full -translate-x-1/2 object-cover shadow-[0_0_40px_rgba(0,0,0,0.35)]"
           style={{ objectPosition: focus }}
           poster={`${CLIP_BASE}/${slug}.jpg`}
           muted

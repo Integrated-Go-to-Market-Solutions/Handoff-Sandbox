@@ -115,10 +115,10 @@ export function Problem() {
             <h2 className="display mt-2 text-[clamp(2rem,5vw,3.9rem)]">
               {problem.headline}
             </h2>
-            <p className="mx-auto mt-5 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
+            <p className="mx-auto mt-5 max-w-[58ch] text-balance text-base leading-relaxed text-bone/70 md:text-lg">
               {problem.body}
             </p>
-            <p className="mx-auto mt-4 max-w-[58ch] text-base leading-relaxed text-bone/70 md:text-lg">
+            <p className="mx-auto mt-4 max-w-[58ch] text-balance text-base leading-relaxed text-bone/70 md:text-lg">
               {problem.bodyDepartment}
             </p>
           </Reveal>

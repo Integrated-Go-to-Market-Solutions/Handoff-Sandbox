@@ -1,5 +1,4 @@
 import { HeroBright } from "@/components/sections/hero-bright";
-import { Stats } from "@/components/sections/stats";
 import { CredibilityStrip } from "@/components/sections/credibility-strip";
 import { TalentMap } from "@/components/sections/talent-map";
 import { WhyLatam } from "@/components/sections/why-latam";
@@ -36,12 +35,6 @@ export default function Home() {
       <AiTrained />
       <HiringHighway compact />
       <WhyLatam />
-      <Stats
-        include={["Clients", "Placements"]}
-        variant="square"
-        hrefs={{ Clients: "#testimonials", Placements: "/talent" }}
-        className="bg-bone pb-10 pt-6 md:pb-12 md:pt-8"
-      />
       <CtaBand tone="onLight" className="bg-bone pb-14 md:pb-16" />
       <Problem />
       <Vibes order={[1, 0, 2]} slider tightTop />
