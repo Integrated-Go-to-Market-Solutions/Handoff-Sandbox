@@ -215,13 +215,13 @@ export const models = [
   {
     tag: "Most popular",
     name: "Managed Staffing",
-    forWho: "Companies building a team, office-based",
+    forWho: "Companies building a team",
     price: "~$3,500/month",
-    terms: "Office-based, supervised team members",
-    copy: "We recruit, employ, train, and performance manage, office-based with extra structure and accountability. You get the outcome and one point of accountability. Ideal for higher-risk functions.",
+    terms: "Supervised, managed team members",
+    copy: "We recruit, employ, train, and performance manage, with extra structure and accountability. You get the outcome and one point of accountability. Ideal for higher-risk functions.",
     points: [
       "Handoff owns recruiting, employment and management",
-      "Office-based, supervised team members",
+      "Supervised, managed team members",
       "Extra structure and accountability",
     ],
     /** PLACEHOLDER copy pending client approval. */
@@ -229,7 +229,7 @@ export const models = [
     extras: [
       "Employment and payroll handled by Handoff",
       "Compliance",
-      "Office space and equipment",
+      "Equipment and tools",
       "Day-to-day supervision",
       "Performance management",
       "Replacement support",
@@ -259,6 +259,15 @@ export const models = [
     featured: false,
   },
 ];
+
+/**
+ * Pricing section header (homepage and industry pages). PLACEHOLDER: the
+ * starting-price line is new copy from the brief, pending approval.
+ */
+export const modelsIntro = {
+  headline: "2 ways to work together",
+  startingAt: { label: "Starting at", price: "$1,600/month" },
+};
 
 /** PLACEHOLDER copy pending client approval: what both models share. */
 export const modelsShared = {
