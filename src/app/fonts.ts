@@ -1,4 +1,4 @@
-import { Montserrat } from "next/font/google";
+import { DM_Serif_Display, Montserrat } from "next/font/google";
 
 /**
  * The text face for text-heavy content, used through the `font-text`
@@ -14,5 +14,17 @@ export const textFace = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-text-face",
+  display: "swap",
+});
+
+/**
+ * Classic serif for the Alma dictionary entry only (the headword and the
+ * "[al·ma] • noun" line), via the `font-serif` utility.
+ */
+export const serifFace = DM_Serif_Display({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif-face",
   display: "swap",
 });

@@ -41,7 +41,7 @@ export default function Home() {
       />
       <Problem />
       <Vibes order={[1, 0, 2]} slider tightTop />
-      <Soul />
+      <Soul variant="dictionary" />
       <ClientQuotes />
       <Models detailed />
       <Faq />

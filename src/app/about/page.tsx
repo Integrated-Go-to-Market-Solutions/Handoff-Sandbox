@@ -109,7 +109,7 @@ export default function AboutPage() {
 
       {/* Same Alma-over-the-footage section as the homepage, per direct
           instruction, in place of the old quote-and-panel layout. */}
-      <Soul />
+      <Soul variant="dictionary" />
 
       <Finale />
     </>

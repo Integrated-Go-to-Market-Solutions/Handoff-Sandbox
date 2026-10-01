@@ -585,6 +585,18 @@ export const soul = {
     /** Runs smaller, in Gotham, under the display line. One sentence per line. */
     sub: ["A person who is treated like a teammate stays.", "A person who is treated like a line item leaves."],
   },
+  /**
+   * The live Alma treatment (homepage and /about): a dictionary entry over
+   * the team footage. Copy verbatim from the brief. `closerParts` above is
+   * still used by /v2.
+   */
+  dictionary: {
+    intro: "We named our platform Alma.",
+    headword: "alma",
+    pronunciation: "[al·ma]",
+    partOfSpeech: "noun",
+    definition: "a person we treat like a teammate. Stays.",
+  },
   culture: {
     stat: "Several times a year",
     label:
