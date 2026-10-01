@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Button } from "../brand";
+import { Button, CtaNote } from "../brand";
 import { Reveal } from "../reveal";
 import { HandoffCheckIcon, HuntIcon, ScopeIcon, ShortlistIcon } from "../highway-icons";
 import { process, site } from "@/lib/content";
@@ -190,9 +190,12 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                 {compact ? (
                   <Button href="/how-it-works">{process.teaserCta}</Button>
                 ) : (
-                  <Button href={site.bookCall} size="lg">
-                    {process.closer.cta}
-                  </Button>
+                  <>
+                    <Button href={site.bookCall} size="lg">
+                      {process.closer.cta}
+                    </Button>
+                    <CtaNote className="mt-3" />
+                  </>
                 )}
               </div>
             </Reveal>

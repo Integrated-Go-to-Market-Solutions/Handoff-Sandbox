@@ -15,7 +15,7 @@ function NavGroup({ item }: { item: NavItem }) {
     <div className="group relative">
       <Link
         href={item.href}
-        className="flex items-center gap-1 text-[0.93rem] font-medium text-bone/70 transition-colors hover:text-bone group-focus-within:text-bone"
+        className="flex items-center gap-1 whitespace-nowrap text-[0.93rem] font-medium text-bone/70 transition-colors hover:text-bone group-focus-within:text-bone"
       >
         {item.label}
         <svg
@@ -59,9 +59,9 @@ const headerCtas = [
     className: "border-cyan bg-cyan text-ink hover:bg-ink hover:text-cyan",
   },
   {
-    // Points at /contact until a talent-pool page exists.
+    // Job seekers go to /careers (a placeholder page for now), not the sales form.
     label: "Join Our Talent Pool",
-    href: "/contact",
+    href: "/careers",
     className: "border-cyan bg-white text-ink hover:bg-cyan",
   },
 ];
@@ -100,11 +100,14 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Don't let the page scroll behind the open mobile menu.
+  // Don't let the page scroll behind the open mobile menu, and flag it on
+  // <html> so the sticky mobile CTA can hide itself.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    document.documentElement.toggleAttribute("data-menu-open", open);
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.removeAttribute("data-menu-open");
     };
   }, [open]);
 
@@ -130,7 +133,7 @@ export function SiteHeader() {
           <img src="/brand/logo-light.svg" alt="Handoff" className="h-9 w-auto md:h-10" />
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex lg:gap-9">
+        <nav className="hidden items-center gap-6 lg:flex lg:gap-5 xl:gap-9">
           {nav.map((item) =>
             item.children ? (
               <NavGroup key={item.href} item={item} />
@@ -138,7 +141,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-[0.93rem] font-medium text-bone/70 transition-colors hover:text-bone"
+                className="whitespace-nowrap text-[0.93rem] font-medium text-bone/70 transition-colors hover:text-bone"
               >
                 {item.label}
               </Link>

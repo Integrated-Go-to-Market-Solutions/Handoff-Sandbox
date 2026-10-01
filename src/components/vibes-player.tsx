@@ -95,7 +95,7 @@ export function VibesPlayer({ clips }: { clips: Clip[] }) {
       />
       <div
         ref={scrollerRef}
-        className="relative -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[11vw] py-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-[1fr_1.3fr_1fr] md:items-center md:gap-6 md:overflow-visible md:px-0 md:py-0 [&::-webkit-scrollbar]:hidden"
+        className="vibes-row relative -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[11vw] py-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-[auto_auto_auto] md:items-center md:justify-center md:gap-6 md:overflow-visible md:px-0 md:py-0 [&::-webkit-scrollbar]:hidden"
       >
         {clips.map((clip, i) => {
           const isMain = i === active;
@@ -107,10 +107,10 @@ export function VibesPlayer({ clips }: { clips: Clip[] }) {
               ref={(el) => {
                 cards.current[i] = el;
               }}
-              style={{ "--slot": slotOf(i) } as CSSProperties}
+              style={{ "--slot": slotOf(i), "--card-h": slotOf(i) === 1 ? "var(--h-main)" : "var(--h-side)" } as CSSProperties}
               onMouseEnter={() => !isMain && window.matchMedia("(min-width: 768px)").matches && setPreview(i)}
               onMouseLeave={() => preview === i && setPreview(null)}
-              className={`group relative w-[78vw] shrink-0 snap-center overflow-hidden rounded-[var(--radius-brand)] border-2 bg-ink transition-[border-color,box-shadow,transform] duration-700 ease-out motion-reduce:transition-none md:w-auto md:[order:var(--slot)] ${
+              className={`group relative w-[78vw] shrink-0 snap-center overflow-hidden rounded-[var(--radius-brand)] border-2 bg-ink transition-[border-color,box-shadow,transform,width] duration-700 ease-out motion-reduce:transition-none md:w-[calc(var(--card-h)*9/16)] md:[order:var(--slot)] ${
                 isLive
                   ? "border-cyan shadow-[0_0_0_4px_rgba(61,214,189,0.12),0_0_48px_-6px_rgba(61,214,189,0.75)]"
                   : "border-white/10 shadow-[0_20px_40px_-24px_rgba(0,0,0,0.8)] md:scale-[0.96]"

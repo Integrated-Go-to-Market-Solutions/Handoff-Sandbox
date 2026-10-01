@@ -4,6 +4,7 @@ import "./globals.css";
 import { serifFace, textFace } from "./fonts";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { MobileCta } from "@/components/mobile-cta";
 
 // Rubik is the brand typeface. Weights match the guidelines: Light, Medium,
 // SemiBold, Bold.
@@ -33,10 +34,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${rubik.variable} ${textFace.variable} ${serifFace.variable}`}>
-      <body className="min-h-screen bg-ink text-bone antialiased">
+      <body className="min-h-screen bg-ink pb-20 text-bone antialiased md:pb-0">
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
+        <MobileCta />
       </body>
     </html>
   );

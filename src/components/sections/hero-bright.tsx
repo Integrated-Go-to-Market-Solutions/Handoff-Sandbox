@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button, Eyebrow } from "../brand";
+import { Button, CtaNote, Eyebrow } from "../brand";
 import { hero } from "@/lib/content";
 
 /**
@@ -57,6 +57,7 @@ export function HeroBright({ subhead }: { subhead?: string } = {}) {
 
         <div className="mt-8">
           <Button href={hero.primary.href}>{hero.primary.label}</Button>
+          <CtaNote className="mt-4" />
         </div>
       </div>
     </section>

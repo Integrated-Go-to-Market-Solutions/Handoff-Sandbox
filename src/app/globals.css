@@ -462,6 +462,22 @@ body {
   to { background-position: 0 0; }
 }
 
+/* "We are the overseas talent" reels (tablet and up): sized from the screen
+   height, so the reels themselves fit in one screen under the 72px header.
+   The main (middle) reel is the screen height minus the header and a small
+   margin; the side reels are 82% of it. Also capped by the width, so three
+   9:16 reels always fit across (main + 2 x 0.82 side = 2.64 x 9/16 of the
+   main height). */
+@media (min-width: 768px) {
+  .vibes-row {
+    --h-main: min(max(20rem, calc(100svh - 72px - 4rem)), calc((100vw - 6rem) / 1.485));
+    --h-side: calc(var(--h-main) * 0.82);
+  }
+}
+
+/* The sticky mobile CTA steps aside while the mobile menu is open. */
+html[data-menu-open] .mobile-cta { display: none; }
+
 /* Finale: work items fall down the left and right edges and settle in two
    piles in the bottom corners. Settled is the default (server render, no JS,
    reduced motion); "armed" lifts them out of view, "falling" plays the drop

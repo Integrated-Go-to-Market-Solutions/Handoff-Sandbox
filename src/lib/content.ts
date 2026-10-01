@@ -891,7 +891,19 @@ export const nav: NavItem[] = [
   { label: "Results", href: "/results" },
   { label: "Pricing", href: "/#models" },
   { label: "About", href: "/about" },
+  // For job seekers, so they don't land in the sales contact form.
+  { label: "Find a job", href: "/careers" },
 ];
+
+/**
+ * PLACEHOLDER page until the careers / talent-pool copy is written. Linked
+ * from "Find a job" in the nav and "Join Our Talent Pool" in the header.
+ * noindex while it's a placeholder.
+ */
+export const careersPage = {
+  headline: "Find a job with Handoff",
+  body: "Open roles are coming soon.",
+};
 
 /**
  * Client proof. Five client-approved quotes, verbatim (the em dashes in

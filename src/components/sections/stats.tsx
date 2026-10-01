@@ -76,57 +76,89 @@ export function Stats({
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    // Initialize all stat numbers to "0" so they're visible and not the final state
-    const stats = root.querySelectorAll<HTMLSpanElement>(".stat-number");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const stats = [...root.querySelectorAll<HTMLSpanElement>(".stat-number")];
+    const final = (el: HTMLSpanElement) => el.dataset.target || "";
+    // The real value is rendered on the server, so a number that never gets
+    // animated still shows the right figure, never a stuck "0".
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof IntersectionObserver === "undefined") {
       stats.forEach((el) => {
-        el.textContent = el.dataset.target || "";
+        el.textContent = final(el);
       });
       return;
     }
+
+    const DURATION = 2000;
+    const timers: number[] = [];
+    const done = new Set<HTMLSpanElement>();
+    const settle = (el: HTMLSpanElement) => {
+      done.add(el);
+      el.textContent = final(el);
+    };
+    const animate = (el: HTMLSpanElement) => {
+      if (done.has(el)) return;
+      done.add(el);
+      const original = final(el);
+      const target = Number(original.replace(/[^0-9.-]/g, ""));
+      if (Number.isNaN(target)) return settle(el);
+      const start = performance.now();
+      const update = (now: number) => {
+        const progress = Math.min((now - start) / DURATION, 1);
+        el.textContent = progress < 1 ? getDisplayValue(original, target * progress) : original;
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      el.textContent = getDisplayValue(original, 0);
+      requestAnimationFrame(update);
+      // Safety net: whatever happens to animation frames (a hidden tab, a
+      // throttled device), it always ends on the exact value.
+      timers.push(window.setTimeout(() => (el.textContent = original), DURATION + 300));
+    };
+
+    // Only numbers still below the screen start at zero, ready to count up.
+    // Ones already on screen count up now; ones already scrolled past show
+    // the real value.
     stats.forEach((el) => {
-      el.textContent = "0";
+      const r = el.getBoundingClientRect();
+      if (r.bottom <= 0) settle(el);
+      else if (r.top < window.innerHeight) animate(el);
+      else el.textContent = getDisplayValue(final(el), 0);
     });
 
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const numEl = entry.target as HTMLSpanElement;
-          if (!numEl) continue;
-
-          const originalValue = numEl.dataset.target || "";
-          const target = Number(
-            (originalValue || "").replace(/[^0-9.-]/g, "")
-          );
-          if (Number.isNaN(target)) continue;
-
-          const duration = 2000;
-          const startTime = performance.now();
-
-          const update = (now: number) => {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const current = target * progress;
-            const display = getDisplayValue(originalValue, current);
-            numEl.textContent = display;
-
-            if (progress < 1) {
-              requestAnimationFrame(update);
-            }
-          };
-
-          requestAnimationFrame(update);
-          observer.unobserve(numEl);
+          const el = entry.target as HTMLSpanElement;
+          if (entry.isIntersecting) animate(el);
+          if (done.has(el)) observer.unobserve(el);
         }
       },
-      { threshold: 0.5 }
+      { threshold: [0, 0.5] },
     );
+    stats.forEach((el) => !done.has(el) && observer.observe(el));
 
-    stats.forEach((el) => observer.observe(el));
+    // A jump link or a very fast scroll can carry a number from below the
+    // screen to above it without it ever counting as "on screen", so the
+    // observer never fires. Catch those on scroll and show the real value.
+    let raf = 0;
+    const checkPassed = () => {
+      raf = 0;
+      for (const el of stats) {
+        if (!done.has(el) && el.getBoundingClientRect().bottom <= 0) {
+          settle(el);
+          observer.unobserve(el);
+        }
+      }
+      if (done.size === stats.length) window.removeEventListener("scroll", onScroll);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(checkPassed);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+      timers.forEach((t) => clearTimeout(t));
     };
   }, []);
 
@@ -201,7 +233,7 @@ export function Stats({
                       data-target={stat.value}
                       aria-hidden="true"
                     >
-                      0
+                      {stat.value}
                     </span>
                   </p>
                   <p

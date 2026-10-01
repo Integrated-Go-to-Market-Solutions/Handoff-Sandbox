@@ -1,4 +1,4 @@
-import { Button, Pill } from "../brand";
+import { Button, CtaNote, Pill } from "../brand";
 import { Reveal } from "../reveal";
 import { TypedPoints } from "../typed-points";
 import { models, modelsFootnote, modelsIntro, modelsShared, site } from "@/lib/content";
@@ -155,6 +155,7 @@ export function Models({ detailed = false }: { detailed?: boolean } = {}) {
                   <Button href={site.bookCall} variant={accent.button} className="w-full">
                     Find out more
                   </Button>
+                  <CtaNote tone={i === 0 ? "onLight" : "onDark"} className="mt-3 text-center opacity-90" />
                 </div>
               </Reveal>
             );

@@ -12,6 +12,7 @@ import { ClientQuotes } from "@/components/sections/client-quotes";
 import { Models } from "@/components/sections/models";
 import { Faq } from "@/components/sections/faq";
 import { Finale } from "@/components/sections/finale";
+import { CtaBand } from "@/components/sections/cta-band";
 
 /**
  * The industry links live in the credibility strip under the hero; the
@@ -30,6 +31,8 @@ export default function Home() {
       <HeroBright />
       <CredibilityStrip />
       <TalentMap />
+      {/* Repeat of the main CTA, kept small. */}
+      <CtaBand className="bg-[#141414] pb-14 md:pb-16" />
       <AiTrained />
       <HiringHighway compact />
       <WhyLatam />
@@ -39,6 +42,7 @@ export default function Home() {
         hrefs={{ Clients: "#testimonials", Placements: "/talent" }}
         className="bg-bone pb-10 pt-6 md:pb-12 md:pt-8"
       />
+      <CtaBand tone="onLight" className="bg-bone pb-14 md:pb-16" />
       <Problem />
       <Vibes order={[1, 0, 2]} slider tightTop />
       <Soul variant="dictionary" />

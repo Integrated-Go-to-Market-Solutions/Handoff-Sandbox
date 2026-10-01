@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { hero } from "@/lib/content";
 
 /**
  * The real lockup from "Handoff Logo 2025" (Nico flagged the old hand-drawn
@@ -124,5 +125,15 @@ export function Pill({
     >
       {children}
     </span>
+  );
+}
+
+/**
+ * The site's existing line under a CTA button (`hero.note`), used under every
+ * primary CTA in the page body. Not in the header.
+ */
+export function CtaNote({ tone = "onDark", className = "" }: { tone?: "onDark" | "onLight"; className?: string }) {
+  return (
+    <p className={`text-sm ${tone === "onDark" ? "text-bone/60" : "text-ink/55"} ${className}`}>{hero.note}</p>
   );
 }
