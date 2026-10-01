@@ -381,6 +381,26 @@ export const process = {
   },
   /** Homepage teaser copy: the compact road links through to the full page. */
   teaserCta: "See every step",
+  /** Where "See every step" lands: the start of the /how-it-works timeline. */
+  teaserHref: "/how-it-works#timeline",
+  /**
+   * The vertical timeline on /how-it-works. One entry per step, in order.
+   * PLACEHOLDER videos: none of these show the actual step; they're existing
+   * brand clips (the promo and the three Instagram reels) until real step
+   * videos exist. Swap `src` and `poster` here. `vertical` clips show as a
+   * centred head-and-shoulders portrait over a blurred copy of the frame;
+   * `focus` is the object-position that keeps the person in view.
+   */
+  timeline: {
+    labels: ["Step one", "Step two", "Step three", "Step four"],
+    cta: { label: "Hire Today", step: 0 },
+    videos: [
+      { src: "/videos/handoff-promo.mp4", poster: "/videos/handoff-promo.jpg", focus: "50% 50%", vertical: false },
+      { src: "/videos/remote-culture.mp4", poster: "/videos/remote-culture.jpg", focus: "50% 30%", vertical: true },
+      { src: "/videos/day-with-handoff.mp4", poster: "/videos/day-with-handoff.jpg", focus: "50% 40%", vertical: true },
+      { src: "/videos/handoff-values.mp4", poster: "/videos/handoff-values.jpg", focus: "50% 30%", vertical: true },
+    ],
+  },
 };
 
 /**

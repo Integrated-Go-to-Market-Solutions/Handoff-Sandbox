@@ -118,6 +118,10 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
                 <span className="hw-swipe">{process.titleParts.swipe}</span>{" "}
                 {process.titleParts.after}
               </h2>
+              {/* Supporting line (not the old "Four steps…" tagline). */}
+              <p className="mx-auto mt-4 max-w-[58ch] text-balance text-base leading-relaxed text-bone/70 md:text-lg short:mt-2 short:text-base">
+                {process.body}
+              </p>
             </Reveal>
 
             <div className="relative mt-10 lg:mt-12 short:mt-7">
@@ -188,7 +192,7 @@ export function HiringHighway({ compact = false }: { compact?: boolean }) {
               </p>
               <div className="mt-5 short:mt-4">
                 {compact ? (
-                  <Button href="/how-it-works">{process.teaserCta}</Button>
+                  <Button href={process.teaserHref}>{process.teaserCta}</Button>
                 ) : (
                   <>
                     <Button href={site.bookCall} size="lg">
