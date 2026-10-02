@@ -30,8 +30,6 @@ export default function Home() {
       <HeroBright />
       <CredibilityStrip />
       <TalentMap />
-      {/* Repeat of the main CTA, kept small. */}
-      <CtaBand className="bg-[#141414] pb-14 md:pb-16" />
       <AiTrained />
       <HiringHighway compact />
       <WhyLatam />

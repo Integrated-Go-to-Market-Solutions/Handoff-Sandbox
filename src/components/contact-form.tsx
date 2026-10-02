@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CtaNote } from "./brand";
 import { contactPage, roleGroups } from "@/lib/content";
@@ -227,17 +226,9 @@ export function ContactForm() {
       aria-label="Book a call"
       className="rounded-[var(--radius-brand)] border border-ink/12 bg-white p-7 text-ink shadow-sm md:p-9"
     >
-      <p className="text-sm">
-        <Link
-          href={copy.careersLink.href}
-          className="font-semibold text-royal underline-offset-4 hover:underline focus-visible:underline"
-        >
-          {copy.careersLink.label} <span aria-hidden="true">&rarr;</span>
-        </Link>
-      </p>
 
       {/* Progress */}
-      <div className="mt-6">
+      <div>
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-ink/55">
           Step {step} of 2 <span className="text-ink/35">·</span> {copy.steps[step - 1]}
         </p>

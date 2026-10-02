@@ -19,20 +19,31 @@ export function AiTrained() {
   return (
     <section className="relative overflow-hidden bg-ink section-py-tight text-bone">
       <div className="shell relative grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center lg:gap-12 xl:grid-cols-2 xl:gap-16">
-        {/* The stamp sits above the headline, straight, and covers no
-            text. The stamp, headline and quote share one left edge. */}
         <Reveal>
+          {/* Phones and tablets: the badge sits above the headline, covering
+              no text. Desktop: it's stamped over the "W", tilted left and
+              translucent, so the letter still reads through it. */}
           <Image
-            src="/images/ai-excellence-stamp.webp"
+            src="/images/badge-new.webp"
             alt={aiTrained.badgeAlt}
-            width={208}
-            height={208}
+            width={240}
+            height={240}
             unoptimized
-            className="mb-6 h-28 w-28 opacity-90 mix-blend-screen md:h-32 md:w-32 lg:mb-7 lg:h-44 lg:w-44 xl:h-48 xl:w-48"
+            className="mb-5 h-28 w-28 -rotate-[14deg] opacity-75 md:h-32 md:w-32 lg:hidden"
           />
-          <h2 className="display max-w-[14ch] text-[clamp(1.9rem,4vw,3rem)] text-bone">
-            {aiTrained.headline}
-          </h2>
+          <div className="relative w-fit lg:pt-28 xl:pt-32">
+            <Image
+              src="/images/badge-new.webp"
+              alt=""
+              width={240}
+              height={240}
+              unoptimized
+              className="pointer-events-none absolute -left-1 top-0 z-10 hidden h-36 w-36 -rotate-[14deg] opacity-65 lg:block xl:-left-12 xl:h-40 xl:w-40"
+            />
+            <h2 className="display relative max-w-[14ch] text-[clamp(1.9rem,4vw,3rem)] text-bone">
+              {aiTrained.headline}
+            </h2>
+          </div>
           <p className="mt-7 max-w-[58ch] border-l-4 border-cyan pl-5 text-base font-medium leading-relaxed text-bone/85 md:text-lg">
             {aiTrained.body}
           </p>

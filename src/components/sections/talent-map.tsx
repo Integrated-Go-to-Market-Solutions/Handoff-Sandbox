@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { Button, CtaNote } from "../brand";
 import { Reveal } from "../reveal";
-import { talentMap } from "@/lib/content";
+import { cta, site, talentMap } from "@/lib/content";
 
 /*
  * Rebuilt from design-refs/HANDOFFMAP.png (the Figma export in
@@ -128,7 +129,7 @@ function Avatar({ photo, className }: { photo: string | null; className: string 
       className={`relative block shrink-0 overflow-hidden rounded-full border-2 border-white bg-gradient-to-b from-cyan to-[#2fae98] ${className}`}
     >
       {photo ? (
-        <Image src={photo} alt="" fill sizes="64px" className="object-cover" />
+        <Image src={photo} alt="" fill sizes="64px" className="object-cover object-[50%_22%]" />
       ) : (
         /* Neutral stand-in until real talent photos are supplied. */
         <svg viewBox="0 0 64 64" className="h-full w-full" aria-hidden="true">
@@ -239,6 +240,11 @@ export function TalentMap() {
           <p className="mx-auto mt-5 max-w-[52ch] text-lg leading-relaxed text-bone/70 lg:mx-0">
             {talentMap.intro}
           </p>
+          {/* The main CTA, repeated here beside the map. */}
+          <div className="mt-8">
+            <Button href={site.bookingUrl}>{cta.book}</Button>
+            <CtaNote className="mt-3" />
+          </div>
         </Reveal>
 
         <div>

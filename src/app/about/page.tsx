@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
 import { TalentCard } from "@/components/talent-card";
-import { Finale } from "@/components/sections/finale";
 import { Soul } from "@/components/sections/soul";
 import { ValuesVideo } from "@/components/sections/values-video";
 import { proof, socialLinks, team } from "@/lib/content";
@@ -111,7 +110,6 @@ export default function AboutPage() {
           instruction, in place of the old quote-and-panel layout. */}
       <Soul variant="dictionary" />
 
-      <Finale />
     </>
   );
 }

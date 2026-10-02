@@ -150,8 +150,9 @@ export const sampleTalent = [
  * "Meet your talent" map on the homepage. PLACEHOLDER: the final role list,
  * photos and salary numbers are still pending. The names are made-up first
  * names, the cities are realistic but not real people's, and the salary
- * ranges are rough monthly USD guesses. Every `photo` is null, so the map
- * shows the neutral avatar.
+ * ranges are rough monthly USD guesses. The photos are PLACEHOLDERS too:
+ * Handoff team members from /images/team (Jake Castro's is used twice, as
+ * there are seven photos for eight pins), not the talent described.
  *
  * Order matters: entry N sits on pin N of the map (positions live in
  * talent-map.tsx), so swap the content in place rather than reordering.
@@ -162,14 +163,14 @@ export const talentMap = {
   cta: { label: "Explore all roles", href: "/talent" },
   salaryLabel: "Salary benchmark",
   profiles: [
-    { name: "Valeria", city: "Guadalajara", country: "Mexico", role: "Digital Marketing Manager", salary: "$2,500–$3,500/mo", photo: null },
-    { name: "Diego", city: "San José", country: "Costa Rica", role: "Full Stack Developer", salary: "$3,500–$5,500/mo", photo: null },
-    { name: "Camila", city: "Medellín", country: "Colombia", role: "AP/AR Specialist", salary: "$1,500–$2,200/mo", photo: null },
-    { name: "Mateo", city: "Lima", country: "Peru", role: "AI Specialist", salary: "$3,000–$5,000/mo", photo: null },
-    { name: "Larissa", city: "Recife", country: "Brazil", role: "Relocation Coordinator", salary: "$1,600–$2,400/mo", photo: null },
-    { name: "Gabriel", city: "São Paulo", country: "Brazil", role: "Guest Services Specialist", salary: "$1,200–$1,800/mo", photo: null },
-    { name: "Sofía", city: "Córdoba", country: "Argentina", role: "Reservations Manager", salary: "$1,800–$2,600/mo", photo: null },
-    { name: "Tomás", city: "Neuquén", country: "Argentina", role: "Sales Development Representative", salary: "$1,500–$2,500/mo", photo: null },
+    { name: "Valeria", city: "Guadalajara", country: "Mexico", role: "Digital Marketing Manager", salary: "$2,500–$3,500/mo", photo: "/images/team/jazmin-esparza.webp" },
+    { name: "Diego", city: "San José", country: "Costa Rica", role: "Full Stack Developer", salary: "$3,500–$5,500/mo", photo: "/images/team/jake-castro.webp" },
+    { name: "Camila", city: "Medellín", country: "Colombia", role: "AP/AR Specialist", salary: "$1,500–$2,200/mo", photo: "/images/team/karla-patron.webp" },
+    { name: "Mateo", city: "Lima", country: "Peru", role: "AI Specialist", salary: "$3,000–$5,000/mo", photo: "/images/team/simon-quintero.webp" },
+    { name: "Larissa", city: "Recife", country: "Brazil", role: "Relocation Coordinator", salary: "$1,600–$2,400/mo", photo: "/images/team/catalina-saldarriaga.webp" },
+    { name: "Gabriel", city: "São Paulo", country: "Brazil", role: "Guest Services Specialist", salary: "$1,200–$1,800/mo", photo: "/images/team/leidy-quintero.webp" },
+    { name: "Sofía", city: "Córdoba", country: "Argentina", role: "Reservations Manager", salary: "$1,800–$2,600/mo", photo: "/images/team/shaori-velueta.webp" },
+    { name: "Tomás", city: "Neuquén", country: "Argentina", role: "Sales Development Representative", salary: "$1,500–$2,500/mo", photo: "/images/team/jake-castro.webp" },
   ] as { name: string; city: string; country: string; role: string; salary: string; photo: string | null }[],
 };
 
@@ -733,7 +734,6 @@ export const contactPage = {
    * copy from the brief, pending approval.
    */
   form: {
-    careersLink: { label: "Looking for a job? Go to careers", href: "/careers" },
     steps: ["The role", "Your details"],
     role: { label: "What role are you hiring for?", placeholder: "Choose a role", other: "Other", otherLabel: "Which role?" },
     headcount: { label: "How many people?", options: ["1", "2–3", "4+"] },
@@ -774,6 +774,12 @@ export const contactPage = {
  * e-commerce... and there might just be like corporate relocation."
  * These five are also the homepage ICP grid, not just a dropdown.
  */
+/** The /industries overview page. PLACEHOLDER copy. */
+export const industriesPage = {
+  headline: "Built for your industry",
+  body: "Every industry runs on different roles and different pressure points. Pick yours to see the hires we make most and how they work.",
+};
+
 export const industries = [
   {
     slug: "hospitality",
@@ -927,29 +933,21 @@ export const nav: NavItem[] = [
   { label: "How it works", href: "/how-it-works" },
   {
     label: "Industries",
-    href: `/industries/${industries[0].slug}`,
-    children: industries.map((industry) => ({
-      label: industry.navLabel,
-      href: `/industries/${industry.slug}`,
-    })),
+    href: "/industries",
+    children: [
+      ...industries.map((industry) => ({
+        label: industry.navLabel,
+        href: `/industries/${industry.slug}`,
+      })),
+      { label: "All industries", href: "/industries" },
+    ],
   },
   { label: "Roles", href: "/talent" },
   { label: "Results", href: "/results" },
   { label: "Pricing", href: "/#models" },
   { label: "About", href: "/about" },
-  // For job seekers, so they don't land in the sales contact form.
-  { label: "Find a job", href: "/careers" },
 ];
 
-/**
- * PLACEHOLDER page until the careers / talent-pool copy is written. Linked
- * from "Find a job" in the nav and "Join Our Talent Pool" in the header.
- * noindex while it's a placeholder.
- */
-export const careersPage = {
-  headline: "Find a job with Handoff",
-  body: "Open roles are coming soon.",
-};
 
 /**
  * Client proof. Five client-approved quotes, verbatim (the em dashes in

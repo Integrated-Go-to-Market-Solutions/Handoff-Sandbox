@@ -59,9 +59,9 @@ const headerCtas = [
     className: "border-cyan bg-cyan text-ink hover:bg-ink hover:text-cyan",
   },
   {
-    // Job seekers go to /careers (a placeholder page for now), not the sales form.
+    // Points at /contact until a talent-pool page exists.
     label: "Join Our Talent Pool",
-    href: "/careers",
+    href: "/contact",
     className: "border-cyan bg-white text-ink hover:bg-cyan",
   },
 ];
