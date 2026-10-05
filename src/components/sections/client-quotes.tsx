@@ -124,14 +124,13 @@ function LinkedInMark() {
   );
 }
 
-function Arrow({ dir, disabled, onClick }: { dir: "prev" | "next"; disabled: boolean; onClick: () => void }) {
+function Arrow({ dir, onClick }: { dir: "prev" | "next"; onClick: () => void }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      disabled={disabled}
       aria-label={dir === "prev" ? "Previous quote" : "Next quote"}
-      className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-ink/15 bg-white text-ink transition-colors duration-300 hover:border-cyan hover:bg-cyan focus-visible:border-cyan focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan/40 disabled:cursor-default disabled:opacity-40 disabled:hover:border-ink/15 disabled:hover:bg-white motion-reduce:transition-none"
+      className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-ink/15 bg-white text-ink transition-colors duration-300 hover:border-cyan hover:bg-cyan focus-visible:border-cyan focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan/40 motion-reduce:transition-none"
     >
       <svg viewBox="0 0 24 24" className={`h-5 w-5 ${dir === "prev" ? "rotate-180" : ""}`} aria-hidden="true">
         <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -140,16 +139,29 @@ function Arrow({ dir, disabled, onClick }: { dir: "prev" | "next"; disabled: boo
   );
 }
 
+/** Drift speed of the moving quotes, in px per second. */
+const DRIFT = 35;
+/** How long the drift waits after a swipe, wheel, arrow or dot before it picks up again. */
+const RESUME_MS = 2500;
+
 /**
- * The written quotes as a scroll-snap track: swipe and trackpad scrolling
- * come from the browser; the arrows and dots just scroll it. One dot per
- * resting position (5 cards with 3 visible = 3 dots), recounted on resize.
+ * The written quotes as a constantly moving loop. The quotes are rendered
+ * twice (the second copy hidden from assistive tech and the tab order) and
+ * the track's scroll position wraps by one copy's width, so it never ends.
+ *
+ * The drift writes scrollLeft each frame, so swipe and trackpad scrolling
+ * still come from the browser. It holds while the pointer is over the track,
+ * while anything inside has focus, while a finger is down, while the
+ * section is off screen, and when paused with the button. With reduced
+ * motion it never drifts; the arrows and dots still work.
  */
 function QuoteCarousel({ reduced }: { reduced: boolean }) {
   const track = useRef<HTMLDivElement>(null);
   const slides = clientQuotes.slots;
-  const [stops, setStops] = useState(slides.length);
+  const n = slides.length;
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const hold = useRef({ hover: false, focus: false, touch: false, until: 0, glide: 0 });
 
   /** Distance between two slide starts (slide width + gap). */
   const stepOf = (el: HTMLDivElement) => {
@@ -157,113 +169,194 @@ function QuoteCarousel({ reduced }: { reduced: boolean }) {
     return first ? first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0") : 0;
   };
 
-  const sync = useCallback(() => {
+  const syncDot = useCallback(() => {
     const el = track.current;
-    if (!el) return;
-    const step = stepOf(el);
-    if (!step) return;
-    const gap = step - (el.children[0] as HTMLElement).offsetWidth;
-    const perView = Math.max(1, Math.round((el.clientWidth + gap) / step));
-    const count = Math.max(1, slides.length - perView + 1);
-    // The last stop is the end of the track, which can be short of a full step.
-    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 2;
-    setStops(count);
-    setActive(atEnd ? count - 1 : Math.min(count - 1, Math.round(el.scrollLeft / step)));
-  }, [slides.length]);
+    const step = el ? stepOf(el) : 0;
+    if (!el || !step) return;
+    setActive(((Math.round(el.scrollLeft / step) % n) + n) % n);
+  }, [n]);
+
+  const holdFor = (ms: number) => {
+    hold.current.until = performance.now() + ms;
+  };
 
   useEffect(() => {
     const el = track.current;
-    if (!el) return;
-    const ro = new ResizeObserver(sync);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [sync]);
+    if (!el || reduced || paused) return;
 
-  const go = (i: number) => {
+    let onScreen = true;
+    const io = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+    });
+    io.observe(el);
+
+    // A float of our own: scrollLeft rounds to whole pixels, which would
+    // stall a sub-pixel-per-frame drift.
+    let pos = el.scrollLeft;
+    let last = performance.now();
+    let frame = requestAnimationFrame(function tick(now) {
+      const dt = Math.min(now - last, 100) / 1000;
+      last = now;
+      const h = hold.current;
+      const loop = n * stepOf(el);
+      if (!loop) {
+        // Not laid out yet.
+      } else if (!onScreen || h.hover || h.focus || h.touch || now < h.until) {
+        // Held: follow wherever the visitor scrolled, wrapping forward swipes
+        // (not mid-glide, which the jump would cut short).
+        if (now > h.glide && el.scrollLeft >= loop) el.scrollLeft -= loop;
+        pos = el.scrollLeft;
+      } else {
+        pos += DRIFT * dt;
+        if (pos >= loop) pos -= loop;
+        el.scrollLeft = pos;
+      }
+      frame = requestAnimationFrame(tick);
+    });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      io.disconnect();
+    };
+  }, [reduced, paused, n]);
+
+  /** Glide to a slide position, where `delta` moves from the current one and `dot` picks a quote. */
+  const go = (move: { delta: number } | { dot: number }) => {
     const el = track.current;
-    if (!el) return;
-    el.scrollTo({ left: i * stepOf(el), behavior: reduced ? "auto" : "smooth" });
+    const step = el ? stepOf(el) : 0;
+    if (!el || !step) return;
+    holdFor(RESUME_MS);
+    hold.current.glide = performance.now() + 900;
+    const current = Math.round(el.scrollLeft / step);
+    let target = "delta" in move ? current + move.delta : current - (current % n) + move.dot;
+    // Back from the first quote: jump to the identical second copy first.
+    if (target < 0) {
+      el.scrollLeft += n * step;
+      target += n;
+    }
+    el.scrollTo({ left: target * step, behavior: reduced ? "auto" : "smooth" });
   };
+
+  const copies = [0, 1];
 
   return (
     <div role="region" aria-roledescription="carousel" aria-label="Client quotes">
       <div
         ref={track}
-        onScroll={sync}
-        className="flex snap-x snap-mandatory gap-5 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        onScroll={syncDot}
+        onPointerEnter={(e) => {
+          if (e.pointerType === "mouse") hold.current.hover = true;
+        }}
+        onPointerLeave={(e) => {
+          if (e.pointerType === "mouse") hold.current.hover = false;
+        }}
+        onTouchStart={() => {
+          hold.current.touch = true;
+        }}
+        onTouchEnd={() => {
+          hold.current.touch = false;
+          holdFor(RESUME_MS);
+        }}
+        onWheel={() => holdFor(RESUME_MS)}
+        onFocus={() => {
+          hold.current.focus = true;
+        }}
+        onBlur={() => {
+          hold.current.focus = false;
+        }}
+        className="flex gap-5 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {slides.map((slot, i) => {
-          const byline = [slot.title, slot.company].filter(Boolean).join(", ");
-          return (
-            <div
-              key={slot.id}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${i + 1} of ${slides.length}`}
-              className="w-full shrink-0 snap-start sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
-            >
-              <figure className="flex h-full flex-col rounded-[var(--radius-card)] border-2 border-ink/10 bg-white p-6 shadow-sm md:p-7">
-                <span className="display text-4xl leading-none text-cyan-dim" aria-hidden="true">
-                  &ldquo;
-                </span>
-                <blockquote className="mt-2 flex-1 text-[0.95rem] font-medium leading-relaxed text-ink/80">
-                  {slot.quote}
-                </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-ink/10 pt-5">
-                  <span
-                    className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-sm font-bold tracking-wide ${
-                      avatarTones[i % avatarTones.length]
-                    }`}
-                    aria-hidden="true"
-                  >
-                    {initials(slot.name)}
+        {copies.flatMap((copy) =>
+          slides.map((slot, i) => {
+            const byline = [slot.title, slot.company].filter(Boolean).join(", ");
+            return (
+              <div
+                key={`${slot.id}-${copy}`}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} of ${n}`}
+                aria-hidden={copy === 1 ? true : undefined}
+                inert={copy === 1}
+                className="w-full shrink-0 sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
+              >
+                <figure className="flex h-full flex-col rounded-[var(--radius-card)] border-2 border-ink/10 bg-white p-6 shadow-sm md:p-7">
+                  <span className="display text-4xl leading-none text-cyan-dim" aria-hidden="true">
+                    &ldquo;
                   </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-bold text-ink">{slot.name}</p>
-                    {byline && <p className="mt-0.5 text-[0.8rem] text-ink/60">{byline}</p>}
-                  </div>
-                  {slot.linkedin && (
-                    <a
-                      href={slot.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${slot.name} on LinkedIn (opens in a new tab)`}
-                      className="shrink-0 rounded-full transition-transform duration-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan/40 motion-reduce:transition-none motion-reduce:hover:scale-100"
+                  <blockquote className="mt-2 flex-1 text-[0.95rem] font-medium leading-relaxed text-ink/80">
+                    {slot.quote}
+                  </blockquote>
+                  <figcaption className="mt-6 flex items-center gap-3 border-t border-ink/10 pt-5">
+                    <span
+                      className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-sm font-bold tracking-wide ${
+                        avatarTones[i % avatarTones.length]
+                      }`}
+                      aria-hidden="true"
                     >
-                      <LinkedInMark />
-                    </a>
-                  )}
-                </figcaption>
-              </figure>
-            </div>
-          );
-        })}
+                      {initials(slot.name)}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-bold text-ink">{slot.name}</p>
+                      {byline && <p className="mt-0.5 text-[0.8rem] text-ink/60">{byline}</p>}
+                    </div>
+                    {slot.linkedin && (
+                      <a
+                        href={slot.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${slot.name} on LinkedIn (opens in a new tab)`}
+                        className="shrink-0 rounded-full transition-transform duration-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan/40 motion-reduce:transition-none motion-reduce:hover:scale-100"
+                      >
+                        <LinkedInMark />
+                      </a>
+                    )}
+                  </figcaption>
+                </figure>
+              </div>
+            );
+          }),
+        )}
       </div>
 
-      {stops > 1 && (
-        <div className="mt-6 flex items-center justify-center gap-3">
-          <Arrow dir="prev" disabled={active === 0} onClick={() => go(active - 1)} />
-          <div className="flex items-center">
-            {Array.from({ length: stops }, (_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => go(i)}
-                aria-label={`Go to position ${i + 1} of ${stops}`}
-                aria-current={i === active ? "true" : undefined}
-                className="group grid h-11 w-7 place-items-center focus-visible:outline-none"
-              >
-                <span
-                  className={`block h-2.5 rounded-full transition-all duration-300 group-focus-visible:ring-4 group-focus-visible:ring-cyan/40 motion-reduce:transition-none ${
-                    i === active ? "w-6 bg-cyan-dim" : "w-2.5 bg-ink/20 group-hover:bg-ink/40"
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
-          <Arrow dir="next" disabled={active === stops - 1} onClick={() => go(active + 1)} />
+      <div className="mt-6 flex items-center justify-center gap-3">
+        <Arrow dir="prev" onClick={() => go({ delta: -1 })} />
+        <div className="flex items-center">
+          {slides.map((slot, i) => (
+            <button
+              key={slot.id}
+              type="button"
+              onClick={() => go({ dot: i })}
+              aria-label={`Go to quote ${i + 1} of ${n}`}
+              aria-current={i === active ? "true" : undefined}
+              className="group grid h-11 w-7 place-items-center focus-visible:outline-none"
+            >
+              <span
+                className={`block h-2.5 rounded-full transition-all duration-300 group-focus-visible:ring-4 group-focus-visible:ring-cyan/40 motion-reduce:transition-none ${
+                  i === active ? "w-6 bg-cyan-dim" : "w-2.5 bg-ink/20 group-hover:bg-ink/40"
+                }`}
+              />
+            </button>
+          ))}
         </div>
-      )}
+        <Arrow dir="next" onClick={() => go({ delta: 1 })} />
+        {!reduced && (
+          <button
+            type="button"
+            onClick={() => setPaused((p) => !p)}
+            aria-pressed={paused}
+            aria-label={paused ? "Play the moving quotes" : "Pause the moving quotes"}
+            className="ml-1 grid h-11 w-11 shrink-0 place-items-center rounded-full text-ink/60 transition-colors duration-300 hover:text-ink focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan/40 motion-reduce:transition-none"
+          >
+            <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden="true">
+              {paused ? (
+                <path d="M4 2.5v11l9-5.5z" fill="currentColor" />
+              ) : (
+                <path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor" />
+              )}
+            </svg>
+          </button>
+        )}
+      </div>
     </div>
   );
 }
