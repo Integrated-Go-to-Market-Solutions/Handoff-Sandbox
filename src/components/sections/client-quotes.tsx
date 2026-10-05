@@ -1,13 +1,14 @@
 "use client";
 
-import { useCallback, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Reveal } from "../reveal";
 import { VideoModal } from "../video-modal";
 import { clientQuotes } from "@/lib/content";
 
 /**
- * Two parts, read as a pyramid: a row of three client videos on top, then
- * the five written quotes underneath (three, then two centred).
+ * Two parts: a row of three client videos on top, then the five written
+ * quotes underneath in a carousel (one card on phones, two from 640px,
+ * three from 1024px).
  *
  * Videos: the vertical testimonials cropped into a wider 4:3 frame around
  * the face. Nothing loads until it's needed (preload="none" + poster).
@@ -109,6 +110,164 @@ function VideoCard({
   );
 }
 
+function LinkedInMark() {
+  return (
+    <svg viewBox="0 0 32 32" className="h-7 w-7" aria-hidden="true">
+      <circle cx="16" cy="16" r="16" fill="#0A66C2" />
+      <circle cx="10.3" cy="11.1" r="1.6" fill="#ffffff" />
+      <path d="M8.9 13.5h2.8v9.6H8.9z" fill="#ffffff" />
+      <path
+        d="M13.4 13.5h2.7v1.3h.1c.4-.7 1.3-1.5 2.8-1.5 3 0 3.5 2 3.5 4.5v5.3h-2.8V18.5c0-1.1 0-2.6-1.6-2.6s-1.8 1.2-1.8 2.5v4.7h-2.8z"
+        fill="#ffffff"
+      />
+    </svg>
+  );
+}
+
+function Arrow({ dir, disabled, onClick }: { dir: "prev" | "next"; disabled: boolean; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={dir === "prev" ? "Previous quote" : "Next quote"}
+      className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-ink/15 bg-white text-ink transition-colors duration-300 hover:border-cyan hover:bg-cyan focus-visible:border-cyan focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan/40 disabled:cursor-default disabled:opacity-40 disabled:hover:border-ink/15 disabled:hover:bg-white motion-reduce:transition-none"
+    >
+      <svg viewBox="0 0 24 24" className={`h-5 w-5 ${dir === "prev" ? "rotate-180" : ""}`} aria-hidden="true">
+        <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </button>
+  );
+}
+
+/**
+ * The written quotes as a scroll-snap track: swipe and trackpad scrolling
+ * come from the browser; the arrows and dots just scroll it. One dot per
+ * resting position (5 cards with 3 visible = 3 dots), recounted on resize.
+ */
+function QuoteCarousel({ reduced }: { reduced: boolean }) {
+  const track = useRef<HTMLDivElement>(null);
+  const slides = clientQuotes.slots;
+  const [stops, setStops] = useState(slides.length);
+  const [active, setActive] = useState(0);
+
+  /** Distance between two slide starts (slide width + gap). */
+  const stepOf = (el: HTMLDivElement) => {
+    const first = el.children[0] as HTMLElement | undefined;
+    return first ? first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0") : 0;
+  };
+
+  const sync = useCallback(() => {
+    const el = track.current;
+    if (!el) return;
+    const step = stepOf(el);
+    if (!step) return;
+    const gap = step - (el.children[0] as HTMLElement).offsetWidth;
+    const perView = Math.max(1, Math.round((el.clientWidth + gap) / step));
+    const count = Math.max(1, slides.length - perView + 1);
+    // The last stop is the end of the track, which can be short of a full step.
+    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 2;
+    setStops(count);
+    setActive(atEnd ? count - 1 : Math.min(count - 1, Math.round(el.scrollLeft / step)));
+  }, [slides.length]);
+
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    const ro = new ResizeObserver(sync);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [sync]);
+
+  const go = (i: number) => {
+    const el = track.current;
+    if (!el) return;
+    el.scrollTo({ left: i * stepOf(el), behavior: reduced ? "auto" : "smooth" });
+  };
+
+  return (
+    <div role="region" aria-roledescription="carousel" aria-label="Client quotes">
+      <div
+        ref={track}
+        onScroll={sync}
+        className="flex snap-x snap-mandatory gap-5 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {slides.map((slot, i) => {
+          const byline = [slot.title, slot.company].filter(Boolean).join(", ");
+          return (
+            <div
+              key={slot.id}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${slides.length}`}
+              className="w-full shrink-0 snap-start sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
+            >
+              <figure className="flex h-full flex-col rounded-[var(--radius-card)] border-2 border-ink/10 bg-white p-6 shadow-sm md:p-7">
+                <span className="display text-4xl leading-none text-cyan-dim" aria-hidden="true">
+                  &ldquo;
+                </span>
+                <blockquote className="mt-2 flex-1 text-[0.95rem] font-medium leading-relaxed text-ink/80">
+                  {slot.quote}
+                </blockquote>
+                <figcaption className="mt-6 flex items-center gap-3 border-t border-ink/10 pt-5">
+                  <span
+                    className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-sm font-bold tracking-wide ${
+                      avatarTones[i % avatarTones.length]
+                    }`}
+                    aria-hidden="true"
+                  >
+                    {initials(slot.name)}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-bold text-ink">{slot.name}</p>
+                    {byline && <p className="mt-0.5 text-[0.8rem] text-ink/60">{byline}</p>}
+                  </div>
+                  {slot.linkedin && (
+                    <a
+                      href={slot.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${slot.name} on LinkedIn (opens in a new tab)`}
+                      className="shrink-0 rounded-full transition-transform duration-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan/40 motion-reduce:transition-none motion-reduce:hover:scale-100"
+                    >
+                      <LinkedInMark />
+                    </a>
+                  )}
+                </figcaption>
+              </figure>
+            </div>
+          );
+        })}
+      </div>
+
+      {stops > 1 && (
+        <div className="mt-6 flex items-center justify-center gap-3">
+          <Arrow dir="prev" disabled={active === 0} onClick={() => go(active - 1)} />
+          <div className="flex items-center">
+            {Array.from({ length: stops }, (_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => go(i)}
+                aria-label={`Go to position ${i + 1} of ${stops}`}
+                aria-current={i === active ? "true" : undefined}
+                className="group grid h-11 w-7 place-items-center focus-visible:outline-none"
+              >
+                <span
+                  className={`block h-2.5 rounded-full transition-all duration-300 group-focus-visible:ring-4 group-focus-visible:ring-cyan/40 motion-reduce:transition-none ${
+                    i === active ? "w-6 bg-cyan-dim" : "w-2.5 bg-ink/20 group-hover:bg-ink/40"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+          <Arrow dir="next" disabled={active === stops - 1} onClick={() => go(active + 1)} />
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ClientQuotes() {
   const [playing, setPlaying] = useState<{ slug: string; company: string } | null>(null);
   const close = useCallback(() => setPlaying(null), []);
@@ -138,42 +297,10 @@ export function ClientQuotes() {
           </div>
         </Reveal>
 
-        {/* Quotes: flex-wrap rather than grid, so the short last row centres itself. */}
-        <div className="mt-14 flex flex-wrap justify-center gap-5 md:mt-16">
-          {clientQuotes.slots.map((slot, i) => {
-            const byline = [slot.title, slot.company].filter(Boolean).join(", ");
-            return (
-              <Reveal
-                key={slot.id}
-                delay={i * 80}
-                className="w-full sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
-              >
-                <figure className="flex h-full flex-col rounded-[var(--radius-card)] border-2 border-ink/10 bg-white p-6 shadow-sm md:p-7">
-                  <span className="display text-4xl leading-none text-cyan-dim" aria-hidden="true">
-                    &ldquo;
-                  </span>
-                  <blockquote className="mt-2 flex-1 text-[0.95rem] font-medium leading-relaxed text-ink/80">
-                    {slot.quote}
-                  </blockquote>
-                  <figcaption className="mt-6 flex items-center gap-3 border-t border-ink/10 pt-5">
-                    <span
-                      className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-sm font-bold tracking-wide ${
-                        avatarTones[i % avatarTones.length]
-                      }`}
-                      aria-hidden="true"
-                    >
-                      {initials(slot.name)}
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-bold text-ink">{slot.name}</p>
-                      {byline && <p className="mt-0.5 text-[0.8rem] text-ink/60">{byline}</p>}
-                    </div>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            );
-          })}
-        </div>
+        {/* Quotes: one reveal for the whole carousel, like the video row. */}
+        <Reveal className="mt-14 md:mt-16">
+          <QuoteCarousel reduced={reduced} />
+        </Reveal>
       </div>
 
       {playing && (

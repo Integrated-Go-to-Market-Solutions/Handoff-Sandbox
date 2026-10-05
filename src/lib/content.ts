@@ -975,6 +975,7 @@ export const clientQuotes = {
     { slug: "quest", company: "Quest Relocation", focus: "50% 58%" },
     { slug: "rincon-rehab", company: "Rincon Rehab", focus: "50% 56%" },
   ],
+  /** `linkedin` is a placeholder (the LinkedIn homepage) until the real profile URLs arrive. */
   slots: [
     {
       id: "quote-1",
@@ -983,7 +984,7 @@ export const clientQuotes = {
       name: "Steve Frey",
       title: "CEO",
       company: "Oasis",
-      linkedin: "",
+      linkedin: "https://www.linkedin.com/",
     },
     {
       id: "quote-2",
@@ -992,7 +993,7 @@ export const clientQuotes = {
       name: "Robert Horsley",
       title: "Co-Founder & COO",
       company: "Fragomen WorkRight",
-      linkedin: "",
+      linkedin: "https://www.linkedin.com/",
     },
     {
       id: "quote-3",
@@ -1001,7 +1002,7 @@ export const clientQuotes = {
       name: "Lynn Greenberg",
       title: "Founder",
       company: "Pivt",
-      linkedin: "",
+      linkedin: "https://www.linkedin.com/",
     },
     {
       id: "quote-4",
@@ -1010,7 +1011,7 @@ export const clientQuotes = {
       name: "Bob Rosing",
       title: "CEO",
       company: "Dwellworks",
-      linkedin: "",
+      linkedin: "https://www.linkedin.com/",
     },
     {
       id: "quote-5",
@@ -1019,7 +1020,7 @@ export const clientQuotes = {
       name: "Ryan Hoover",
       title: "Founder & CEO",
       company: "United Corporate Housing",
-      linkedin: "",
+      linkedin: "https://www.linkedin.com/",
     },
   ],
 };
