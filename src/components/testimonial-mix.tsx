@@ -81,6 +81,8 @@ export function TestimonialMix() {
             );
           }
           const slot = clientQuotes.slots[cell.index];
+          // Quotes can be withdrawn from content.ts; skip a cell whose quote is gone.
+          if (!slot) return null;
           const accent = cardAccents[cell.index % cardAccents.length];
           const byline = [slot.title, slot.company].filter(Boolean).join(", ");
           return (

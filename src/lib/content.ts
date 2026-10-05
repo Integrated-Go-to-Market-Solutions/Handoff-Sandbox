@@ -996,15 +996,6 @@ export const clientQuotes = {
       linkedin: "https://www.linkedin.com/",
     },
     {
-      id: "quote-3",
-      quote:
-        "Handoff placed a UI/UX designer with us who was so strong, our Head of Product flew to Colombia and spent a month working alongside him.",
-      name: "Lynn Greenberg",
-      title: "Founder",
-      company: "Pivt",
-      linkedin: "https://www.linkedin.com/",
-    },
-    {
       id: "quote-4",
       quote:
         "We don't take chances on where we source talent. Handoff has earned that trust across three different parts of our business.",
