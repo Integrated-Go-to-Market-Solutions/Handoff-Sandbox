@@ -491,12 +491,19 @@ export const dayInLife = {
  * block does, immediately after the process, where the vetting claim lands.
  */
 export const aiTrained = {
+  eyebrow: "AI trained",
   headline: "What “AI trained” actually means",
-  body: "Every person we place already works with AI tools daily and knows where to use them and where not to. That is a hiring standard for us, not a feature we added. It is also why they move faster on the same work. The judgement stays human. The busywork does not.",
+  body: "Every person we place already works with AI tools daily. The judgement stays human. The busywork does not.",
   topicsLabel: "Training includes",
-  topics: ["AI fundamentals (how it works)", "Mastering prompts"],
+  topics: ["AI fundamentals", "Mastering prompts", "Ongoing new courses"],
   coursesLabel: "Courses like",
-  /** PLACEHOLDER course names until the real catalogue is confirmed. */
+  /** Muted line under the featured course (the first entry of `courses`). */
+  coursesNote: "Rotating course titles",
+  /**
+   * PLACEHOLDER course names until the real catalogue is confirmed. Only
+   * the first shows (static) since the 10/5 redesign; the rest are kept
+   * for if the title should rotate again.
+   */
   courses: [
     "AI Fundamentals: How AI Works",
     "Mastering Prompts",
@@ -518,9 +525,8 @@ export const aiTrained = {
     { name: "Grok", file: "grok" },
   ],
   badgeAlt: "Handoff AI Excellence badge, powered by Coursera",
-  /** DRAFT: needs client approval before launch. */
-  certLine:
-    "Every Handoff professional earns our AI Excellence certification, powered by Coursera, with ongoing access to new courses as AI evolves.",
+  /** Shown next to the badge, on two lines. */
+  certLines: ["AI Excellence certified", "powered by Coursera"],
 };
 
 export const faqs = [
