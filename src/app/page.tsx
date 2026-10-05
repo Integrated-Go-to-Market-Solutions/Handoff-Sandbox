@@ -2,7 +2,6 @@ import { HeroBright } from "@/components/sections/hero-bright";
 import { CredibilityStrip } from "@/components/sections/credibility-strip";
 import { TalentMap } from "@/components/sections/talent-map";
 import { WhyLatam } from "@/components/sections/why-latam";
-import { Problem } from "@/components/sections/problem";
 import { HiringHighway } from "@/components/sections/hiring-highway";
 import { Vibes } from "@/components/sections/vibes";
 import { Soul } from "@/components/sections/soul";
@@ -23,6 +22,9 @@ import { CtaBand } from "@/components/sections/cta-band";
  * was four empty "coming soon" placeholders with no footage behind them.
  * The component and its content stay in the repo for when the role videos
  * exist.
+ *
+ * The "You are the bottleneck" Problem section was removed 2026-10-05 per
+ * direct instruction. Its component and copy stay in the repo, unused.
  */
 export default function Home() {
   return (
@@ -34,7 +36,6 @@ export default function Home() {
       <HiringHighway compact />
       <WhyLatam />
       <CtaBand tone="onLight" className="bg-bone pb-14 md:pb-16" />
-      <Problem />
       <Vibes order={[1, 0, 2]} slider tightTop />
       <Soul variant="dictionary" />
       <ClientQuotes />
