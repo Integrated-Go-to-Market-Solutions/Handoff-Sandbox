@@ -3,15 +3,31 @@ import { Button } from "../brand";
 import { Icon, type IconName } from "../icon";
 import { VideoLoop } from "../video-loop";
 import { LogoMarquee } from "./logo-marquee";
-import { Stats } from "./stats";
-import { industries } from "@/lib/content";
+import { industries, proofStats } from "@/lib/content";
+
+const flankStats = ["Saved per hire", "Client retention"].map(
+  (label) => proofStats.find((stat) => stat.label === label)!,
+);
+
+function FlankStat({ value, label }: { value: string; label: string }) {
+  return (
+    <p className="flex flex-col items-center text-center">
+      <span className="display text-[clamp(1.4rem,6.4vw,3.6rem)] leading-none text-cyan">{value}</span>
+      <span className="mt-1.5 text-[0.55rem] font-semibold uppercase leading-snug tracking-[0.14em] text-bone/85 sm:text-[0.7rem] md:mt-2.5 md:text-sm md:tracking-[0.18em]">
+        {label}
+      </span>
+    </p>
+  );
+}
 
 /**
- * Homepage proof band: who trusts us, the industries we hire for, and the
- * two numbers about the talent, over the team's culture footage (the video
- * the old "Built for your industry" section used). The footage sits behind
- * a dark overlay; the logos ride a light glass band because most of the
- * logo files are dark artwork. The logo loop runs ~15% slower than 46s.
+ * Homepage proof band: who trusts us, the two numbers, and the industries
+ * we hire for, in one dark panel over the team's culture footage. The
+ * stats flank the headline at every width (phones included, per the 10/5
+ * request); the five industry tiles sit in one row, which scrolls
+ * sideways on phones where five can't fit at a readable size. The logos
+ * ride a white band on top because most of the logo files are dark
+ * artwork. The logo loop runs ~15% slower than 46s.
  */
 export function CredibilityStrip() {
   return (
@@ -31,47 +47,52 @@ export function CredibilityStrip() {
       </div>
 
       <div className="shell relative pt-14 md:pt-16">
-        <h2
-          id="credibility-heading"
-          className="display mx-auto text-center text-[clamp(1.35rem,2.9vw,2.4rem)] font-bold leading-tight text-white md:whitespace-nowrap md:text-[clamp(0.95rem,2.2vw,1.85rem)]"
-        >
-          <span className="block md:inline">Trusted by teams that keep moving forward</span>
-          <span className="mx-4 hidden text-cyan md:inline" aria-hidden="true">
-            |
-          </span>
-          <span className="mt-1 block text-cyan md:mt-0 md:inline md:text-white">Built for your industry</span>
-        </h2>
+        <div className="rounded-[var(--radius-card)] border border-white/10 bg-ink-100/90 px-4 py-7 backdrop-blur-md sm:px-8 md:px-12 md:py-10">
+          {/* Stat | headline | stat. */}
+          <div className="grid grid-cols-[1fr_1.3fr_1fr] items-center gap-2 sm:gap-6 md:gap-10">
+            <FlankStat {...flankStats[0]} />
+            <h2
+              id="credibility-heading"
+              className="text-balance text-center text-[clamp(0.9rem,3.6vw,2.1rem)] font-bold leading-tight text-white"
+            >
+              Trusted by teams that keep moving forward
+            </h2>
+            <FlankStat {...flankStats[1]} />
+          </div>
 
-        <nav aria-label="Industries we hire for" className="mt-10">
-          <ul className="flex flex-wrap justify-center gap-3 md:gap-4">
-            {industries.map((industry, i) => (
-              <li
-                key={industry.slug}
-                className={`sm:basis-[calc((100%-1.5rem)/3)] md:basis-[calc((100%-2rem)/3)] lg:basis-0 lg:flex-1 ${
-                  i === industries.length - 1 ? "basis-full" : "basis-[calc((100%-0.75rem)/2)]"
-                }`}
-              >
-                <Link
-                  href={`/industries/${industry.slug}`}
-                  className="group flex h-full flex-col items-center gap-3 rounded-[var(--radius-card)] border-2 border-white/15 bg-white/[0.06] px-4 py-6 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-cyan hover:bg-white/[0.1] hover:shadow-[0_0_32px_-10px_rgba(61,214,189,0.8)] focus-visible:border-cyan md:py-7"
-                >
-                  <span className="grid h-14 w-14 place-items-center rounded-full border-2 border-cyan/70 text-cyan transition-colors duration-300 group-hover:bg-cyan group-hover:text-ink md:h-16 md:w-16">
-                    <Icon name={industry.icon as IconName} strokeWidth={2.2} className="h-7 w-7 md:h-8 md:w-8" />
-                  </span>
-                  <span className="display text-base leading-tight text-white md:text-lg">{industry.navLabel}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+          <hr className="mt-7 border-white/10 md:mt-9" />
 
-        <div className="mt-8 text-center">
-          <Button href="/talent">See the roles</Button>
+          <nav aria-labelledby="industries-label" className="mt-6 md:mt-8">
+            <p id="industries-label" className="eyebrow text-center text-cyan md:text-sm">
+              Built for your industry
+            </p>
+            {/* Phones: one row that scrolls, bleeding to the panel edge so the
+                cut-off tile reads as "more this way". 640px up: five equal tiles. */}
+            <ul className="-mx-4 mt-4 flex snap-x scroll-px-4 gap-2.5 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-5 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0 md:mt-5 md:gap-4 [&::-webkit-scrollbar]:hidden">
+              {industries.map((industry) => (
+                <li key={industry.slug} className="w-[6.75rem] shrink-0 snap-start sm:w-auto">
+                  <Link
+                    href={`/industries/${industry.slug}`}
+                    className="group flex h-full flex-col items-center justify-center gap-2.5 rounded-2xl border border-white/15 px-2 py-4 text-center transition-colors duration-300 hover:border-cyan hover:bg-white/[0.04] focus-visible:border-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/40 motion-reduce:transition-none md:py-5"
+                  >
+                    <Icon
+                      name={industry.icon as IconName}
+                      strokeWidth={2}
+                      className="h-6 w-6 text-cyan md:h-7 md:w-7"
+                    />
+                    <span className="whitespace-nowrap text-[0.7rem] font-semibold uppercase leading-tight tracking-[0.04em] text-white lg:text-sm">
+                      {"tileLabel" in industry && industry.tileLabel ? industry.tileLabel : industry.navLabel}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="mt-7 text-center md:mt-9">
+            <Button href="/talent">See the roles</Button>
+          </div>
         </div>
-      </div>
-
-      <div className="shell relative mt-12">
-        <Stats bare variant="band" include={["Saved per hire", "Client retention"]} />
       </div>
     </section>
   );

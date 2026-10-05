@@ -892,6 +892,8 @@ export const industries = [
   {
     slug: "corporate-relocation",
     navLabel: "Corporate relocation",
+    /** Shorter label for the homepage "Built for your industry" tiles. */
+    tileLabel: "Relocation",
     icon: "globe",
     name: "Corporate relocation",
     subhead:
