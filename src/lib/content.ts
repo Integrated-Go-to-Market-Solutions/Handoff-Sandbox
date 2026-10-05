@@ -277,6 +277,32 @@ export const modelsIntro = {
   startingAt: { label: "Starting at", price: "$1,600/month" },
 };
 
+/**
+ * The homepage / industry-page pricing comparison (`Models detailed`), from
+ * the 10/5 "compact" design: shared features as one row, differences
+ * itemised. `true` = check, `false` = dash, a string = that text (`accent`
+ * marks the value shown in the brand green). /v2 keeps `models` above.
+ */
+export const modelsCompare = {
+  columns: ["Recruitment and placement", "Managed staffing"],
+  /** Index of the highlighted column. */
+  featured: 1,
+  rows: [
+    {
+      label: "Full recruiting process",
+      note: "Sourcing, vetting, assessments, shortlist, AI-trained talent, guarantee",
+      values: [true, true],
+    },
+    { label: "Who employs them", values: ["You", { text: "Handoff", accent: true }] },
+    { label: "Payroll and compliance", values: [false, true] },
+    { label: "Equipment and tools", values: [false, true] },
+    { label: "Supervision and performance", values: [false, true] },
+    { label: "Replacement support", values: [false, true] },
+    { label: "Best for", values: ["One great hire", "Building a team"] },
+  ] as { label: string; note?: string; values: (boolean | string | { text: string; accent: boolean })[] }[],
+  footnote: "One-time placement fee of 25% of first-year salary applies to both.",
+};
+
 /** PLACEHOLDER copy pending client approval: what both models share. */
 export const modelsShared = {
   label: "Both models include",

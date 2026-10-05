@@ -1,7 +1,7 @@
-import { Button, CtaNote, Pill } from "../brand";
+import { Button, Pill } from "../brand";
 import { Reveal } from "../reveal";
 import { TypedPoints } from "../typed-points";
-import { models, modelsFootnote, modelsIntro, modelsShared, site } from "@/lib/content";
+import { models, modelsCompare, modelsFootnote, modelsIntro, site } from "@/lib/content";
 
 /* Two equally strong gradients with the same cyan outline, so neither
    option reads as the lesser choice. Each card also carries its own list in
@@ -20,14 +20,6 @@ const cardAccents = [
     button: "cyan" as const,
   },
 ] as const;
-
-function Check({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 20 20" className={`mt-0.5 h-4 w-4 shrink-0 ${className}`} aria-hidden="true">
-      <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 /** The earlier single-list cards, kept as the default so /v2 is unchanged. */
 function ClassicModels() {
@@ -82,99 +74,145 @@ function ClassicModels() {
 }
 
 /**
- * `detailed` (homepage and industry pages): the two plans side by side, read
- * like a phone-plan comparison. From 768px the cards share one subgrid, so
- * every row (tag, name, price, model line, who it's for, the typed points,
- * the inclusions, the button) lines up across both, whatever wraps. Both
- * cards get the same size, padding and treatment, so neither reads as the
- * lesser option. What both include sits centred underneath. Each card
- * spans the parent's 8 rows (`md:row-span-8`); keep both in step with the
- * number of rows inside a card.
+ * `detailed` (homepage and industry pages): the two models as one compact
+ * comparison table. Shared features are one row; the differences are
+ * itemised. The featured column (Managed staffing) sits on a soft glowing
+ * panel that runs from its header to the last row.
+ *
+ * Built on a CSS grid rather than a <table> so the panel can span the
+ * column behind the cells; ARIA table roles keep it a table to screen
+ * readers. Each row is a subgrid of the three columns.
+ *
+ * Motion: the whole table reveals on scroll (Reveal), and its rows follow
+ * with a light stagger while the checks draw in. Reduced motion shows the
+ * final state.
  */
-const listGap = "space-y-3";
+const ROW_STAGGER_MS = 70;
 
-export function Models({ detailed = false }: { detailed?: boolean } = {}) {
-  if (!detailed) return <ClassicModels />;
+/** Row entrance, keyed off the Reveal wrapper's `is-in`. */
+const rowMotion =
+  "translate-y-3 opacity-0 transition-[opacity,transform] duration-700 ease-[var(--ease-out-brand)] group-[.is-in]:translate-y-0 group-[.is-in]:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none";
+
+function DrawnCheck({ delay }: { delay: number }) {
+  return (
+    <svg viewBox="0 0 20 20" className="mx-auto h-5 w-5 text-cyan" role="img" aria-label="Included">
+      <path
+        d="M4 10.5l4 4 8-9"
+        pathLength={1}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray="1"
+        style={{ transitionDelay: `${delay}ms` }}
+        className="[stroke-dashoffset:1] transition-[stroke-dashoffset] duration-500 ease-out group-[.is-in]:[stroke-dashoffset:0] motion-reduce:[stroke-dashoffset:0] motion-reduce:transition-none"
+      />
+    </svg>
+  );
+}
+
+function CompareValue({ value, delay }: { value: (typeof modelsCompare.rows)[number]["values"][number]; delay: number }) {
+  if (value === true) return <DrawnCheck delay={delay} />;
+  if (value === false) {
+    return (
+      <span className="mx-auto block h-0.5 w-3.5 rounded-full bg-bone/25" role="img" aria-label="Not included" />
+    );
+  }
+  if (typeof value === "string") return <span className="text-bone/90">{value}</span>;
+  return <span className={value.accent ? "text-cyan" : "text-bone/90"}>{value.text}</span>;
+}
+
+function CompareModels() {
+  const { columns, rows, featured } = modelsCompare;
+  const cell = "flex items-center justify-center px-1.5 py-3.5 text-center sm:px-4 md:py-4";
   return (
     <section id="models" className="relative overflow-hidden bg-ink section-py-hero text-bone">
       <div className="shell relative">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <h2 className="display mt-5 text-[clamp(2.1rem,4.8vw,3.7rem)]">{modelsIntro.headline}</h2>
-          <p className="mt-4 text-lg font-semibold text-bone/85 md:text-xl">
-            {modelsIntro.startingAt.label}{" "}
-            <span className="text-cyan">{modelsIntro.startingAt.price}</span>
-          </p>
-          <p className="mx-auto mt-5 max-w-[58ch] text-lg leading-relaxed text-bone/70">
-            Start with the level of ownership that fits your team. Managed
-            Staffing is the full-service path, and Recruitment & Placement is
-            the simplest way to make one great hire.
-          </p>
-        </Reveal>
+        <div className="mx-auto max-w-5xl rounded-[var(--radius-card)] border border-white/10 bg-ink-100 px-3 py-9 sm:px-8 md:px-10 md:py-12">
+          <Reveal className="text-center">
+            <h2 className="text-balance text-[clamp(1.7rem,4vw,2.9rem)] font-bold leading-tight text-white">
+              {modelsIntro.headline}
+            </h2>
+            <p className="mt-2 text-base font-medium text-bone/80 md:text-xl">
+              {modelsIntro.startingAt.label}{" "}
+              <span className="font-semibold text-cyan">{modelsIntro.startingAt.price}</span>
+            </p>
+          </Reveal>
 
-        <div className="mx-auto mt-12 grid max-w-5xl auto-rows-fr gap-5 md:auto-rows-auto md:grid-cols-2 md:grid-rows-[repeat(8,auto)] md:gap-x-6 md:gap-y-0">
-          {models.map((model, i) => {
-            const accent = cardAccents[i % cardAccents.length];
-            return (
-              <Reveal
-                key={model.name}
-                as="article"
-                delay={i * 110}
-                className={`flex flex-col rounded-[var(--radius-card)] border-2 border-cyan p-6 shadow-[0_0_28px_-10px_rgba(61,214,189,0.6)] transition-shadow duration-500 hover:shadow-[0_0_36px_-6px_rgba(61,214,189,0.75)] md:row-span-8 md:grid md:grid-rows-subgrid md:p-7 ${accent.card}`}
+          <Reveal className="group mt-8 md:mt-10">
+            {/* Scrolls inside itself only if the three columns can't fit. */}
+            <div className="overflow-x-auto [scrollbar-width:thin]">
+              <div
+                role="table"
+                aria-label="Compare Recruitment and placement with Managed staffing"
+                // Templates inline: arbitrary grid-template classes did not
+                // generate reliably here, and rows must not auto-place.
+                style={{
+                  gridTemplateColumns: "minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr)",
+                  gridTemplateRows: `repeat(${rows.length + 1}, auto)`,
+                }}
+                className="grid min-w-[15rem] text-[0.8rem] sm:text-[0.95rem] md:text-base"
               >
-                <div>
-                  <Pill tone="outline" className={accent.pill}>
-                    {model.tag}
-                  </Pill>
-                </div>
-                <h3 className="display mt-4 text-xl md:text-2xl">{model.name.replace("-", "‑")}</h3>
-                <p className="display mt-3 text-[clamp(2rem,3.4vw,2.6rem)] leading-none">{model.price}</p>
-                <p className="mt-2 text-[0.72rem] font-semibold uppercase tracking-[0.12em] opacity-80">
-                  {model.terms}
-                </p>
-                <p className="mt-4 text-sm font-medium opacity-85">{model.forWho}</p>
+                {/* The featured column's panel, behind its cells. */}
+                <div
+                  aria-hidden="true"
+                  style={{ gridColumn: featured + 2, gridRow: `1 / ${rows.length + 2}` }}
+                  className="rounded-2xl bg-gradient-to-b from-cyan/[0.11] to-cyan/[0.05] shadow-[0_0_0_1px_rgba(61,214,189,0.22),0_0_44px_-14px_rgba(61,214,189,0.4)]"
+                />
 
-                <div className="mt-5 border-t-2 border-current/15 pt-5">
-                  <TypedPoints points={model.points} />
-                </div>
-
-                <div className={`mt-5 rounded-[calc(var(--radius-card)-8px)] p-4 md:p-5 ${accent.panel}`}>
-                  <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] opacity-80">
-                    {model.extrasLabel}
-                  </p>
-                  <ul className={`mt-3 ${listGap}`}>
-                    {model.extras.map((item) => (
-                      <li key={item} className="flex gap-3 text-[0.93rem] font-semibold leading-snug">
-                        <Check />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                <div role="row" style={{ gridRow: 1, gridColumn: "1 / -1" }} className={`grid grid-cols-subgrid ${rowMotion}`}>
+                  <span role="columnheader" className="sr-only">
+                    Feature
+                  </span>
+                  {columns.map((name, c) => (
+                    <span
+                      key={name}
+                      role="columnheader"
+                      style={{ gridColumn: c + 2 }}
+                      className={`${cell} py-4 font-semibold leading-snug text-white md:py-5`}
+                    >
+                      {name}
+                    </span>
+                  ))}
                 </div>
 
-                <div className="mt-auto pt-6 md:mt-6 md:pt-0">
-                  <Button href={site.bookCall} variant={accent.button} className="w-full">
-                    Find out more
-                  </Button>
-                  <CtaNote tone={i === 0 ? "onLight" : "onDark"} className="mt-3 text-center opacity-90" />
-                </div>
-              </Reveal>
-            );
-          })}
+                {rows.map((row, r) => {
+                  const delay = (r + 1) * ROW_STAGGER_MS;
+                  return (
+                    <div
+                      key={row.label}
+                      role="row"
+                      style={{ gridRow: r + 2, gridColumn: "1 / -1", transitionDelay: `${delay}ms` }}
+                      className={`grid grid-cols-subgrid border-t border-white/10 ${rowMotion}`}
+                    >
+                      <div role="rowheader" className="flex flex-col justify-center py-3.5 pl-1 pr-2 text-left sm:pl-4 md:py-4">
+                        <span className="font-semibold leading-snug text-white">{row.label}</span>
+                        {row.note && (
+                          <span className="mt-1 text-[0.68rem] leading-snug text-smoke sm:text-[0.8rem]">{row.note}</span>
+                        )}
+                      </div>
+                      {row.values.map((value, c) => (
+                        <div key={c} role="cell" className={`${cell} leading-snug`}>
+                          <CompareValue value={value} delay={delay + 250} />
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </Reveal>
+
+          <p className="mx-auto mt-8 max-w-[60ch] text-balance text-center text-xs leading-relaxed text-smoke md:text-sm">
+            {modelsCompare.footnote}
+          </p>
         </div>
-
-        <Reveal className="mx-auto mt-10 max-w-4xl text-center">
-          <p className="eyebrow text-[0.72rem] tracking-[0.2em] text-cyan">{modelsShared.label}</p>
-          <ul className="mt-4 flex flex-wrap justify-center gap-x-7 gap-y-3">
-            {modelsShared.items.map((item) => (
-              <li key={item} className="flex gap-2.5 text-sm font-semibold leading-snug text-bone md:text-[0.95rem]">
-                <Check className="text-cyan" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="mx-auto mt-8 max-w-[62ch] text-balance text-sm leading-relaxed text-bone/55">{modelsFootnote}</p>
-        </Reveal>
       </div>
     </section>
   );
+}
+
+export function Models({ detailed = false }: { detailed?: boolean } = {}) {
+  return detailed ? <CompareModels /> : <ClassicModels />;
 }
