@@ -12,14 +12,18 @@ export function LogoMarquee({
   bare = false,
   durationSeconds,
   onDark = false,
+  exclude = [],
 }: {
   bare?: boolean;
   /** Overrides the default 46s loop from globals.css. */
   durationSeconds?: number;
   /** Recolour logos light for dark backgrounds. */
   onDark?: boolean;
+  /** Logo slugs to leave out of this instance (the full list stays for /v2). */
+  exclude?: readonly string[];
 }) {
-  const row = [...logos, ...logos];
+  const shown = logos.filter((logo) => !exclude.includes(logo.slug));
+  const row = [...shown, ...shown];
 
   const track = (
     <div className="marquee-mask relative overflow-hidden">
